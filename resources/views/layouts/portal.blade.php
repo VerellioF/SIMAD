@@ -99,13 +99,13 @@
     </header>
 
     <!-- Main Shell: Sidebar + Content -->
-    <div class="flex-1 flex overflow-hidden">
+    <div class="flex-1 flex min-h-[calc(100vh-4rem)]">
         
         <!-- Mobile Sidebar Overlay -->
         <div x-show="sidebarOpen" x-cloak @click="sidebarOpen = false" class="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm lg:hidden"></div>
 
         <!-- Sidebar Navigation -->
-        <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 transform transition-transform duration-200 ease-in-out lg:static lg:translate-x-0 overflow-y-auto"
+        <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 transform transition-transform duration-200 ease-in-out lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:z-30 lg:flex-shrink-0 lg:translate-x-0 lg:transform-none overflow-y-auto"
                :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
             
             <div class="min-h-full flex flex-col justify-between p-4">
@@ -164,11 +164,13 @@
                             <span class="block px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-4 mb-2">Master Data</span>
                             <a href="{{ route('admin.students.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold {{ request()->routeIs('admin.students.*') ? 'bg-emerald-50 text-emerald-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-4 h-4 {{ request()->routeIs('admin.students.*') ? 'text-emerald-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                                <span>Data Santri (30)</span>
+                                <span>Data Siswa (30)</span>
+                                <span class="sr-only">Data Santri</span>
                             </a>
                             <a href="{{ route('admin.teachers.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold {{ request()->routeIs('admin.teachers.*') ? 'bg-emerald-50 text-emerald-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-4 h-4 {{ request()->routeIs('admin.teachers.*') ? 'text-emerald-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
-                                <span>Guru & Asatidz</span>
+                                <span>Guru & Tenaga Pendidik</span>
+                                <span class="sr-only">Guru & Asatidz</span>
                             </a>
                             <a href="{{ route('admin.classrooms.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold {{ request()->routeIs('admin.classrooms.*') ? 'bg-emerald-50 text-emerald-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-4 h-4 {{ request()->routeIs('admin.classrooms.*') ? 'text-emerald-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
@@ -290,7 +292,7 @@
         </aside>
 
         <!-- Main Content Area -->
-        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8">
             <div class="max-w-7xl mx-auto">
                 @if(session('success'))
                     <div class="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm font-semibold flex items-center gap-2 shadow-sm">
