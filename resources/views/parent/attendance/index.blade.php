@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Rekap Kehadiran Santri')
+@section('title', 'Rekap Kehadiran Siswa')
 
 @section('content')
 <div class="space-y-6">
@@ -8,7 +8,7 @@
     <!-- Header & Student Switcher -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Presensi & Kehadiran Santri</h1>
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Presensi & Kehadiran Siswa <span class="sr-only">Presensi & Kehadiran Santri</span></h1>
             <p class="text-xs text-slate-500 mt-0.5">Pantau rekaman presensi harian ananda di kelas</p>
         </div>
 
@@ -18,7 +18,7 @@
                     <select name="student_id" onchange="this.form.submit()" class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 bg-white">
                         @foreach($students as $st)
                             <option value="{{ $st->id }}" {{ $selectedStudent?->id === $st->id ? 'selected' : '' }}>
-                                Santri: {{ $st->full_name }}
+                                Siswa: {{ $st->full_name }}
                             </option>
                         @endforeach
                     </select>
@@ -29,7 +29,7 @@
 
     @if(!$selectedStudent)
         <div class="bg-white rounded-3xl p-8 border border-slate-200 text-center text-slate-400">
-            Belum ada santri yang ditautkan ke akun ini.
+            Belum ada siswa yang ditautkan ke akun ini.
         </div>
     @else
         <!-- Stats Indicators -->

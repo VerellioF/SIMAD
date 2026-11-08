@@ -69,6 +69,6 @@ class LeaveRequestController extends Controller
 
         $label = $validated['status'] === 'approved' ? 'disetujui' : 'ditolak';
 
-        return back()->with('success', "Pengajuan izin santri {$leaveRequest->student->full_name} berhasil {$label}.");
+        return back()->with('success', "Pengajuan izin siswa {$leaveRequest->student->full_name} berhasil {$label}.");
     }
 }

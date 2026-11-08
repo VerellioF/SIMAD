@@ -75,7 +75,7 @@ class AdminTuitionController extends Controller
         }
 
         return redirect()->route('admin.tuition.index')
-            ->with('success', "Berhasil menerbitkan {$count} tagihan SPP untuk santri aktif.");
+            ->with('success', "Berhasil menerbitkan {$count} tagihan SPP untuk siswa aktif.");
     }
 
     public function verifyPayment(Request $request, TuitionBill $bill): RedirectResponse

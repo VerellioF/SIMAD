@@ -8,7 +8,7 @@
     <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
             <h1 class="text-xl sm:text-2xl font-black text-slate-800">Panduan Kurikulum & Capaian Pembelajaran</h1>
-            <p class="text-xs sm:text-sm text-slate-500 mt-1">Pedoman struktur kurikulum, alokasi jam tatap muka (JP), dan target capaian kompetensi santri per fase.</p>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">Pedoman struktur kurikulum, alokasi jam tatap muka (JP), dan target capaian kompetensi siswa per fase.</p>
         </div>
 
         <!-- Filter Fase -->

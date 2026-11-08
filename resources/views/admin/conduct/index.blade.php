@@ -1,13 +1,13 @@
 @extends('layouts.portal')
 
-@section('title', 'Buku Disiplin & Poin Karakter Santri')
+@section('title', 'Buku Disiplin & Poin Karakter Siswa')
 
 @section('content')
 <div class="space-y-6" x-data="{ addRecordModal: false, addRuleModal: false, selectedType: 'apresiasi' }">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Buku Disiplin & Karakter Santri</h1>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Buku Disiplin & Karakter Siswa <span class="sr-only">Buku Disiplin & Karakter Santri</span></h1>
             <p class="text-xs sm:text-sm text-slate-500 mt-1">Pencatatan poin karakter positif, apresiasi keteladanan akhlak, dan pembinaan kedisiplinan madrasah.</p>
         </div>
         <div class="flex items-center gap-2">
@@ -16,7 +16,7 @@
             </button>
             <button @click="addRecordModal = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs shadow transition">
                 <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                <span>Catat Poin Santri</span>
+                <span>Catat Poin Siswa</span>
             </button>
         </div>
     </div>
@@ -29,13 +29,13 @@
         </div>
     @endif
 
-    <!-- Nav Tabs: Log Catatan, Peringkat Santri, Katalog Tata Tertib -->
+    <!-- Nav Tabs: Log Catatan, Peringkat Siswa, Katalog Tata Tertib -->
     <div class="flex items-center gap-2 border-b border-slate-200 pb-3">
         <a href="{{ route('admin.conduct.index', ['tab' => 'records']) }}" class="px-4 py-2 rounded-xl text-xs font-bold transition {{ $tab === 'records' ? 'bg-emerald-900 text-white shadow' : 'bg-white text-slate-600 hover:bg-slate-100' }}">
             Riwayat Catatan Karakter
         </a>
         <a href="{{ route('admin.conduct.index', ['tab' => 'leaderboard']) }}" class="px-4 py-2 rounded-xl text-xs font-bold transition {{ $tab === 'leaderboard' ? 'bg-emerald-900 text-white shadow' : 'bg-white text-slate-600 hover:bg-slate-100' }}">
-            Peringkat Karakter Santri
+            Peringkat Karakter Siswa
         </a>
         <a href="{{ route('admin.conduct.index', ['tab' => 'rules']) }}" class="px-4 py-2 rounded-xl text-xs font-bold transition {{ $tab === 'rules' ? 'bg-emerald-900 text-white shadow' : 'bg-white text-slate-600 hover:bg-slate-100' }}">
             Katalog Tata Tertib & Apresiasi
@@ -59,7 +59,7 @@
                     <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b border-slate-100">
                         <tr>
                             <th class="px-5 py-3.5">Tanggal</th>
-                            <th class="px-5 py-3.5">Santri & Rombel</th>
+                            <th class="px-5 py-3.5">Siswa & Rombel</th>
                             <th class="px-5 py-3.5">Tipe & Poin</th>
                             <th class="px-5 py-3.5">Kejadian / Penghargaan</th>
                             <th class="px-5 py-3.5">Tindak Lanjut / Apresiasi</th>
@@ -98,7 +98,7 @@
                                 {{ $rec->follow_up_action ?? '-' }}
                             </td>
                             <td class="px-5 py-4 text-xs text-slate-500 whitespace-nowrap">
-                                {{ $rec->recorder->name ?? 'Asatidz' }}
+                                {{ $rec->recorder->name ?? 'Dewan Guru' }}
                             </td>
                             <td class="px-5 py-4 text-right whitespace-nowrap">
                                 <form action="{{ route('admin.conduct.destroy_record', $rec) }}" method="POST" onsubmit="return confirm('Hapus catatan ini?')">
@@ -110,7 +110,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="7" class="px-5 py-10 text-center text-slate-400 text-xs">Belum ada catatan karakter santri.</td>
+                            <td colspan="7" class="px-5 py-10 text-center text-slate-400 text-xs">Belum ada catatan karakter siswa.</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -126,9 +126,9 @@
         <!-- Tab 2: Leaderboard / Student Scores -->
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-6">
             <div>
-                <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">Evaluasi Karakter Santri</span>
-                <h3 class="text-lg font-extrabold text-slate-900 mt-0.5">Akumulasi Skor Karakter & Keteladanan Santri</h3>
-                <p class="text-xs text-slate-500 mt-1">Skor standar awal setiap santri adalah 100 poin. Poin bertambah saat santri berprestasi/berakhlak mulia dan berkurang bila melanggar kedisiplinan.</p>
+                <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">Evaluasi Karakter Siswa</span>
+                <h3 class="text-lg font-extrabold text-slate-900 mt-0.5">Akumulasi Skor Karakter & Keteladanan Siswa</h3>
+                <p class="text-xs text-slate-500 mt-1">Skor standar awal setiap siswa adalah 100 poin. Poin bertambah saat siswa berprestasi/berakhlak mulia dan berkurang bila melanggar kedisiplinan.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -226,14 +226,14 @@
         </div>
     @endif
 
-    <!-- Modal Catat Poin Santri -->
+    <!-- Modal Catat Poin Siswa -->
     <div x-show="addRecordModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
         <div @click.away="addRecordModal = false" class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
-            <h3 class="text-lg font-bold text-slate-800">Catat Poin Karakter Santri</h3>
+            <h3 class="text-lg font-bold text-slate-800">Catat Poin Karakter Siswa</h3>
             <form action="{{ route('admin.conduct.store_record') }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Pilih Santri</label>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Pilih Siswa</label>
                     <select name="student_id" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-900">
                         @foreach($students as $st)
                             <option value="{{ $st->id }}">{{ $st->full_name }} (Kelas {{ $st->classroom->name ?? '-' }})</option>

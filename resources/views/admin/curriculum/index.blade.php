@@ -149,7 +149,7 @@
 
                 <div>
                     <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Target Capaian Pembelajaran (CP)</label>
-                    <textarea name="competency_goals" rows="2" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-900" placeholder="Capaian kompetensi santri..."></textarea>
+                    <textarea name="competency_goals" rows="2" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-900" placeholder="Capaian kompetensi siswa..."></textarea>
                 </div>
 
                 <div>

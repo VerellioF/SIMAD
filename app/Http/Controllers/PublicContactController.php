@@ -54,7 +54,7 @@ class PublicContactController extends Controller
         $categoryLabel = match ($validated['category']) {
             'ppdb' => 'Konsultasi PPDB Online',
             'kurikulum' => 'Informasi Kurikulum & Program Madrasah',
-            'administrasi' => 'Administrasi / Mutasi Santri',
+            'administrasi' => 'Administrasi / Mutasi Siswa',
             default => 'Pertanyaan Umum',
         };
 

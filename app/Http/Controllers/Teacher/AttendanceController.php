@@ -174,6 +174,6 @@ class AttendanceController extends Controller
             'date' => $date,
             'schedule_id' => $scheduleId ?? ($subjectId ? null : 'homeroom'),
             'subject_id' => $subjectId,
-        ])->with('success', "Presensi santri mapel {$subjectName} tanggal " . date('d/m/Y', strtotime($date)) . ' berhasil disimpan.');
+        ])->with('success', "Presensi siswa mapel {$subjectName} tanggal " . date('d/m/Y', strtotime($date)) . ' berhasil disimpan.');
     }
 }

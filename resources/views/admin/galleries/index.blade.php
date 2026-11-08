@@ -71,7 +71,7 @@
                 @csrf
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Judul / Keterangan Foto *</label>
-                    <input type="text" name="title" required placeholder="Contoh: Latihan Drumband Santri" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs">
+                    <input type="text" name="title" required placeholder="Contoh: Latihan Drumband Siswa" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs">
                 </div>
 
                 <div>

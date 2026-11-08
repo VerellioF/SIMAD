@@ -1,13 +1,13 @@
 @extends('layouts.portal')
 
-@section('title', 'Validasi Izin Santri')
+@section('title', 'Validasi Izin Siswa')
 
 @section('content')
 <div class="space-y-6">
 
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Validasi Surat Izin Santri</h1>
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Validasi Surat Izin Siswa</h1>
             <p class="text-xs text-slate-500 mt-0.5">
                 Kelas: <strong>{{ $classroom->name ?? 'Belum Ada Rombel' }}</strong> • Tinjau pengajuan surat izin dan sakit dari wali murid
             </p>
@@ -19,7 +19,7 @@
             <table class="w-full text-left text-xs">
                 <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                     <tr>
-                        <th class="py-3.5 px-6">Nama Santri</th>
+                        <th class="py-3.5 px-6">Nama Siswa</th>
                         <th class="py-3.5 px-6">Alasan</th>
                         <th class="py-3.5 px-6">Rentang Tanggal</th>
                         <th class="py-3.5 px-6">Keterangan & Lampiran</th>

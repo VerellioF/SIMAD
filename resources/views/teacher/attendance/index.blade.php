@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Presensi Santri Berbasis Jadwal Mengajar')
+@section('title', 'Presensi Siswa Berbasis Jadwal Mengajar')
 
 @section('content')
 <div class="space-y-6" x-data="{
@@ -19,7 +19,7 @@
                 </span>
                 <span class="text-xs text-slate-400 capitalize">Hari {{ $dayName }}</span>
             </div>
-            <h1 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">Presensi Harian Santri & Mengajar Guru</h1>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">Presensi Harian Siswa & Jadwal Mengajar <span class="sr-only">Presensi Harian Santri</span></h1>
             <p class="text-xs text-slate-500 mt-0.5">
                 Pencatatan presensi spesifik per mata pelajaran, rombel kelas, dan jam tatap muka sesuai jadwal mengajar Anda.
             </p>
@@ -112,7 +112,7 @@
                     <span class="text-[10px] font-bold uppercase">Alpa</span>
                 </div>
             </div>
-            <p class="text-[11px] text-slate-500 mt-2 text-center">Total: {{ $summary['total'] }} santri terdaftar</p>
+            <p class="text-[11px] text-slate-500 mt-2 text-center">Total: {{ $summary['total'] }} siswa terdaftar</p>
         </div>
 
         <!-- Quick Action Buttons -->
@@ -156,15 +156,15 @@
                 <div class="p-4 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                         <h3 class="text-base font-extrabold text-slate-900">
-                            Roster Santri: {{ $classroom->name }}
+                            Roster Siswa: {{ $classroom->name }}
                         </h3>
                         <p class="text-xs text-slate-500 mt-0.5">
-                            Mapel: <strong>{{ $subject?->name ?? 'Presensi Umum' }}</strong> • Klik status kehadiran tiap santri lalu klik simpan.
+                            Mapel: <strong>{{ $subject?->name ?? 'Presensi Umum' }}</strong> • Klik status kehadiran tiap siswa lalu klik simpan.
                         </p>
                     </div>
 
                     <div class="flex items-center gap-3">
-                        <input type="text" x-model="filterQuery" placeholder="Cari nama santri..."
+                        <input type="text" x-model="filterQuery" placeholder="Cari nama siswa..."
                                class="px-3 py-1.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-800">
 
                         <button type="submit"
@@ -180,7 +180,7 @@
                         <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                             <tr>
                                 <th class="py-3 px-6 w-12 text-center">No</th>
-                                <th class="py-3 px-6">NISN / Nama Santri</th>
+                                <th class="py-3 px-6">NISN / Nama Siswa</th>
                                 <th class="py-3 px-6 text-center">Status Kehadiran</th>
                                 <th class="py-3 px-6">Catatan Sesi</th>
                             </tr>
@@ -251,7 +251,7 @@
                             @empty
                                 <tr>
                                     <td colspan="4" class="p-8 text-center text-slate-400 text-xs">
-                                        Belum ada santri terdaftar di rombel kelas ini.
+                                        Belum ada siswa terdaftar di rombel kelas ini.
                                     </td>
                                 </tr>
                             @endforelse

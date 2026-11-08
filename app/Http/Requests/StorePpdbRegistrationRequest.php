@@ -37,7 +37,7 @@ class StorePpdbRegistrationRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nik.digits' => 'NIK santri harus terdiri dari tepat 16 digit angka.',
+            'nik.digits' => 'NIK calon siswa harus terdiri dari tepat 16 digit angka.',
             'parent_whatsapp.regex' => 'Nomor WhatsApp tidak valid. Gunakan format 08xxxxxxxxxx atau 628xxxxxxxxxx.',
             'file_birth_certificate.required' => 'Dokumen Akta Kelahiran wajib diunggah.',
             'file_family_card.required' => 'Dokumen Kartu Keluarga wajib diunggah.',

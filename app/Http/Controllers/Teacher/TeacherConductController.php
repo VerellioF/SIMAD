@@ -70,6 +70,6 @@ class TeacherConductController extends Controller
 
         StudentConductRecord::create($validated);
 
-        return back()->with('success', 'Catatan pembiasaan karakter santri berhasil disimpan.');
+        return back()->with('success', 'Catatan pembiasaan karakter siswa berhasil disimpan.');
     }
 }

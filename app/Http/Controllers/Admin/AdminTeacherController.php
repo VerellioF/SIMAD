@@ -103,7 +103,7 @@ class AdminTeacherController extends Controller
         }
 
         return redirect()->route('admin.teachers.index')
-            ->with('success', "Data ustadz/ustadzah {$teacher->name} berhasil diperbarui.");
+            ->with('success', "Data guru {$teacher->name} berhasil diperbarui.");
     }
 
     public function destroy(User $teacher): RedirectResponse

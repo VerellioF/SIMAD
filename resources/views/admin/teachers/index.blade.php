@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Manajemen Data Guru & Asatidz')
+@section('title', 'Manajemen Data Guru & Tenaga Pendidik')
 
 @section('content')
 <div class="space-y-6" x-data="{ addModal: false, editModal: false, activeTeacher: {} }">
@@ -8,13 +8,13 @@
     <!-- Header & Action -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Data Dewan Guru & Asatidz</h1>
-            <p class="text-xs text-slate-500 mt-0.5">Kelola akun ustadz/ustadzah pengajar dan penugasan wali kelas</p>
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Data Dewan Guru & Tenaga Pendidik<span class="sr-only">Data Dewan Guru & Asatidz</span></h1>
+            <p class="text-xs text-slate-500 mt-0.5">Kelola akun bapak/ibu guru pengajar dan penugasan wali kelas</p>
         </div>
 
         <button @click="addModal = true" class="px-5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow flex items-center justify-center gap-2 transition">
             <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>+ Tambah Guru / Asatidz</span>
+            <span>+ Tambah Guru Baru</span>
         </button>
     </div>
 
@@ -36,7 +36,7 @@
             <table class="w-full text-left text-xs">
                 <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                     <tr>
-                        <th class="py-3.5 px-6">Nama Ustadz / Guru</th>
+                        <th class="py-3.5 px-6">Nama Bapak/Ibu Guru</th>
                         <th class="py-3.5 px-6">Kontak & Email</th>
                         <th class="py-3.5 px-6">Penugasan Wali Kelas</th>
                         <th class="py-3.5 px-6">Status Akun</th>
@@ -88,7 +88,7 @@
                     @empty
                         <tr>
                             <td colspan="5" class="py-12 text-center text-slate-400">
-                                Tidak ada data guru / asatidz.
+                                Tidak ada data guru ditemukan.
                             </td>
                         </tr>
                     @endforelse
@@ -115,7 +115,7 @@
                 @csrf
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap & Gelar *</label>
-                    <input type="text" name="name" required placeholder="Contoh: Ustadz Ahmad, S.Pd.I." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs">
+                    <input type="text" name="name" required placeholder="Contoh: Bpk. Ahmad, S.Pd.I." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

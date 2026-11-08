@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Mutaba\'ah Ibadah Yaumiyah Santri')
+@section('title', 'Mutaba\'ah Ibadah Harian Siswa')
 
 @section('content')
 <div class="space-y-6" x-data="{
@@ -29,11 +29,11 @@
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200">
                     Buku Mutaba'ah Digital
                 </span>
-                <span class="text-xs text-slate-400">Pembiasaan Ibadah Fardhu & Sunnah Santri</span>
+                <span class="text-xs text-slate-400">Pembiasaan Ibadah Fardhu & Sunnah Siswa</span>
             </div>
-            <h1 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">Mutaba'ah Ibadah Yaumiyah</h1>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">{{ "Mutaba'ah Ibadah Yaumiyah" }}</h1>
             <p class="text-xs text-slate-500 mt-0.5">
-                Monitoring kedisiplinan sholat fardhu 5 waktu, sholat dhuha, tadarus Al-Qur'an, dan birrul walidain santri.
+                Monitoring kedisiplinan sholat fardhu 5 waktu, sholat dhuha, tadarus Al-Qur'an, dan birrul walidain siswa.
             </p>
         </div>
 
@@ -72,8 +72,8 @@
                 </p>
             </div>
             <div class="mt-4 pt-3 border-t border-emerald-800 flex items-center justify-between text-xs text-emerald-200">
-                <span>Total Santri:</span>
-                <strong class="text-amber-400 font-mono text-sm">{{ $stats['total'] }} Santri</strong>
+                <span>Total Siswa:</span>
+                <strong class="text-amber-400 font-mono text-sm">{{ $stats['total'] }} Siswa</strong>
             </div>
         </div>
 
@@ -114,12 +114,12 @@
                     <span class="text-sm font-black font-mono text-blue-900">{{ $stats['birrul'] }}</span>
                 </div>
             </div>
-            <p class="text-[11px] text-slate-400 mt-2">Data terintegrasi real-time dari buku mutaba'ah wali santri dan guru.</p>
+            <p class="text-[11px] text-slate-400 mt-2">Data terintegrasi real-time dari buku mutaba'ah orang tua / wali murid dan guru.</p>
         </div>
 
         <!-- Fitur Cepat Centang Massal -->
         <div class="bg-white border border-slate-200/80 rounded-3xl p-5 shadow-sm flex flex-col justify-center gap-2">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Aksi Cepat Ustadz</span>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Aksi Cepat Guru</span>
             <button type="button" @click="checkSchoolPrayers()"
                     class="w-full py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-950 font-bold text-xs border border-emerald-300 transition text-left flex items-center justify-between">
                 <span>⚡ Centang Dhuha, Dzuhur & Tadarus</span>
@@ -148,15 +148,15 @@
             <div class="p-4 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h3 class="text-base font-extrabold text-slate-900">
-                        Checklist Ibadah Santri: {{ $classroom?->name }}
+                        Checklist Ibadah Siswa: {{ $classroom?->name }}
                     </h3>
                     <p class="text-xs text-slate-500 mt-0.5">
-                        Centang ibadah yang telah dilaksanakan santri. Kolom berlatar hijau adalah ibadah utama di madrasah (Dhuha, Dzuhur, Tadarus).
+                        Centang ibadah yang telah dilaksanakan siswa. Kolom berlatar hijau adalah ibadah utama di madrasah (Dhuha, Dzuhur, Tadarus).
                     </p>
                 </div>
 
                 <div class="flex items-center gap-3">
-                    <input type="text" x-model="searchStudent" placeholder="Cari santri..."
+                    <input type="text" x-model="searchStudent" placeholder="Cari siswa..."
                            class="px-3 py-1.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-800">
 
                     <button type="submit"
@@ -171,7 +171,7 @@
                 <table class="w-full text-left text-xs sm:text-sm">
                     <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-b border-slate-100">
                         <tr>
-                            <th class="px-4 py-3">Nama Santri</th>
+                            <th class="px-4 py-3">Nama Siswa</th>
                             <th class="px-2 py-3 text-center">Subuh</th>
                             <th class="px-2 py-3 text-center bg-emerald-50/60 text-emerald-900">Dzuhur</th>
                             <th class="px-2 py-3 text-center">Ashar</th>
@@ -275,7 +275,7 @@
                         @empty
                             <tr>
                                 <td colspan="11" class="px-4 py-8 text-center text-slate-400 text-xs">
-                                    Belum ada santri terdaftar di kelas ini.
+                                    Belum ada siswa terdaftar di kelas ini.
                                 </td>
                             </tr>
                         @endforelse
@@ -285,7 +285,7 @@
 
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
                 <span class="text-xs text-slate-500">
-                    Perubahan checklist dan apresiasi langsung tampil di akun portal wali santri.
+                    Perubahan checklist dan apresiasi langsung tampil di akun portal orang tua / wali murid.
                 </span>
                 <button type="submit"
                         class="px-6 py-2.5 rounded-xl bg-emerald-950 hover:bg-emerald-900 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5">
@@ -317,10 +317,10 @@
                 <input type="hidden" name="date" value="{{ $date }}">
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Catatan / Apresiasi Ustadz</label>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Catatan / Apresiasi Guru</label>
                     <textarea name="teacher_notes" x-model="activeNotes" rows="3"
                               class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-800"
-                              placeholder="Tuliskan motivasi, bimbingan, atau apresiasi ibadah untuk santri..."></textarea>
+                              placeholder="Tuliskan motivasi, bimbingan, atau apresiasi ibadah untuk siswa..."></textarea>
                 </div>
 
                 <div class="flex justify-end gap-2 pt-2">

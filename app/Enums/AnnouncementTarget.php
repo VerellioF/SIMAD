@@ -14,7 +14,7 @@ enum AnnouncementTarget: string
     {
         return match ($this) {
             self::Public => 'Masyarakat Umum',
-            self::Parent => 'Wali Murid Santri',
+            self::Parent => 'Orang Tua / Wali Murid',
             self::All => 'Semua Pengguna',
         };
     }

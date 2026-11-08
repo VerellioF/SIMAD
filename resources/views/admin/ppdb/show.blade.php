@@ -28,14 +28,14 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-        <!-- Left Column: Data Santri & Dokumen (8 Cols) -->
+        <!-- Left Column: Data Siswa & Dokumen (8 Cols) -->
         <div class="lg:col-span-8 space-y-6">
             
             <!-- Biodata Card -->
             <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 sm:p-8 space-y-6">
                 <h3 class="text-base font-bold text-slate-900 pb-3 border-b border-slate-100 flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
-                    <span>Identitas Calon Santri</span>
+                    <span>Identitas Calon Siswa</span>
                 </h3>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -44,7 +44,7 @@
                         <span class="font-bold text-slate-900 text-sm block mt-0.5">{{ $registration->child_name }}</span>
                     </div>
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                        <span class="text-slate-400 block text-[10px] uppercase font-bold">NIK Santri</span>
+                        <span class="text-slate-400 block text-[10px] uppercase font-bold">NIK Calon Siswa</span>
                         <span class="font-mono font-bold text-slate-800 text-sm block mt-0.5">{{ $registration->nik }}</span>
                     </div>
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
@@ -126,7 +126,7 @@
                         <!-- Pasfoto -->
                         <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/50 space-y-3">
                             <div>
-                                <span class="font-bold text-slate-800 block">Pasfoto Santri</span>
+                                <span class="font-bold text-slate-800 block">Pasfoto Calon Siswa</span>
                                 <span class="text-[10px] text-slate-400 font-mono truncate block">{{ $registration->file_photo }}</span>
                             </div>
                             <a href="{{ asset('storage/' . $registration->file_photo) }}" target="_blank"
@@ -196,7 +196,7 @@
 
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                            Status Seleksi Santri
+                            Status Seleksi Calon Siswa
                         </label>
                         <select name="status" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-white focus:ring-2 focus:ring-emerald-600 focus:border-transparent">
                             <option value="pending" {{ $registration->status->value === 'pending' ? 'selected' : '' }}>Menunggu Verifikasi (Pending)</option>
@@ -211,7 +211,7 @@
                             Catatan Panitia Seleksi
                         </label>
                         <textarea name="admin_notes" rows="4"
-                            placeholder="Catatan ini dapat dilihat oleh wali santri saat memeriksa status seleksi..."
+                            placeholder="Catatan ini dapat dilihat oleh orang tua / wali murid saat memeriksa status seleksi..."
                             class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-600 focus:border-transparent">{{ old('admin_notes', $registration->admin_notes) }}</textarea>
                     </div>
 

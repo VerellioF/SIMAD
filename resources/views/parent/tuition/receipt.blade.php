@@ -57,10 +57,10 @@
         <div class="space-y-4 text-xs border-y border-slate-100 py-6">
             <div class="flex justify-between py-1 border-b border-slate-50">
                 <span class="text-slate-400">Telah Terima Dari:</span>
-                <span class="font-bold text-slate-900">{{ $bill->student->parent->name ?? 'Wali Santri' }}</span>
+                <span class="font-bold text-slate-900">{{ $bill->student->parent->name ?? 'Orang Tua / Wali Murid' }}</span>
             </div>
             <div class="flex justify-between py-1 border-b border-slate-50">
-                <span class="text-slate-400">Untuk Pembayaran Santri:</span>
+                <span class="text-slate-400">Untuk Pembayaran Siswa:</span>
                 <span class="font-bold text-slate-900">{{ $bill->student->full_name }} (NISN: {{ $bill->student->nisn }})</span>
             </div>
             <div class="flex justify-between py-1 border-b border-slate-50">

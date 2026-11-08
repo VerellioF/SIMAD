@@ -9,7 +9,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Tata Kelola SPP & Kas Madrasah</h1>
-            <p class="text-xs text-slate-500 mt-0.5">Penerbitan tagihan bulanan, pencatatan kas, dan verifikasi transfer wali santri</p>
+            <p class="text-xs text-slate-500 mt-0.5">Penerbitan tagihan bulanan, pencatatan kas, dan verifikasi transfer orang tua / wali murid</p>
         </div>
 
         <button type="button" @click="showGenerateModal = true"
@@ -38,7 +38,7 @@
             <span class="text-xl sm:text-2xl font-extrabold text-red-600 font-mono block">
                 Rp {{ number_format((float)$stats['unpaid_sum'], 0, ',', '.') }}
             </span>
-            <span class="text-[11px] text-slate-400">{{ $stats['unpaid_count'] }} santri belum bayar</span>
+            <span class="text-[11px] text-slate-400">{{ $stats['unpaid_count'] }} siswa belum bayar</span>
         </div>
 
         <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-1">
@@ -55,7 +55,7 @@
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-200">
             <div class="border-b border-slate-100 pb-3">
                 <h3 class="text-lg font-bold text-slate-900">Terbitkan Tagihan SPP Massal</h3>
-                <p class="text-xs text-slate-500">Sistem akan otomatis membuat tagihan untuk semua santri aktif</p>
+                <p class="text-xs text-slate-500">Sistem akan otomatis membuat tagihan untuk semua siswa aktif</p>
             </div>
 
             <form action="{{ route('admin.tuition.generate') }}" method="POST" class="space-y-4">
@@ -148,7 +148,7 @@
             <table class="w-full text-left text-xs">
                 <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                     <tr>
-                        <th class="py-3.5 px-6">Nama Santri / Rombel</th>
+                        <th class="py-3.5 px-6">Nama Siswa / Rombel</th>
                         <th class="py-3.5 px-6">Uraian Tagihan</th>
                         <th class="py-3.5 px-6">Nominal</th>
                         <th class="py-3.5 px-6">Jatuh Tempo</th>

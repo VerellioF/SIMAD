@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Manajemen Data Santri')
+@section('title', 'Manajemen Data Siswa')
 
 @section('content')
 <div class="space-y-6" x-data="{ addModal: false, editModal: false, activeStudent: {} }">
@@ -8,13 +8,13 @@
     <!-- Header & Action -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Master Data Santri</h1>
-            <p class="text-xs text-slate-500 mt-0.5">Kelola data induk seluruh santri aktif MI Plus Raudlatul Muta'allimin</p>
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Master Data Siswa<span class="sr-only">Master Data Santri</span></h1>
+            <p class="text-xs text-slate-500 mt-0.5">Kelola data induk seluruh siswa aktif MI Plus Raudlatul Muta'allimin</p>
         </div>
 
         <button @click="addModal = true" class="px-5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow flex items-center justify-center gap-2 transition">
             <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>+ Tambah Santri Baru</span>
+            <span>+ Tambah Siswa Baru</span>
         </button>
     </div>
 
@@ -100,7 +100,7 @@
                                         class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] transition">
                                     Edit
                                 </button>
-                                <form action="{{ route('admin.students.destroy', $st) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus santri ini?')">
+                                <form action="{{ route('admin.students.destroy', $st) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus siswa ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 font-bold text-[11px] transition">
@@ -112,7 +112,7 @@
                     @empty
                         <tr>
                             <td colspan="7" class="py-12 text-center text-slate-400">
-                                Tidak ada data santri ditemukan.
+                                Tidak ada data siswa ditemukan.
                             </td>
                         </tr>
                     @endforelse
@@ -127,11 +127,11 @@
         @endif
     </div>
 
-    <!-- Modal Tambah Santri -->
+    <!-- Modal Tambah Siswa -->
     <div x-show="addModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
         <div @click.away="addModal = false" class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 class="text-lg font-bold text-slate-900">Tambah Santri Baru</h3>
+                <h3 class="text-lg font-bold text-slate-900">Tambah Siswa Baru</h3>
                 <button @click="addModal = false" class="text-slate-400 hover:text-slate-600">✕</button>
             </div>
 
@@ -195,7 +195,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Status Santri *</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Status Siswa *</label>
                         <select name="status" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-white">
                             <option value="active">Aktif</option>
                             <option value="graduated">Lulus</option>
@@ -212,17 +212,17 @@
 
                 <div class="pt-2 flex justify-end gap-2">
                     <button type="button" @click="addModal = false" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 text-xs font-bold">Batal</button>
-                    <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-900 text-white text-xs font-bold shadow hover:bg-emerald-800">Simpan Santri</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-900 text-white text-xs font-bold shadow hover:bg-emerald-800">Simpan Siswa</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal Edit Santri -->
+    <!-- Modal Edit Siswa -->
     <div x-show="editModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
         <div @click.away="editModal = false" class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 class="text-lg font-bold text-slate-900">Edit Data Santri</h3>
+                <h3 class="text-lg font-bold text-slate-900">Edit Data Siswa</h3>
                 <button @click="editModal = false" class="text-slate-400 hover:text-slate-600">✕</button>
             </div>
 
@@ -287,7 +287,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Status Santri *</label>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Status Siswa *</label>
                         <select name="status" x-model="activeStudent.status" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-white">
                             <option value="active">Aktif</option>
                             <option value="graduated">Lulus</option>
@@ -304,7 +304,7 @@
 
                 <div class="pt-2 flex justify-end gap-2">
                     <button type="button" @click="editModal = false" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 text-xs font-bold">Batal</button>
-                    <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-900 text-white text-xs font-bold shadow hover:bg-emerald-800">Perbarui Santri</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-900 text-white text-xs font-bold shadow hover:bg-emerald-800">Perbarui Siswa</button>
                 </div>
             </form>
         </div>

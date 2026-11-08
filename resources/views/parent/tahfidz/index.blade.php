@@ -18,7 +18,7 @@
                     <select name="student_id" onchange="this.form.submit()" class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 bg-white">
                         @foreach($students as $st)
                             <option value="{{ $st->id }}" {{ $selectedStudent?->id === $st->id ? 'selected' : '' }}>
-                                Santri: {{ $st->full_name }}
+                                Siswa: {{ $st->full_name }}
                             </option>
                         @endforeach
                     </select>
@@ -29,7 +29,7 @@
 
     @if(!$selectedStudent)
         <div class="bg-white rounded-3xl p-8 border border-slate-200 text-center text-slate-400">
-            Belum ada santri yang ditautkan ke akun ini.
+            Belum ada siswa yang ditautkan ke akun ini.
         </div>
     @else
         <!-- Tahfidz Target & Achievement Banner -->
@@ -40,7 +40,7 @@
                 </span>
                 <h2 class="text-xl sm:text-2xl font-extrabold text-white">Target Capaian: Juz 30 (Juz 'Amma)</h2>
                 <p class="text-xs sm:text-sm text-emerald-200 max-w-xl">
-                    Santri dibimbing menghafal secara berurutan mulai dari An-Naas hingga An-Naba' dengan memperhatikan makharijul huruf dan hukum tajwid.
+                    Siswa dibimbing menghafal secara berurutan mulai dari An-Naas hingga An-Naba' dengan memperhatikan makharijul huruf dan hukum tajwid.
                 </p>
             </div>
 
@@ -62,7 +62,7 @@
             <div class="p-6 border-b border-slate-100 flex items-center justify-between">
                 <div>
                     <h3 class="text-base font-bold text-slate-900">Jurnal Hafalan: {{ $selectedStudent->full_name }}</h3>
-                    <p class="text-xs text-slate-500">Evaluasi dan mutaba'ah langsung oleh Asatidz pembimbing</p>
+                    <p class="text-xs text-slate-500">Evaluasi dan mutaba'ah langsung oleh Bapak/Ibu Guru pembimbing</p>
                 </div>
             </div>
 
@@ -74,7 +74,7 @@
                             <th class="py-3.5 px-6">Surat & Rentang Ayat</th>
                             <th class="py-3.5 px-6">Kelancaran</th>
                             <th class="py-3.5 px-6">Tajwid</th>
-                            <th class="py-3.5 px-6">Catatan Asatidz</th>
+                            <th class="py-3.5 px-6">Catatan Guru</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">

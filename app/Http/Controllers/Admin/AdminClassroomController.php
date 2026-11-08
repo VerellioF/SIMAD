@@ -67,7 +67,7 @@ class AdminClassroomController extends Controller
     public function destroy(Classroom $classroom): RedirectResponse
     {
         if ($classroom->students()->count() > 0) {
-            return back()->with('error', "Rombel {$classroom->name} tidak dapat dihapus karena masih memiliki santri aktif.");
+            return back()->with('error', "Rombel {$classroom->name} tidak dapat dihapus karena masih memiliki siswa aktif.");
         }
 
         $name = $classroom->name;

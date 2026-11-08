@@ -25,7 +25,7 @@ class PpdbEmisExport implements FromCollection, WithHeadings, WithMapping, Shoul
         return [
             'No',
             'No. Registrasi',
-            'Nama Lengkap Santri',
+            'Nama Lengkap Siswa',
             'NIK (16 Digit)',
             'Jenis Kelamin',
             'Tempat Lahir',

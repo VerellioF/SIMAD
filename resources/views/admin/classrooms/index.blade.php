@@ -41,8 +41,8 @@
                         <span class="font-bold text-slate-900">{{ $cls->homeroomTeacher?->name ?? 'Belum Ditentukan' }}</span>
                     </div>
                     <div class="flex items-center justify-between text-slate-600">
-                        <span class="text-slate-400">Total Santri:</span>
-                        <span class="font-bold font-mono text-emerald-900">{{ $cls->students_count }} Santri</span>
+                        <span class="text-slate-400">Total Siswa:</span>
+                        <span class="font-bold font-mono text-emerald-900">{{ $cls->students_count }} Siswa</span>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                             class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
                         Edit
                     </button>
-                    <form action="{{ route('admin.classrooms.destroy', $cls) }}" method="POST" onsubmit="return confirm('Hapus rombel ini? Hanya bisa jika tidak ada santri di dalamnya.')">
+                    <form action="{{ route('admin.classrooms.destroy', $cls) }}" method="POST" onsubmit="return confirm('Hapus rombel ini? Hanya bisa jika tidak ada siswa di dalamnya.')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 font-bold text-xs transition">

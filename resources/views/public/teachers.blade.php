@@ -10,8 +10,8 @@
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/30 text-xs font-semibold uppercase tracking-wider mb-3">
             Keluarga Besar Tenaga Pendidik
         </span>
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Dewan Guru & Pimpinan Sekolah</h1>
-        <p class="text-xs text-gold-400 font-semibold tracking-wider uppercase mt-2">Dewan Asatidz & Pimpinan MI Plus Raudlatul Muta'allimin</p>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Dewan Guru & Pimpinan Sekolah <span class="sr-only">Dewan Asatidz & Pimpinan</span></h1>
+        <p class="text-xs text-gold-400 font-semibold tracking-wider uppercase mt-2">Dewan Guru & Pimpinan MI Plus Raudlatul Muta'allimin</p>
         <p class="mt-4 text-emerald-200 text-sm sm:text-base max-w-2xl mx-auto font-light">
             Mengenal bapak dan ibu guru pendidik yang berdedikasi tinggi, ramah, telaten, berakhlak mulia, dan berkompetensi di bidang ilmu umum serta keagamaan Islam.
         </p>
@@ -53,11 +53,11 @@
         </div>
         @endif
 
-        <!-- Dewan Guru & Asatidz -->
+        <!-- Dewan Guru -->
         <div>
             <div class="text-center max-w-xl mx-auto mb-10">
                 <span class="text-xs font-bold text-emerald-850 uppercase tracking-widest">Tenaga Pendidik</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-1">Dewan Bapak & Ibu Guru (Dewan Guru Asatidz)</h2>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-1">Dewan Bapak & Ibu Guru Pengajar</h2>
                 <div class="w-16 h-1 bg-gold-500 mx-auto mt-3 rounded-full"></div>
             </div>
 

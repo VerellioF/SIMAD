@@ -113,7 +113,7 @@ class AdminExtracurricularController extends Controller
         );
 
         return redirect()->route('admin.ekskul.index', ['ekskul_id' => $validated['extracurricular_id']])
-            ->with('success', 'Santri berhasil didaftarkan ke ekstrakurikuler.');
+            ->with('success', 'Siswa berhasil didaftarkan ke ekstrakurikuler.');
     }
 
     public function removeStudent(ExtracurricularEnrollment $enrollment): RedirectResponse
@@ -122,6 +122,6 @@ class AdminExtracurricularController extends Controller
         $enrollment->delete();
 
         return redirect()->route('admin.ekskul.index', ['ekskul_id' => $ekskulId])
-            ->with('success', 'Pendaftaran santri berhasil dibatalkan.');
+            ->with('success', 'Pendaftaran siswa berhasil dibatalkan.');
     }
 }

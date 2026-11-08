@@ -88,7 +88,7 @@ class Student extends Model
 
     public function calculateTotalConductScore(): int
     {
-        $baseScore = 100; // Standar awal poin karakter santri
+        $baseScore = 100; // Standar awal poin karakter siswa
         $apresiasi = $this->conductRecords()->where('type', 'apresiasi')->sum('points');
         $pelanggaran = $this->conductRecords()->where('type', 'pelanggaran')->sum('points');
 

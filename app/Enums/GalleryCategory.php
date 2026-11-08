@@ -15,11 +15,11 @@ enum GalleryCategory: string
     public function label(): string
     {
         return match ($this) {
-            self::SeniPentas => 'Pentas Seni Santri',
+            self::SeniPentas => 'Pentas Seni Siswa',
             self::HadrahRebana => 'Hadrah & Sholawat Rebana',
             self::Pramuka => 'Kepramukaan & Outbound',
             self::Fasilitas => 'Fasilitas Madrasah',
-            self::Prestasi => 'Prestasi Santri & Guru',
+            self::Prestasi => 'Prestasi Siswa & Guru',
         };
     }
 }

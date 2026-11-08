@@ -128,12 +128,12 @@
 
         <!-- Feedback & History (1 col) -->
         <div class="space-y-6">
-            <!-- Catatan Asatidz -->
+            <!-- Catatan Guru -->
             <div class="bg-teal-50 border border-teal-200 rounded-2xl p-5">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-teal-800">Umpan Balik Asatidz</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-teal-800">Umpan Balik Dewan Guru</span>
                 <h4 class="text-sm font-extrabold text-teal-950 mt-1">Apresiasi & Catatan Guru</h4>
                 <p class="text-xs text-teal-900 mt-2 leading-relaxed bg-white/70 p-3 rounded-xl border border-teal-100">
-                    {{ $currentRecord->teacher_notes ?? 'Belum ada catatan khusus dari asatidz untuk tanggal ini. Terus dampingi ananda dengan penuh kasih sayang.' }}
+                    {{ $currentRecord->teacher_notes ?? 'Belum ada catatan khusus dari guru untuk tanggal ini. Terus dampingi ananda dengan penuh kasih sayang.' }}
                 </p>
             </div>
 

@@ -63,14 +63,14 @@ class AdminStudentController extends Controller
             'address' => ['required', 'string', 'max:500'],
             'status' => ['required', 'in:active,graduated,transferred,inactive'],
         ], [
-            'nis.unique' => 'NIS ini sudah terdaftar untuk santri lain.',
-            'nisn.unique' => 'NISN ini sudah terdaftar untuk santri lain.',
+            'nis.unique' => 'NIS ini sudah terdaftar untuk siswa lain.',
+            'nisn.unique' => 'NISN ini sudah terdaftar untuk siswa lain.',
         ]);
 
         Student::create($validated);
 
         return redirect()->route('admin.students.index')
-            ->with('success', "Santri {$validated['full_name']} berhasil ditambahkan ke sistem.");
+            ->with('success', "Siswa {$validated['full_name']} berhasil ditambahkan ke sistem.");
     }
 
     public function update(Request $request, Student $student): RedirectResponse
@@ -92,7 +92,7 @@ class AdminStudentController extends Controller
         $student->update($validated);
 
         return redirect()->route('admin.students.index')
-            ->with('success', "Data santri {$student->full_name} berhasil diperbarui.");
+            ->with('success', "Data siswa {$student->full_name} berhasil diperbarui.");
     }
 
     public function destroy(Student $student): RedirectResponse
@@ -101,6 +101,6 @@ class AdminStudentController extends Controller
         $student->delete();
 
         return redirect()->route('admin.students.index')
-            ->with('success', "Data santri {$name} berhasil dihapus dari sistem.");
+            ->with('success', "Data siswa {$name} berhasil dihapus dari sistem.");
     }
 }

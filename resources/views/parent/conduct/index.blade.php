@@ -67,12 +67,12 @@
         </div>
     </div>
 
-    <!-- Riwayat Catatan Karakter Santri -->
+    <!-- Riwayat Catatan Karakter Siswa -->
     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
         <div class="flex justify-between items-center pb-3 border-b border-slate-100">
             <div>
                 <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">Buku Penghubung Karakter</span>
-                <h3 class="text-base font-extrabold text-slate-900 mt-0.5">Catatan Penghargaan & Pembinaan dari Asatidz</h3>
+                <h3 class="text-base font-extrabold text-slate-900 mt-0.5">Catatan Penghargaan & Pembinaan dari Dewan Guru</h3>
             </div>
             <span class="text-xs text-slate-400">{{ $records->count() }} Catatan</span>
         </div>
@@ -92,7 +92,7 @@
                                 </span>
                             @endif
                             <span class="text-xs text-slate-400 font-mono">{{ $rec->incident_date->isoFormat('D MMMM Y') }}</span>
-                            <span class="text-xs text-slate-500">• Oleh: <strong>{{ $rec->recorder->name ?? 'Asatidz' }}</strong></span>
+                            <span class="text-xs text-slate-500">• Oleh: <strong>{{ $rec->recorder->name ?? 'Bapak/Ibu Guru' }}</strong></span>
                         </div>
                         <h4 class="font-bold text-slate-900 text-sm">{{ $rec->title }}</h4>
                         @if($rec->description)

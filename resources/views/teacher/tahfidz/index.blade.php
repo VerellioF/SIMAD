@@ -9,7 +9,7 @@
         <div>
             <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Mutaba'ah Tahfidz Qur'an</h1>
             <p class="text-xs text-slate-500 mt-0.5">
-                Kelas: <strong>{{ $classroom->name ?? 'Belum Ada Rombel' }}</strong> • Pencatatan setoran hafalan Juz 'Amma santri
+                Kelas: <strong>{{ $classroom->name ?? 'Belum Ada Rombel' }}</strong> • Pencatatan setoran hafalan Juz 'Amma siswa
             </p>
         </div>
 
@@ -34,7 +34,7 @@
     <div x-show="showForm" x-cloak class="bg-white rounded-3xl border border-teal-200 shadow-md p-6 sm:p-8 space-y-6">
         <div class="border-b border-slate-100 pb-3">
             <h3 class="text-base font-bold text-slate-900">Formulir Setoran Hafalan Baru</h3>
-            <p class="text-xs text-slate-500">Nilai kelancaran hafalan dan kaidah tajwid santri</p>
+            <p class="text-xs text-slate-500">Nilai kelancaran hafalan dan kaidah tajwid siswa</p>
         </div>
 
         <form action="{{ route('teacher.tahfidz.store') }}" method="POST" class="space-y-4">
@@ -43,10 +43,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                        Pilih Santri <span class="text-red-500">*</span>
+                        Pilih Siswa <span class="text-red-500">*</span>
                     </label>
                     <select name="student_id" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-white">
-                        <option value="">-- Pilih Santri di Kelas --</option>
+                        <option value="">-- Pilih Siswa di Kelas --</option>
                         @foreach($students as $st)
                             <option value="{{ $st->id }}" {{ old('student_id') == $st->id ? 'selected' : '' }}>
                                 {{ $st->full_name }} ({{ $st->gender }})
@@ -110,7 +110,7 @@
 
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                    Catatan & Nasihat Ustadz (Opsional)
+                    Catatan & Nasihat Guru (Opsional)
                 </label>
                 <textarea name="notes" rows="2"
                           placeholder="Perhatikan mad thabi'i, ghunnah di ayat 5, dll."
@@ -132,8 +132,8 @@
     <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <div>
-                <h3 class="text-base font-bold text-slate-900">Buku Mutaba'ah Tahfidz Santri</h3>
-                <p class="text-xs text-slate-500">Catatan setoran hafalan Juz 30 santri kelas {{ $classroom->name ?? '' }}</p>
+                <h3 class="text-base font-bold text-slate-900">Buku Mutaba'ah Tahfidz Siswa</h3>
+                <p class="text-xs text-slate-500">Catatan setoran hafalan Juz 30 siswa kelas {{ $classroom->name ?? '' }}</p>
             </div>
         </div>
 
@@ -142,11 +142,11 @@
                 <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                     <tr>
                         <th class="py-3.5 px-6">Tanggal</th>
-                        <th class="py-3.5 px-6">Nama Santri</th>
+                        <th class="py-3.5 px-6">Nama Siswa</th>
                         <th class="py-3.5 px-6">Surat & Ayat</th>
                         <th class="py-3.5 px-6">Kelancaran</th>
                         <th class="py-3.5 px-6">Tajwid</th>
-                        <th class="py-3.5 px-6">Catatan Ustadz</th>
+                        <th class="py-3.5 px-6">Catatan Guru</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">

@@ -9,7 +9,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Pengumuman & Surat Edaran</h1>
-            <p class="text-xs text-slate-500 mt-0.5">Siarkan pengumuman resmi madrasah untuk publik maupun khusus wali santri</p>
+            <p class="text-xs text-slate-500 mt-0.5">Siarkan pengumuman resmi madrasah untuk publik maupun khusus orang tua / wali murid</p>
         </div>
 
         <button @click="addModal = true" class="px-5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow flex items-center justify-center gap-2 transition">

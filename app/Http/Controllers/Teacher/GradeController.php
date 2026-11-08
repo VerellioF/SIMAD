@@ -162,6 +162,6 @@ class GradeController extends Controller
             'classroom_id' => $classroomId,
             'subject_id' => $validated['subject_id'],
             'grade_type' => $validated['grade_type'],
-        ])->with('success', "Penilaian {$typeLabel} mapel {$subjectName} berhasil disimpan untuk {$savedCount} santri.");
+        ])->with('success', "Penilaian {$typeLabel} mapel {$subjectName} berhasil disimpan untuk {$savedCount} siswa.");
     }
 }

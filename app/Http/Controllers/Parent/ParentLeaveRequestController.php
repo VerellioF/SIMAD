@@ -65,6 +65,6 @@ class ParentLeaveRequestController extends Controller
         ]);
 
         return redirect()->route('parent.leave.index')
-            ->with('success', "Surat izin untuk santri {$student->full_name} berhasil dikirim ke wali kelas.");
+            ->with('success', "Surat izin untuk siswa {$student->full_name} berhasil dikirim ke wali kelas.");
     }
 }

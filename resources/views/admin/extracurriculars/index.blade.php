@@ -8,7 +8,7 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div>
             <h1 class="text-xl sm:text-2xl font-black text-slate-800">Kelola Ekstrakurikuler</h1>
-            <p class="text-xs sm:text-sm text-slate-500 mt-1">Daftar kegiatan minat bakat, jadwal mingguan, pembina, serta daftar peserta santri.</p>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">Daftar kegiatan minat bakat, jadwal mingguan, pembina, serta daftar peserta siswa.</p>
         </div>
         <button @click="addModal = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs shadow transition">
             <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
@@ -59,7 +59,7 @@
 
                     <div class="flex items-center gap-2">
                         <a href="{{ route('admin.ekskul.index', ['ekskul_id' => $ekskul->id]) }}" class="px-3 py-1.5 rounded-xl bg-emerald-900 text-white text-xs font-bold hover:bg-emerald-800 shadow-sm transition flex items-center gap-1">
-                            <span>{{ $ekskul->enrollments_count }} Santri</span>
+                            <span>{{ $ekskul->enrollments_count }} Siswa</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                         </a>
                         <button @click="selectedEkskul = {{ $ekskul->toJson() }}; editModal = true" class="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100" title="Edit">
@@ -89,7 +89,7 @@
             @if($selectedEkskul)
                 <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                     <div>
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800">Daftar Santri Peserta</span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800">Daftar Siswa Peserta</span>
                         <h3 class="text-base font-extrabold text-slate-900">{{ $selectedEkskul->name }}</h3>
                     </div>
                     <button @click="enrollModal = true" class="px-3 py-1.5 rounded-xl bg-gold-500 hover:bg-gold-600 text-emerald-950 font-bold text-xs shadow-sm transition">
@@ -104,20 +104,20 @@
                             <span class="block text-xs font-bold text-slate-800">{{ $enr->student->full_name }}</span>
                             <span class="text-[10px] text-slate-400">Kelas {{ $enr->student->classroom->name ?? '-' }} • NIS: {{ $enr->student->nis }}</span>
                         </div>
-                        <form action="{{ route('admin.ekskul.unenroll', $enr) }}" method="POST" onsubmit="return confirm('Batalkan santri dari ekskul ini?')">
+                        <form action="{{ route('admin.ekskul.unenroll', $enr) }}" method="POST" onsubmit="return confirm('Batalkan siswa dari ekskul ini?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-[11px] text-red-500 hover:underline">Hapus</button>
                         </form>
                     </div>
                     @empty
-                    <p class="text-xs text-slate-400 py-6 text-center italic">Belum ada santri yang terdaftar di ekstrakurikuler ini.</p>
+                    <p class="text-xs text-slate-400 py-6 text-center italic">Belum ada siswa yang terdaftar di ekstrakurikuler ini.</p>
                     @endforelse
                 </div>
             @else
                 <div class="py-16 text-center text-slate-400 text-xs">
                     <svg class="w-8 h-8 mx-auto text-slate-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    Klik tombol "Santri" pada salah satu ekskul di sebelah kiri untuk melihat dan mengelola peserta.
+                    Klik tombol "Siswa" pada salah satu ekskul di sebelah kiri untuk melihat dan mengelola peserta.
                 </div>
             @endif
         </div>
@@ -147,7 +147,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Nama Pembina / Pelatih</label>
-                        <input type="text" name="instructor_name" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-900" placeholder="e.g. Ustadz Ahmad Baihaqi">
+                        <input type="text" name="instructor_name" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-900" placeholder="e.g. Bpk. Ahmad Baihaqi, S.Pd.">
                     </div>
                 </div>
 
@@ -180,18 +180,18 @@
         </div>
     </div>
 
-    <!-- Modal Pendaftaran Santri Manual oleh Admin -->
+    <!-- Modal Pendaftaran Siswa Manual oleh Admin -->
     @if($selectedEkskul)
     <div x-show="enrollModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
         <div @click.away="enrollModal = false" class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <h3 class="text-base font-bold text-slate-800">Daftarkan Santri ke {{ $selectedEkskul->name }}</h3>
+            <h3 class="text-base font-bold text-slate-800">Daftarkan Siswa ke {{ $selectedEkskul->name }}</h3>
             <form action="{{ route('admin.ekskul.enroll') }}" method="POST" class="space-y-4">
                 @csrf
                 <input type="hidden" name="extracurricular_id" value="{{ $selectedEkskul->id }}">
                 <input type="hidden" name="academic_year_id" value="{{ $activeYear->id ?? 1 }}">
 
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Pilih Santri</label>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Pilih Siswa</label>
                     <select name="student_id" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-emerald-900">
                         @foreach($students as $st)
                             <option value="{{ $st->id }}">{{ $st->full_name }} ({{ $st->classroom->name ?? '-' }})</option>
@@ -201,7 +201,7 @@
 
                 <div class="flex justify-end gap-2 pt-2">
                     <button type="button" @click="enrollModal = false" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">Batal</button>
-                    <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white text-xs font-bold shadow">Daftarkan Santri</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white text-xs font-bold shadow">Daftarkan Siswa</button>
                 </div>
             </form>
         </div>

@@ -12,10 +12,10 @@
                 Backoffice Tata Usaha
             </span>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-white">
-                Ahlan wa Sahlan, {{ auth()->user()->name }}
+                Selamat Datang, {{ auth()->user()->name }}
             </h1>
             <p class="text-xs sm:text-sm text-emerald-200">
-                Kelola seleksi pendaftaran santri baru, verifikasi berkas, dan pelaporan EMIS Kemenag.
+                Kelola seleksi pendaftaran siswa baru, verifikasi berkas, dan pelaporan EMIS Kemenag.
             </p>
         </div>
 
@@ -68,10 +68,10 @@
             <span class="block text-[11px] text-slate-400">Dokumen telah diperiksa</span>
         </div>
 
-        <!-- Santri Aktif -->
+        <!-- Siswa Aktif -->
         <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-2">
             <div class="flex items-center justify-between text-slate-400">
-                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Santri Aktif</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Siswa Aktif</span>
                 <div class="p-2 rounded-xl bg-emerald-50 text-emerald-800">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                 </div>
@@ -86,7 +86,7 @@
         <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <div>
                 <h3 class="text-base font-bold text-slate-900">Pendaftaran PPDB Terbaru</h3>
-                <p class="text-xs text-slate-500">5 santri pendaftar terakhir di sistem</p>
+                <p class="text-xs text-slate-500">5 calon siswa pendaftar terakhir di sistem</p>
             </div>
             <a href="{{ route('admin.ppdb.index') }}" class="text-xs font-bold text-emerald-800 hover:underline">
                 Lihat Semua Data →
@@ -98,7 +98,7 @@
                 <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                     <tr>
                         <th class="py-3.5 px-6">No. Registrasi</th>
-                        <th class="py-3.5 px-6">Nama Calon Santri</th>
+                        <th class="py-3.5 px-6">Nama Calon Siswa</th>
                         <th class="py-3.5 px-6">L/P</th>
                         <th class="py-3.5 px-6">Orang Tua / WA</th>
                         <th class="py-3.5 px-6">Asal Sekolah</th>

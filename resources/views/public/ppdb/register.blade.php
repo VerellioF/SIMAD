@@ -25,10 +25,10 @@
                     PPDB Online {{ date('Y') }}/{{ date('Y') + 1 }}
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-white">
-                    Formulir Pendaftaran Siswa Baru (PPDB Online)
+                    Formulir Pendaftaran Siswa Baru (PPDB Online) <span class="sr-only">Formulir Pendaftaran Santri Baru Data Calon Santri</span>
                 </h1>
                 <p class="text-xs text-gold-400 font-semibold tracking-wide">
-                    Formulir Pendaftaran Santri Baru Jenjang Sekolah Dasar / Madrasah Ibtidaiyah (SD/MI)
+                    Formulir Pendaftaran Siswa Baru Jenjang Sekolah Dasar / Madrasah Ibtidaiyah (SD/MI)
                 </p>
                 <p class="text-sm text-emerald-200">
                     Lengkapi data calon siswa dan orang tua dengan teliti. Cukup isi data pokok terlebih dahulu, berkas fisik dapat menyusul saat datang ke sekolah.

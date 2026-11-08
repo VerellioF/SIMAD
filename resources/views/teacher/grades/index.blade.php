@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Buku Nilai Raport & Penilaian Santri')
+@section('title', 'Buku Nilai Raport & Penilaian Siswa')
 
 @section('content')
 <div class="space-y-6" x-data="{
@@ -43,7 +43,7 @@
             </div>
             <h1 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">Buku Penilaian Akademik</h1>
             <p class="text-xs text-slate-500 mt-0.5">
-                Kelola skor Ulangan Harian (UH), Tugas Mandiri, PTS, dan PAS santri untuk seluruh kelas dan mata pelajaran yang Anda ampu.
+                Kelola skor Ulangan Harian (UH), Tugas Mandiri, PTS, dan PAS siswa untuk seluruh kelas dan mata pelajaran yang Anda ampu.
             </p>
         </div>
 
@@ -115,8 +115,8 @@
                     <span class="text-xs text-slate-400">/ 100</span>
                 </div>
                 <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <span class="text-emerald-700 font-bold">Tuntas: {{ $passedCount }} santri</span>
-                    <span class="text-amber-700 font-bold">Remidi: {{ $remedialCount }} santri</span>
+                    <span class="text-emerald-700 font-bold">Tuntas: {{ $passedCount }} siswa</span>
+                    <span class="text-amber-700 font-bold">Remidi: {{ $remedialCount }} siswa</span>
                 </div>
             </div>
 
@@ -171,12 +171,12 @@
                             Lembar Penilaian: {{ $subject?->name }} ({{ strtoupper($gradeType) }})
                         </h3>
                         <p class="text-xs text-slate-500 mt-0.5">
-                            Tekan <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-[10px] font-mono">Tab</kbd> untuk berpindah cepat ke santri berikutnya.
+                            Tekan <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-200 rounded text-[10px] font-mono">Tab</kbd> untuk berpindah cepat ke siswa berikutnya.
                         </p>
                     </div>
 
                     <div class="flex items-center gap-3">
-                        <input type="text" x-model="searchStudent" placeholder="Cari santri..."
+                        <input type="text" x-model="searchStudent" placeholder="Cari siswa..."
                                class="px-3 py-1.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-teal-700">
 
                         <button type="submit"
@@ -192,7 +192,7 @@
                         <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                             <tr>
                                 <th class="py-3 px-6 w-12 text-center">No</th>
-                                <th class="py-3 px-6">NISN / Nama Santri</th>
+                                <th class="py-3 px-6">NISN / Nama Siswa</th>
                                 <th class="py-3 px-6 w-44">Skor Nilai (0 - 100)</th>
                                 <th class="py-3 px-6 w-32 text-center">Status</th>
                                 <th class="py-3 px-6">Catatan Evaluasi / Rekomendasi Guru</th>
@@ -252,7 +252,7 @@
                             @empty
                                 <tr>
                                     <td colspan="5" class="p-8 text-center text-slate-400 text-xs">
-                                        Belum ada santri terdaftar di rombel kelas ini.
+                                        Belum ada siswa terdaftar di rombel kelas ini.
                                     </td>
                                 </tr>
                             @endforelse
@@ -262,7 +262,7 @@
 
                 <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
                     <span class="text-xs text-slate-500">
-                        Nilai tersimpan langsung terintegrasi dengan raport digital wali santri.
+                        Nilai tersimpan langsung terintegrasi dengan raport digital orang tua / wali murid.
                     </span>
                     <button type="submit"
                             class="px-6 py-2.5 rounded-xl bg-teal-900 hover:bg-teal-800 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5">

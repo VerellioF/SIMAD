@@ -1,13 +1,13 @@
 @extends('layouts.portal')
 
-@section('title', 'Pengajuan Izin Santri')
+@section('title', 'Pengajuan Izin Siswa')
 
 @section('content')
 <div class="space-y-6" x-data="{ showForm: false }">
 
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Surat Izin & Sakit Santri</h1>
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Surat Izin & Sakit Siswa</h1>
             <p class="text-xs text-slate-500 mt-0.5">Ajukan surat izin ketidakhadiran ananda langsung ke wali kelas</p>
         </div>
 

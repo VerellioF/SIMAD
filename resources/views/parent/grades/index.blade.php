@@ -18,7 +18,7 @@
                     <select name="student_id" onchange="this.form.submit()" class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 bg-white">
                         @foreach($students as $st)
                             <option value="{{ $st->id }}" {{ $selectedStudent?->id === $st->id ? 'selected' : '' }}>
-                                Santri: {{ $st->full_name }}
+                                Siswa: {{ $st->full_name }}
                             </option>
                         @endforeach
                     </select>
@@ -29,13 +29,13 @@
 
     @if(!$selectedStudent)
         <div class="bg-white rounded-3xl p-8 border border-slate-200 text-center text-slate-400">
-            Belum ada santri yang ditautkan ke akun ini.
+            Belum ada siswa yang ditautkan ke akun ini.
         </div>
     @else
         <!-- Student Header Card -->
         <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div class="space-y-1">
-                <span class="text-xs uppercase font-bold text-slate-400">Nama Santri:</span>
+                <span class="text-xs uppercase font-bold text-slate-400">Nama Siswa:</span>
                 <h2 class="text-xl font-extrabold text-slate-900">{{ $selectedStudent->full_name }}</h2>
                 <p class="text-xs text-slate-500">NISN: {{ $selectedStudent->nisn }} • Kelas: {{ $selectedStudent->classroom->name ?? '-' }}</p>
             </div>

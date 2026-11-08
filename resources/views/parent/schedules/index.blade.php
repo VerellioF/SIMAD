@@ -58,7 +58,7 @@
                                         <span class="text-xs font-mono font-bold text-emerald-800">{{ $slot->start_time }} - {{ $slot->end_time }}</span>
                                     </div>
                                     <h4 class="font-bold text-slate-900 text-sm mt-1.5">{{ $slot->subject->name ?? 'Mata Pelajaran' }}</h4>
-                                    <p class="text-[11px] text-slate-500 mt-0.5">Ustadz/ah: {{ $slot->teacher->name ?? 'Guru Pengampu' }}</p>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">Guru: {{ $slot->teacher->name ?? 'Guru Pengampu' }}</p>
                                 </div>
                             @empty
                                 <div class="py-6 text-center text-slate-400 text-xs italic">

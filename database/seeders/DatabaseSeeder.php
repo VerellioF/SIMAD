@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
         $principal = User::updateOrCreate(
             ['email' => 'kepala@simad.id'],
             [
-                'name' => 'Ustadz Drs. H. Subakir, M.Pd.I.',
+                'name' => 'Bpk. Drs. H. Subakir, M.Pd.I.',
                 'phone_number' => '081200000005',
                 'role' => UserRole::Teacher,
                 'password' => Hash::make('password'),
@@ -83,13 +83,13 @@ class DatabaseSeeder extends Seeder
         $teacher1 = User::updateOrCreate(
             ['email' => 'guru@simad.id'],
             [
-                'name' => 'Ustadzah Fatimah Azzahra, S.Pd.',
+                'name' => 'Ibu Fatimah Azzahra, S.Pd.',
                 'phone_number' => '081200000002',
                 'role' => UserRole::Teacher,
                 'password' => Hash::make('password'),
                 'position' => 'Wali Kelas 1-A & Guru Tematik',
                 'education' => 'S1 PGMI (Universitas Negeri Malang)',
-                'bio' => 'Pendidik ramah anak dengan spesialisasi active learning dan penanaman budi pekerti islami pada santri usia dini.',
+                'bio' => 'Pendidik ramah anak dengan spesialisasi active learning dan penanaman budi pekerti islami pada siswa-siswi usia dini.',
                 'display_order' => 3,
                 'is_active' => true,
             ]
@@ -98,13 +98,13 @@ class DatabaseSeeder extends Seeder
         $teacher2 = User::updateOrCreate(
             ['email' => 'guru2@simad.id'],
             [
-                'name' => 'Ustadz Ahmad Al-Hafidz, S.Pd.I.',
+                'name' => 'Bpk. Ahmad Al-Hafidz, S.Pd.I.',
                 'phone_number' => '081200000004',
                 'role' => UserRole::Teacher,
                 'password' => Hash::make('password'),
                 'position' => 'Koordinator Tahfidz & Quranic School',
                 'education' => 'S1 Ilmu Al-Qur\'an dan Tafsir (PTIQ Jakarta)',
-                'bio' => 'Hafidz 30 Juz bersanad muttashil, aktif membina santri halaqah tahfidz dan seni tilawatil quran.',
+                'bio' => 'Hafidz 30 Juz bersanad muttashil, aktif membina siswa-siswi tahfidz dan seni tilawatil quran.',
                 'display_order' => 4,
                 'is_active' => true,
             ]
@@ -113,7 +113,7 @@ class DatabaseSeeder extends Seeder
         $teacher3 = User::updateOrCreate(
             ['email' => 'guru3@simad.id'],
             [
-                'name' => 'Ustadzah Siti Maryam, S.Pd.',
+                'name' => 'Ibu Siti Maryam, S.Pd.',
                 'phone_number' => '081200000006',
                 'role' => UserRole::Teacher,
                 'password' => Hash::make('password'),
@@ -128,13 +128,13 @@ class DatabaseSeeder extends Seeder
         $teacher4 = User::updateOrCreate(
             ['email' => 'guru4@simad.id'],
             [
-                'name' => 'Ustadz Muhammad Ridwan, S.Kom.',
+                'name' => 'Bpk. Muhammad Ridwan, S.Kom.',
                 'phone_number' => '081200000007',
                 'role' => UserRole::Teacher,
                 'password' => Hash::make('password'),
                 'position' => 'Guru TIK & Pembina Hadrah Banjari',
                 'education' => 'S1 Teknik Informatika (Universitas Brawijaya)',
-                'bio' => 'Penggiat seni sholawat hadrah tradisional Jawa Timur dan pengenalan literasi digital sehat untuk santri madrasah.',
+                'bio' => 'Penggiat seni sholawat hadrah tradisional Jawa Timur dan pengenalan literasi digital sehat untuk siswa madrasah.',
                 'display_order' => 6,
                 'is_active' => true,
             ]
@@ -457,7 +457,7 @@ class DatabaseSeeder extends Seeder
             $students->push($student);
         }
 
-        // 6. Presensi Harian Santri (5 Hari Aktif Terakhir)
+        // 6. Presensi Harian Siswa (5 Hari Aktif Terakhir)
         $pastDates = [
             now()->subDays(4)->toDateString(),
             now()->subDays(3)->toDateString(),
@@ -500,7 +500,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // 7. Pengajuan Izin Santri
+        // 7. Pengajuan Izin Siswa
         LeaveRequest::firstOrCreate(
             [
                 'student_id' => $students[2]->id,
@@ -531,7 +531,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 8. Jurnal Mutaba'ah Tahfidz Santri (Juz 30)
+        // 8. Jurnal Mutaba'ah Tahfidz Siswa (Juz 30)
         $tahfidzData = [
             ['surah' => 'An-Naas', 'range' => 'Ayat 1-6', 'fl' => TahfidzFluency::Lancar, 'tj' => TahfidzTajweed::Mumtaz, 'note' => 'Makharijul huruf sangat fasih'],
             ['surah' => 'Al-Falaq', 'range' => 'Ayat 1-5', 'fl' => TahfidzFluency::Lancar, 'tj' => TahfidzTajweed::Mumtaz, 'note' => 'Qolqolah kubro di akhir ayat sudah mantap'],
@@ -568,7 +568,7 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // 9. Nilai Akademik Santri (UH, Tugas, PTS)
+        // 9. Nilai Akademik Siswa (UH, Tugas, PTS)
         foreach ($students as $student) {
             foreach ($subjects->take(4) as $subject) {
                 // Nilai Harian (UH)
@@ -605,7 +605,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // 10. Tagihan SPP & Pembayaran Santri (Bulan Juli - November 2026)
+        // 10. Tagihan SPP & Pembayaran Siswa (Bulan Juli - November 2026)
         $months = [
             7 => 'Juli',
             8 => 'Agustus',
@@ -687,7 +687,7 @@ class DatabaseSeeder extends Seeder
                 'image_path' => 'images/gallery/dhuha.svg',
             ],
             [
-                'title' => 'Grup Seni Hadrah Rebana Santri Kalipucung',
+                'title' => 'Grup Seni Hadrah Rebana Siswa Kalipucung',
                 'category' => GalleryCategory::HadrahRebana,
                 'image_path' => 'images/gallery/hadrah.svg',
             ],
@@ -720,21 +720,21 @@ class DatabaseSeeder extends Seeder
             [
                 'title' => 'Penerimaan Peserta Didik Baru (PPDB) 2026/2027 Resmi Dibuka Secara Online',
                 'slug' => 'ppdb-2026-2027-resmi-dibuka',
-                'content' => '<p>Alhamdulillah, pendaftaran calon santri baru MI Plus Raudlatul Muta\'allimin Kalipucung Blitar Tahun Ajaran 2026/2027 resmi dibuka mulai 1 Oktober 2026. Pendaftaran dapat dilakukan langsung melalui portal PPDB online tanpa harus datang ke madrasah. Calon wali murid cukup mengisi biodata santri dan mengunggah berkas Akta Kelahiran serta Kartu Keluarga. Kuota santri terbatas untuk 2 rombongan belajar.</p>',
+                'content' => '<p>Alhamdulillah, pendaftaran calon peserta didik baru MI Plus Raudlatul Muta\'allimin Kalipucung Blitar Tahun Ajaran 2026/2027 resmi dibuka mulai 1 Oktober 2026. Pendaftaran dapat dilakukan langsung melalui portal PPDB online tanpa harus datang ke madrasah. Calon wali murid cukup mengisi biodata calon siswa dan mengunggah berkas Akta Kelahiran serta Kartu Keluarga. Kuota siswa terbatas untuk 2 rombongan belajar.</p>',
                 'is_published' => true,
                 'published_at' => now()->subDays(5),
             ],
             [
-                'title' => 'Prestasi Membanggakan: Santri MI Plus Raih Juara 1 Munaqasyah Tahfidz Tingkat Kabupaten',
+                'title' => 'Prestasi Membanggakan: Siswa MI Plus Raih Juara 1 Munaqasyah Tahfidz Tingkat Kabupaten',
                 'slug' => 'prestasi-santri-juara-1-tahfidz-kabupaten-blitar',
-                'content' => '<p>Santri MI Plus Raudlatul Muta\'allimin kembali menorehkan prestasi gemilang pada ajang Festival Anak Sholeh dan Munaqasyah Tahfidz se-Kabupaten Blitar. Ananda Muhammad Bilal Al-Fatih meraih peringkat pertama pada cabang Tahfidz Juz 30 berkat kefasihan makharijul huruf dan ketepatan kaidah hukum tajwid.</p>',
+                'content' => '<p>Siswa MI Plus Raudlatul Muta\'allimin kembali menorehkan prestasi gemilang pada ajang Festival Anak Sholeh dan Munaqasyah Tahfidz se-Kabupaten Blitar. Ananda Muhammad Bilal Al-Fatih meraih peringkat pertama pada cabang Tahfidz Juz 30 berkat kefasihan makharijul huruf dan ketepatan kaidah hukum tajwid.</p>',
                 'is_published' => true,
                 'published_at' => now()->subDays(2),
             ],
             [
                 'title' => 'Pemberian Santunan Muharram dan Gerakan Infaq Berkah Madrasah',
                 'slug' => 'pemberian-santunan-muharram-dan-infaq-berkah',
-                'content' => '<p>Dalam rangka menyambut tahun baru Islam 1448 H, keluarga besar MI Plus Raudlatul Muta\'allimin mengadakan kegiatan santunan untuk 100 anak yatim dan dhuafa di lingkungan Sanankulon. Dana santunan terkumpul dari gerakan kotak amal Jumat berkah yang rutin disisihkan oleh para santri dan wali murid.</p>',
+                'content' => '<p>Dalam rangka menyambut tahun baru Islam 1448 H, keluarga besar MI Plus Raudlatul Muta\'allimin mengadakan kegiatan santunan untuk 100 anak yatim dan dhuafa di lingkungan Sanankulon. Dana santunan terkumpul dari gerakan kotak amal Jumat berkah yang rutin disisihkan oleh para siswa dan orang tua / wali murid.</p>',
                 'is_published' => true,
                 'published_at' => now()->subDay(),
             ],
@@ -762,14 +762,14 @@ class DatabaseSeeder extends Seeder
                 'valid_until' => now()->addDays(30)->toDateString(),
             ],
             [
-                'title' => 'Pengambilan Seragam dan Atribut Santri Baru Gelombang 1',
-                'content' => 'Bagi calon wali santri yang telah dinyatakan Lolos Berkas pada PPDB 2026/2027, pengambilan seragam madrasah, peci, dan jilbab dapat dilakukan di ruang Tata Usaha setiap hari kerja pukul 08.00 - 12.00 WIB.',
+                'title' => 'Pengambilan Seragam dan Atribut Siswa Baru Gelombang 1',
+                'content' => 'Bagi calon wali murid yang telah dinyatakan Lolos Berkas pada PPDB 2026/2027, pengambilan seragam madrasah, peci, dan jilbab dapat dilakukan di ruang Tata Usaha setiap hari kerja pukul 08.00 - 12.00 WIB.',
                 'target' => AnnouncementTarget::Parent,
                 'valid_until' => now()->addDays(15)->toDateString(),
             ],
             [
                 'title' => 'Sosialisasi Kurikulum Madrasah dan Pembagian Raport Tengah Semester',
-                'content' => 'Pertemuan wali murid dan dewan asatidz terkait evaluasi capaian hafalan Al-Qur\'an Juz 30 dan perkembangan akademik semester berjalan.',
+                'content' => 'Pertemuan wali murid dan dewan guru terkait evaluasi capaian hafalan Al-Qur\'an Juz 30 dan perkembangan akademik semester berjalan.',
                 'target' => AnnouncementTarget::Parent,
                 'valid_until' => now()->addDays(20)->toDateString(),
             ],
@@ -861,7 +861,7 @@ class DatabaseSeeder extends Seeder
                 'p_job' => 'Buruh',
                 'addr' => 'Jl. Kenari No. 19, Blitar',
                 'status' => PpdbStatus::Rejected,
-                'notes' => 'Usia calon santri belum mencukupi batas minimal 6 tahun per 1 Juli 2026.',
+                'notes' => 'Usia calon siswa belum mencukupi batas minimal 6 tahun per 1 Juli 2026.',
             ],
             [
                 'reg_num' => 'PPDB-2026-0006',
@@ -887,7 +887,7 @@ class DatabaseSeeder extends Seeder
                 'event_type' => 'akademik',
                 'start_date' => '2026-07-15',
                 'end_date' => '2026-07-18',
-                'description' => 'Masa Ta\'aruf Siswa Madrasah (MATSAMA) bagi santri baru kelas 1 dan pengenalan lingkungan belajar.',
+                'description' => 'Masa Ta\'aruf Siswa Madrasah (MATSAMA) bagi siswa baru kelas 1 dan pengenalan lingkungan belajar.',
                 'is_holiday' => false,
             ],
             [
@@ -919,7 +919,7 @@ class DatabaseSeeder extends Seeder
                 'event_type' => 'phbi',
                 'start_date' => '2026-10-22',
                 'end_date' => '2026-10-22',
-                'description' => 'Apel akbar Hari Santri berbusana muslim/sarung dilanjutkan kirab santri Kalipucung.',
+                'description' => 'Apel akbar peringatan Hari Santri Nasional berbusana muslim/rapi dilanjutkan pawai ta\'aruf siswa Kalipucung.',
                 'is_holiday' => false,
             ],
             [
@@ -935,7 +935,7 @@ class DatabaseSeeder extends Seeder
                 'event_type' => 'akademik',
                 'start_date' => '2026-12-19',
                 'end_date' => '2026-12-19',
-                'description' => 'Penerimaan lembar hasil belajar santri oleh wali murid di ruang kelas masing-masing.',
+                'description' => 'Penerimaan lembar hasil belajar siswa oleh orang tua / wali murid di ruang kelas masing-masing.',
                 'is_holiday' => false,
             ],
             [
@@ -961,12 +961,12 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // 14. Ekstrakurikuler & Pendaftaran Santri
+        // 14. Ekstrakurikuler & Pendaftaran Siswa
         $ekskulData = [
             [
                 'name' => 'Seni Hadrah & Sholawat Banjari',
                 'category' => 'seni_budaya',
-                'instructor_name' => 'Ustadz Muhammad Ridwan, S.Kom.',
+                'instructor_name' => 'Bpk. Muhammad Ridwan, S.Kom.',
                 'schedule_day' => 'Kamis',
                 'schedule_time' => '15:30 - 17:00 WIB',
                 'location' => 'Aula Serbaguna Madrasah',
@@ -975,7 +975,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Tahfidz Club & Seni Tilawah',
                 'category' => 'keagamaan',
-                'instructor_name' => 'Ustadz Ahmad Al-Hafidz, S.Pd.I.',
+                'instructor_name' => 'Bpk. Ahmad Al-Hafidz, S.Pd.I.',
                 'schedule_day' => 'Selasa',
                 'schedule_time' => '15:30 - 17:00 WIB',
                 'location' => 'Musholla Raudlatul Muta\'allimin',
@@ -993,7 +993,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Klub Sains & Matematika Ceria',
                 'category' => 'sains',
-                'instructor_name' => 'Ustadzah Siti Maryam, S.Pd.',
+                'instructor_name' => 'Ibu Siti Maryam, S.Pd.',
                 'schedule_day' => 'Rabu',
                 'schedule_time' => '15:30 - 16:45 WIB',
                 'location' => 'Laboratorium IPA & Komputer',
@@ -1002,7 +1002,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Seni Kaligrafi & Khath Al-Qur\'an',
                 'category' => 'seni_budaya',
-                'instructor_name' => 'Ustadz Zainul Abidin',
+                'instructor_name' => 'Bpk. Zainul Abidin',
                 'schedule_day' => 'Senin',
                 'schedule_time' => '15:30 - 16:45 WIB',
                 'location' => 'Ruang Kesenian',
@@ -1035,7 +1035,7 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // Daftarkan santri demo anak pak Ahmad Dahlan dan beberapa santri lain
+        // Daftarkan siswa demo anak pak Ahmad Dahlan dan beberapa siswa lain
         $allCreatedStudents = Student::all();
         if ($allCreatedStudents->isNotEmpty() && !empty($createdEkskuls)) {
             foreach ($allCreatedStudents->take(15) as $idx => $st) {
@@ -1091,7 +1091,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // 16. Mutaba'ah Ibadah Yaumiyah Santri (7 Hari Terakhir)
+        // 16. Mutaba'ah Ibadah Yaumiyah Siswa (7 Hari Terakhir)
         if ($allCreatedStudents->isNotEmpty()) {
             $recentDates = [];
             for ($d = 0; $d < 7; $d++) {
@@ -1124,11 +1124,11 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // 17. Katalog Tata Tertib & Poin Karakter Santri
+        // 17. Katalog Tata Tertib & Poin Karakter Siswa
         $characterRulesData = [
             // Apresiasi Positif
             [
-                'name' => 'Membantu ustadz/ustadzah dan sesama santri dengan ikhlas',
+                'name' => 'Membantu bapak/ibu guru dan sesama teman dengan ikhlas',
                 'type' => 'apresiasi',
                 'category' => 'akhlak_adab',
                 'points' => 10,
@@ -1208,12 +1208,12 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // Catatan Karakter untuk Sampel Santri
+        // Catatan Karakter untuk Sampel Siswa
         if ($allCreatedStudents->isNotEmpty() && !empty($createdRules)) {
             $sampleConducts = [
                 [
                     'st_idx' => 0,
-                    'rule' => $createdRules[0], // Membantu ustadz
+                    'rule' => $createdRules[0], // Membantu guru
                     'type' => 'apresiasi',
                     'points' => 10,
                     'title' => 'Membantu merapikan Al-Qur\'an di musholla',
@@ -1288,9 +1288,9 @@ class DatabaseSeeder extends Seeder
             ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Bahasa Indonesia', 'code' => 'TMP-BI-A', 'hours_per_week' => 6, 'display_order' => 2, 'competency_goals' => 'Literasi membaca permulaan, mengeja suku kata, menulis kalimat sederhana, dan menyimak cerita teladan.'],
             ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Matematika Realistik', 'code' => 'MAT-A', 'hours_per_week' => 5, 'display_order' => 3, 'competency_goals' => 'Membilang bilangan cacah 1-100, penjumlahan & pengurangan konkret, bangun datar dasar, dan pengukuran panjang non-baku.'],
             ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Seni Budaya & Keterampilan', 'code' => 'SBK-A', 'hours_per_week' => 3, 'display_order' => 4, 'competency_goals' => 'Menggambar ekspresi, kolase bahan alam, dan menyanyikan lagu-lagu islami dan lagu nasional bertema alam.'],
-            ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'PJOK (Pendidikan Jasmani)', 'code' => 'PJOK-A', 'hours_per_week' => 3, 'display_order' => 5, 'competency_goals' => 'Gerak dasar lokomotor, non-lokomotor, senam santri ceria, dan kebiasaan pola hidup bersih dan sehat.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'PJOK (Pendidikan Jasmani)', 'code' => 'PJOK-A', 'hours_per_week' => 3, 'display_order' => 5, 'competency_goals' => 'Gerak dasar lokomotor, non-lokomotor, senam anak ceria, dan kebiasaan pola hidup bersih dan sehat.'],
             // Muatan Lokal & Pesantren Plus
-            ['phase' => 'fase_a', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Tahfidzul Qur\'an & Talaqqi', 'code' => 'MLK-TF-A', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Menuntaskan hafalan Juz 30 (An-Naas s.d At-Takatsur) dengan tartil dan bimbingan talaqqi langsung ustadz bersanad.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Tahfidzul Qur\'an & Talaqqi', 'code' => 'MLK-TF-A', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Menuntaskan hafalan Juz 30 (An-Naas s.d At-Takatsur) dengan tartil dan bimbingan talaqqi langsung guru tahfidz bersanad.'],
             ['phase' => 'fase_a', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Kitab Pegon & Imla\' Arabiyah', 'code' => 'MLK-PG-A', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Mengenal abjad Arab-Pegon (Jawa/Indonesia berhuruf hijaiyah) dan teknik penulisan khat naskhi dasar.'],
             ['phase' => 'fase_a', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Praktik Ubudiyah & Doa Harian', 'code' => 'MLK-UB-A', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Hafalan doa harian sesudah sholat, wirid pendek ba\'da sholat, dan pembiasaan sholat dhuha berjamaah.'],
 
@@ -1300,14 +1300,14 @@ class DatabaseSeeder extends Seeder
             ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => 'Akidah Akhlak', 'code' => 'PAI-AA-B', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Asmaul Husna, meyakini sifat-sifat wajib bagi Allah dan Rasul, serta adab berteman dan menghindari sifat tercela.'],
             ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => 'Fiqih Ibadah', 'code' => 'PAI-FQ-B', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Ketentuan sholat berjamaah, sholat sunnah rawatib & dhuha, serta syarat sah dan pembatal puasa Ramadhan.'],
             ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => 'Sejarah Kebudayaan Islam', 'code' => 'PAI-SKI-B', 'hours_per_week' => 2, 'display_order' => 4, 'competency_goals' => 'Sejarah masyarakat Arab pra-Islam, biografi masa kecil, kerasulan, dan keteladanan dakwah Nabi Muhammad SAW.'],
-            ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => 'Bahasa Arab Terapan', 'code' => 'B-ARB-B', 'hours_per_week' => 2, 'display_order' => 5, 'competency_goals' => 'Struktur kalimat tanya sederhana, percakapan tema keluarga, profesi, peralatan sekolah, dan aktivitas santri.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => 'Bahasa Arab Terapan', 'code' => 'B-ARB-B', 'hours_per_week' => 2, 'display_order' => 5, 'competency_goals' => 'Struktur kalimat tanya sederhana, percakapan tema keluarga, profesi, peralatan sekolah, dan aktivitas siswa.'],
             // Kurikulum Merdeka Nasional
             ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Pendidikan Pancasila', 'code' => 'TMP-PP-B', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Menghargai keragaman suku, bahasa, & budaya Indonesia, hak dan kewajiban warga negara, dan musyawarah mufakat.'],
             ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Bahasa Indonesia', 'code' => 'TMP-BI-B', 'hours_per_week' => 5, 'display_order' => 2, 'competency_goals' => 'Menulis paragraf deskriptif & naratif, membaca teks pemahaman, kaidah EYD, dan berpidato singkat.'],
             ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Matematika Realistik', 'code' => 'MAT-B', 'hours_per_week' => 5, 'display_order' => 3, 'competency_goals' => 'Perkalian & pembagian bersusun, konsep pecahan senilai, keliling & luas bangun datar, dan penyajian data sederhana.'],
             ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'IPAS (Sains & Sosial)', 'code' => 'IPAS-B', 'hours_per_week' => 5, 'display_order' => 4, 'competency_goals' => 'Siklus hidup hewan & tumbuhan, wujud zat materi, gaya dan gerak, bentang alam lokal, serta kearifan lokal Nusantara.'],
             ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Seni Budaya & Prakarya', 'code' => 'SBK-B', 'hours_per_week' => 3, 'display_order' => 5, 'competency_goals' => 'Seni kriya, kerajinan bahan anyam/daur ulang, dan apresiasi seni musik hadroh islami nusantara.'],
-            ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'PJOK (Pendidikan Jasmani)', 'code' => 'PJOK-B', 'hours_per_week' => 3, 'display_order' => 6, 'competency_goals' => 'Permainan bola kecil & besar beregu, kebugaran jasmani santri, dan keselamatan aktivitas fisik luar ruangan.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'PJOK (Pendidikan Jasmani)', 'code' => 'PJOK-B', 'hours_per_week' => 3, 'display_order' => 6, 'competency_goals' => 'Permainan bola kecil & besar beregu, kebugaran jasmani siswa, dan keselamatan aktivitas fisik luar ruangan.'],
             // Muatan Lokal & Pesantren Plus
             ['phase' => 'fase_b', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Tahfidzul Qur\'an & Tartil', 'code' => 'MLK-TF-B', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Hafalan lanjutan Juz 30 (Al-Qari\'ah s.d An-Naba\') dan pengenalan Juz 29 awal dengan standar muraja\'ah mutqin.'],
             ['phase' => 'fase_b', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Aksara Pegon & Terjemah Gandul', 'code' => 'MLK-PG-B', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Membaca dan menulis teks cerita hikmah beraksara Pegon dengan rumus makna gandul (utawi, iku, ing).'],
@@ -1330,7 +1330,7 @@ class DatabaseSeeder extends Seeder
             // Muatan Lokal & Pesantren Plus
             ['phase' => 'fase_c', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Tahfidzul Qur\'an & Matan Tajwid', 'code' => 'MLK-TF-C', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Hafalan Juz 29 (Al-Mulk s.d Al-Mursalat) serta hafalan nadhom dasar Matan Jazariyyah / Tuhfatul Athfal.'],
             ['phase' => 'fase_c', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Nahwu Shorof Ibtidai', 'code' => 'MLK-NS-C', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Mengenal pola dasar kalimah fi\'il & isim, wazan tasrif lughawi dasar untuk bekal membaca kitab kuning turats.'],
-            ['phase' => 'fase_c', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Risalah Ubudiyah & Fiqih Praktis', 'code' => 'MLK-UB-C', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Praktik tata cara pengurusan jenazah dasar, khutbah singkat anak, dan bimbingan kepemimpinan santri teladan.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Risalah Ubudiyah & Fiqih Praktis', 'code' => 'MLK-UB-C', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Praktik tata cara pengurusan jenazah dasar, khutbah singkat anak, dan bimbingan kepemimpinan siswa teladan.'],
         ];
 
         foreach ($curriculumData as $cItem) {

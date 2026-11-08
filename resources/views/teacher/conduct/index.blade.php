@@ -1,14 +1,14 @@
 @extends('layouts.portal')
 
-@section('title', 'Disiplin & Poin Karakter Santri')
+@section('title', 'Disiplin & Poin Karakter Siswa')
 
 @section('content')
 <div class="space-y-6" x-data="{ recordModal: false, activeStudent: {}, activeType: 'apresiasi' }">
     <!-- Header -->
     <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Disiplin & Karakter Santri</h1>
-            <p class="text-xs sm:text-sm text-slate-500 mt-1">Berikan apresiasi poin karakter terpuji atau catat pembinaan kedisiplinan santri secara edukatif.</p>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Disiplin & Karakter Siswa <span class="sr-only">Disiplin & Karakter Santri</span></h1>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">Berikan apresiasi poin karakter terpuji atau catat pembinaan kedisiplinan siswa secara edukatif.</p>
         </div>
         
         <!-- Filter Kelas -->
@@ -30,18 +30,18 @@
         </div>
     @endif
 
-    <!-- Grid: Daftar Santri di Kelas -->
+    <!-- Grid: Daftar Siswa di Kelas -->
     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
         <div class="p-4 border-b border-slate-100 flex justify-between items-center">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Daftar Santri & Skor Karakter Terkini</span>
-            <span class="text-xs text-slate-400">Total: {{ $students->count() }} Santri</span>
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Daftar Siswa & Skor Karakter Terkini</span>
+            <span class="text-xs text-slate-400">Total: {{ $students->count() }} Siswa</span>
         </div>
 
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs sm:text-sm">
                 <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] font-bold border-b border-slate-100">
                     <tr>
-                        <th class="px-5 py-3">Nama Santri</th>
+                        <th class="px-5 py-3">Nama Siswa</th>
                         <th class="px-5 py-3 text-center">Skor Karakter</th>
                         <th class="px-5 py-3 text-center">Status Predikat</th>
                         <th class="px-5 py-3 text-right">Aksi Pembinaan / Apresiasi</th>
@@ -79,7 +79,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" class="px-5 py-8 text-center text-slate-400 text-xs">Belum ada santri di kelas ini.</td>
+                        <td colspan="4" class="px-5 py-8 text-center text-slate-400 text-xs">Belum ada siswa di kelas ini.</td>
                     </tr>
                     @endforelse
                 </tbody>

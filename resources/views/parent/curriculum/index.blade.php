@@ -27,12 +27,12 @@
     </div>
 
     @if($selectedStudent)
-    <!-- Info Ringkasan Fase Belajar Santri -->
+    <!-- Info Ringkasan Fase Belajar Siswa -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <!-- Fase Aktif -->
         <div class="bg-gradient-to-tr from-emerald-950 to-emerald-900 text-white rounded-2xl p-6 shadow-sm flex flex-col justify-between">
             <div>
-                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400">Fase Pembelajaran Santri</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400">Fase Pembelajaran Siswa</span>
                 <span class="block text-2xl font-black mt-1 text-white">
                     @if($phase === 'fase_a') Fase A (Kelas 1-2)
                     @elseif($phase === 'fase_b') Fase B (Kelas 3-4)
@@ -93,8 +93,8 @@
                     'header_bg' => 'bg-blue-50/60',
                 ],
                 'muatan_lokal_pesantren' => [
-                    'title' => '3. Pilar Muatan Lokal & Kepesantrenan Plus',
-                    'desc' => 'Kaderisasi santri beradab melalui Tahfidz talaqqi bersanad, aksara Pegon, akhlakul karimah, dan kemandirian.',
+                    'title' => '3. Pilar Muatan Lokal & Keagamaan Plus',
+                    'desc' => 'Kaderisasi siswa beradab melalui Tahfidz talaqqi bersanad, aksara Pegon, akhlakul karimah, dan kemandirian.',
                     'badge' => 'Keunggulan Plus MIRM',
                     'badge_class' => 'bg-amber-100 text-amber-900 border-amber-200',
                     'header_bg' => 'bg-amber-50/60',
@@ -163,7 +163,7 @@
     <!-- Tips Sinergi Wali & Madrasah -->
     <div class="bg-emerald-950 text-white p-6 rounded-2xl shadow-sm relative overflow-hidden">
         <div class="relative z-10 max-w-3xl">
-            <h3 class="text-base font-black text-amber-400 mb-2">Sinergi Pembelajaran: Kunci Keberkahan Belajar Santri</h3>
+            <h3 class="text-base font-black text-amber-400 mb-2">Sinergi Pembelajaran: Kunci Keberkahan Belajar Siswa</h3>
             <p class="text-xs text-emerald-100 leading-relaxed">
                 Madrasah memadukan ilmu fardhu 'ain (aqidah, ibadah, tahfidz) dengan fardhu kifayah (sains, logika matematika, bahasa, teknologi). Dukungan terbaik Ayah/Bunda adalah menciptakan suasana rumah yang meneladani adab belajar, membatasi gawai hiburan, serta rutin mendoakan putra-putri di sepertiga malam.
             </p>
@@ -171,7 +171,7 @@
     </div>
     @else
     <div class="bg-white rounded-2xl p-12 text-center border border-slate-200/80 shadow-sm">
-        <p class="text-sm text-slate-500">Data santri belum dikaitkan dengan akun wali santri ini.</p>
+        <p class="text-sm text-slate-500">Data siswa belum dikaitkan dengan akun orang tua / wali murid ini.</p>
     </div>
     @endif
 </div>

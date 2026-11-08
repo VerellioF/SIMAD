@@ -62,7 +62,7 @@ class AdminConductController extends Controller
         StudentConductRecord::create($validated);
 
         return redirect()->route('admin.conduct.index', ['tab' => 'records'])
-            ->with('success', 'Catatan pembiasaan karakter santri berhasil disimpan.');
+            ->with('success', 'Catatan pembiasaan karakter siswa berhasil disimpan.');
     }
 
     public function destroyRecord(StudentConductRecord $record): RedirectResponse
@@ -70,7 +70,7 @@ class AdminConductController extends Controller
         $record->delete();
 
         return redirect()->route('admin.conduct.index', ['tab' => 'records'])
-            ->with('success', 'Catatan karakter santri berhasil dihapus.');
+            ->with('success', 'Catatan karakter siswa berhasil dihapus.');
     }
 
     public function storeRule(Request $request): RedirectResponse

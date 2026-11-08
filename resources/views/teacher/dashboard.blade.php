@@ -9,10 +9,10 @@
     <div class="bg-gradient-to-r from-teal-950 via-teal-900 to-teal-950 p-6 sm:p-8 rounded-3xl text-white shadow-lg border border-teal-500/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div class="space-y-1">
             <span class="inline-block px-3 py-1 rounded-full bg-teal-500 text-teal-950 text-xs font-bold uppercase tracking-wider">
-                Portal Asatidz & Wali Kelas
+                Portal Guru & Wali Kelas
             </span>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-white">
-                Ahlan wa Sahlan, {{ auth()->user()->name }}
+                Selamat Datang, {{ auth()->user()->name }}
             </h1>
             <p class="text-xs sm:text-sm text-teal-200">
                 Wali Kelas: <strong>{{ $classroom->name ?? 'Belum Ditugaskan' }}</strong> • T.A. 2026/2027 Ganjil
@@ -34,9 +34,9 @@
         </div>
 
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-1">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Santri Binaan</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Siswa Binaan</span>
             <span class="block text-3xl font-extrabold text-teal-800 font-mono">{{ $students->count() }}</span>
-            <span class="text-[11px] text-slate-500">Santri terdaftar aktif di kelas</span>
+            <span class="text-[11px] text-slate-500">Siswa terdaftar aktif di kelas</span>
         </div>
 
         <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-1">
@@ -52,8 +52,8 @@
     <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
         <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <div>
-                <h3 class="text-base font-bold text-slate-900">Daftar Santri Kelas {{ $classroom->name ?? '' }}</h3>
-                <p class="text-xs text-slate-500">Kelola kehadiran santri dan perkembangan hafalan Qur'an</p>
+                <h3 class="text-base font-bold text-slate-900">Daftar Siswa Kelas {{ $classroom->name ?? '' }}</h3>
+                <p class="text-xs text-slate-500">Kelola kehadiran siswa dan perkembangan hafalan Al-Qur'an</p>
             </div>
         </div>
 
@@ -62,10 +62,10 @@
                 <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                     <tr>
                         <th class="py-3.5 px-6">NISN / NIS</th>
-                        <th class="py-3.5 px-6">Nama Lengkap Santri</th>
+                        <th class="py-3.5 px-6">Nama Lengkap Siswa</th>
                         <th class="py-3.5 px-6">L/P</th>
-                        <th class="py-3.5 px-6">Wali Santri</th>
-                        <th class="py-3.5 px-6">Status Santri</th>
+                        <th class="py-3.5 px-6">Orang Tua / Wali Murid</th>
+                        <th class="py-3.5 px-6">Status Siswa</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
@@ -95,7 +95,7 @@
                     @empty
                         <tr>
                             <td colspan="5" class="py-8 text-center text-slate-400">
-                                Belum ada santri yang dimasukkan ke kelas ini.
+                                Belum ada siswa yang dimasukkan ke kelas ini.
                             </td>
                         </tr>
                     @endforelse
