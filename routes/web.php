@@ -35,6 +35,7 @@ use App\Http\Controllers\PublicContactController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\PublicCurriculumController;
 use App\Http\Controllers\PublicExtracurricularController;
+use App\Http\Controllers\PublicNewsController;
 use App\Http\Controllers\PublicTeacherController;
 use App\Http\Controllers\Teacher\AttendanceController;
 use App\Http\Controllers\Teacher\GradeController;
@@ -54,6 +55,10 @@ Route::get('/tentang/guru', [PublicTeacherController::class, 'index'])->name('pu
 Route::get('/kalender', [PublicCalendarController::class, 'index'])->name('public.calendar');
 Route::get('/ekstrakurikuler', [PublicExtracurricularController::class, 'index'])->name('public.ekskul');
 Route::get('/kurikulum', [PublicCurriculumController::class, 'index'])->name('public.curriculum');
+Route::get('/kabar', [PublicNewsController::class, 'index'])->name('public.news');
+Route::get('/berita/{slug}', [PublicNewsController::class, 'showArticle'])->name('public.news.article');
+Route::get('/pengumuman/{announcement}', [PublicNewsController::class, 'showAnnouncement'])->name('public.news.announcement');
+Route::get('/galeri', fn () => redirect()->route('public.news', ['tab' => 'galeri']));
 Route::get('/kontak', [PublicContactController::class, 'index'])->name('public.contact');
 Route::post('/kontak', [PublicContactController::class, 'send'])->name('public.contact.send');
 

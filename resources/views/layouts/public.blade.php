@@ -166,7 +166,7 @@
                     </div>
 
                     <a href="{{ route('public.ekskul') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.ekskul') ? 'text-emerald-900 font-bold' : '' }}">Ekstrakurikuler</a>
-                    <a href="/#galeri" class="hover:text-emerald-900 transition">Galeri</a>
+                    <a href="{{ route('public.news') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.news*') ? 'text-emerald-900 font-bold' : '' }}">Kabar & Galeri</a>
                     <a href="{{ route('public.contact') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.contact') ? 'text-emerald-900 font-bold' : '' }}">Kontak & Lokasi</a>
                     <a href="/ppdb/cek-status" class="hover:text-emerald-900 transition">Cek Status PPDB</a>
                 </nav>
@@ -212,7 +212,7 @@
                     </div>
 
                     <a href="{{ route('public.ekskul') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Ekstrakurikuler</a>
-                    <a href="/#galeri" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Galeri & Warta</a>
+                    <a href="{{ route('public.news') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900 {{ request()->routeIs('public.news*') ? 'text-emerald-900 font-bold' : '' }}">Kabar & Galeri</a>
                     <a href="{{ route('public.contact') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Kontak & Lokasi</a>
                     <a href="/ppdb/cek-status" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Cek Status PPDB</a>
                 </nav>
@@ -265,6 +265,7 @@
                 <div>
                     <h5 class="text-sm font-bold text-gold-400 uppercase tracking-wider mb-4">Navigasi Cepat</h5>
                     <ul class="space-y-2 text-sm text-emerald-200/80">
+                        <li><a href="{{ route('public.news') }}" class="hover:text-white transition">Kabar, Pengumuman & Galeri</a></li>
                         <li><a href="{{ route('public.contact') }}" class="hover:text-white transition">Kontak & Lokasi Madrasah</a></li>
                         <li><a href="/ppdb/daftar" class="hover:text-white transition">Pendaftaran PPDB Online</a></li>
                         <li><a href="/ppdb/cek-status" class="hover:text-white transition">Cek Status Seleksi Santri</a></li>

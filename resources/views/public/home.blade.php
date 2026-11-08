@@ -247,12 +247,18 @@
                     <span class="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">Dokumentasi & Kabar</span>
                     <h2 class="text-3xl font-extrabold text-emerald-950 mt-2">Kilas Kegiatan Madrasah</h2>
                 </div>
+                <div>
+                    <a href="{{ route('public.news') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-emerald-900 font-bold text-xs shadow-sm hover:shadow hover:bg-slate-50 transition">
+                        <span>Pusat Kabar & Galeri Lengkap</span>
+                        <svg class="w-4 h-4 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                </div>
             </div>
 
             <!-- Galleries Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 @forelse($galleries as $gallery)
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition group">
+                    <a href="{{ route('public.news', ['tab' => 'galeri']) }}" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition group block">
                         <div class="h-48 bg-emerald-950 overflow-hidden relative">
                             <img src="{{ asset($gallery->image_path) }}" alt="{{ $gallery->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                         </div>
@@ -260,9 +266,9 @@
                             <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
                                 {{ $gallery->category->label() ?? 'Kegiatan' }}
                             </span>
-                            <h4 class="font-bold text-slate-800 text-sm mt-2">{{ $gallery->title }}</h4>
+                            <h4 class="font-bold text-slate-800 text-sm mt-2 group-hover:text-emerald-850 transition">{{ $gallery->title }}</h4>
                         </div>
-                    </div>
+                    </a>
                 @empty
                     <div class="col-span-3 text-center py-8 text-slate-500 text-sm">
                         Belum ada dokumentasi foto galeri yang diunggah.
@@ -273,17 +279,34 @@
             <!-- Articles / Berita -->
             @if($articles->isNotEmpty())
                 <div class="border-t border-slate-200/80 pt-12">
-                    <h3 class="text-2xl font-bold text-slate-900 mb-6">Warta & Berita Terkini</h3>
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-slate-900">Warta & Berita Terkini</h3>
+                        <a href="{{ route('public.news', ['tab' => 'berita']) }}" class="text-xs font-bold text-emerald-800 hover:underline">
+                            Lihat Semua Berita →
+                        </a>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         @foreach($articles as $article)
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-                                <span class="text-xs text-slate-400 font-mono">{{ $article->created_at->translatedFormat('d M Y') }}</span>
-                                <h4 class="text-base font-bold text-emerald-950 hover:text-emerald-700 transition line-clamp-2">
-                                    {{ $article->title }}
-                                </h4>
-                                <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">
-                                    {{ Str::limit(strip_tags($article->content), 120) }}
-                                </p>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between group hover:shadow-md transition">
+                                <div class="space-y-3">
+                                    <span class="text-xs text-slate-400 font-mono">{{ $article->published_at ? $article->published_at->translatedFormat('d M Y') : $article->created_at->translatedFormat('d M Y') }}</span>
+                                    <h4 class="text-base font-bold text-emerald-950 group-hover:text-emerald-700 transition line-clamp-2 leading-snug">
+                                        <a href="{{ route('public.news.article', $article->slug) }}">
+                                            {{ $article->title }}
+                                        </a>
+                                    </h4>
+                                    <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                                        {{ Str::limit(strip_tags($article->content), 120) }}
+                                    </p>
+                                </div>
+                                <div class="pt-4 mt-2 border-t border-slate-100">
+                                    <a href="{{ route('public.news.article', $article->slug) }}"
+                                        class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-850 group-hover:underline">
+                                        <span>Baca Selengkapnya</span>
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
                             </div>
                         @endforeach
                     </div>
