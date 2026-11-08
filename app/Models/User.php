@@ -24,6 +24,10 @@ class User extends Authenticatable
         'phone_number',
         'password',
         'role',
+        'position',
+        'education',
+        'bio',
+        'display_order',
         'avatar_url',
         'is_active',
     ];
@@ -40,6 +44,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'role' => UserRole::class,
             'is_active' => 'boolean',
+            'display_order' => 'integer',
         ];
     }
 
@@ -76,6 +81,11 @@ class User extends Authenticatable
     public function leaveRequests(): HasMany
     {
         return $this->hasMany(LeaveRequest::class, 'parent_id');
+    }
+
+    public function teachingSchedules(): HasMany
+    {
+        return $this->hasMany(ClassSchedule::class, 'teacher_id');
     }
 
     public function reviewedLeaveRequests(): HasMany

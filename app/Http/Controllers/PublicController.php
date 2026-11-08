@@ -6,7 +6,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use App\Models\Article;
+use App\Models\Extracurricular;
+use App\Models\SchoolEvent;
 use App\Models\SchoolGallery;
+use App\Models\User;
 use App\Services\PrayerTimeService;
 use Illuminate\Contracts\View\View;
 
@@ -40,6 +43,34 @@ class PublicController extends Controller
             ->limit(3)
             ->get();
 
-        return view('public.home', compact('prayerSchedule', 'articles', 'galleries', 'announcements'));
+        $upcomingEvents = SchoolEvent::query()
+            ->orderBy('start_date')
+            ->limit(4)
+            ->get();
+
+        $featuredTeachers = User::query()
+            ->whereIn('role', [\App\Enums\UserRole::Teacher, \App\Enums\UserRole::Admin])
+            ->where('is_active', true)
+            ->orderBy('display_order')
+            ->orderBy('name')
+            ->limit(4)
+            ->get();
+
+        $featuredEkskuls = Extracurricular::query()
+            ->where('is_active', true)
+            ->withCount('enrollments')
+            ->orderByDesc('enrollments_count')
+            ->limit(3)
+            ->get();
+
+        return view('public.home', compact(
+            'prayerSchedule',
+            'articles',
+            'galleries',
+            'announcements',
+            'upcomingEvents',
+            'featuredTeachers',
+            'featuredEkskuls'
+        ));
     }
 }

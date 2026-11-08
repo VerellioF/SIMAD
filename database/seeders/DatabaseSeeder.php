@@ -25,8 +25,13 @@ use App\Models\Announcement;
 use App\Models\Article;
 use App\Models\Attendance;
 use App\Models\Classroom;
+use App\Models\ClassSchedule;
+use App\Models\DailyWorshipRecord;
+use App\Models\Extracurricular;
+use App\Models\ExtracurricularEnrollment;
 use App\Models\LeaveRequest;
 use App\Models\PpdbRegistration;
+use App\Models\SchoolEvent;
 use App\Models\SchoolGallery;
 use App\Models\Student;
 use App\Models\Subject;
@@ -41,36 +46,93 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Core Users (Admin, Teachers, Demo Parent)
-        $admin = User::firstOrCreate(
+        // 1. Core Users (Admin/Leadership, Teachers, Demo Parent)
+        $admin = User::updateOrCreate(
             ['email' => 'admin@simad.id'],
             [
-                'name' => 'Staf Tata Usaha',
+                'name' => 'K.H. Nur Hadi, M.Pd.I.',
                 'phone_number' => '081200000001',
                 'role' => UserRole::Admin,
                 'password' => Hash::make('password'),
+                'position' => 'Pimpinan Lembaga & Ketua Yayasan',
+                'education' => 'S2 Manajemen Pendidikan Islam (UIN Maulana Malik Ibrahim Malang)',
+                'bio' => 'Pengasuh Pesantren dan perintis lembaga pendidikan Islam dengan dedikasi lebih dari 25 tahun dalam mencetak generasi qurani.',
+                'display_order' => 1,
                 'is_active' => true,
             ]
         );
 
-        $teacher1 = User::firstOrCreate(
+        $principal = User::updateOrCreate(
+            ['email' => 'kepala@simad.id'],
+            [
+                'name' => 'Ustadz Drs. H. Subakir, M.Pd.I.',
+                'phone_number' => '081200000005',
+                'role' => UserRole::Teacher,
+                'password' => Hash::make('password'),
+                'position' => 'Kepala Madrasah Ibtidaiyah',
+                'education' => 'S2 Pendidikan Islam (IAIN Kediri)',
+                'bio' => 'Berkomitmen mengintegrasikan kurikulum nasional terpadu dengan penguatan tahfidzul quran dan teknologi digital.',
+                'display_order' => 2,
+                'is_active' => true,
+            ]
+        );
+
+        $teacher1 = User::updateOrCreate(
             ['email' => 'guru@simad.id'],
             [
                 'name' => 'Ustadzah Fatimah Azzahra, S.Pd.',
                 'phone_number' => '081200000002',
                 'role' => UserRole::Teacher,
                 'password' => Hash::make('password'),
+                'position' => 'Wali Kelas 1-A & Guru Tematik',
+                'education' => 'S1 PGMI (Universitas Negeri Malang)',
+                'bio' => 'Pendidik ramah anak dengan spesialisasi active learning dan penanaman budi pekerti islami pada santri usia dini.',
+                'display_order' => 3,
                 'is_active' => true,
             ]
         );
 
-        $teacher2 = User::firstOrCreate(
+        $teacher2 = User::updateOrCreate(
             ['email' => 'guru2@simad.id'],
             [
                 'name' => 'Ustadz Ahmad Al-Hafidz, S.Pd.I.',
                 'phone_number' => '081200000004',
                 'role' => UserRole::Teacher,
                 'password' => Hash::make('password'),
+                'position' => 'Koordinator Tahfidz & Quranic School',
+                'education' => 'S1 Ilmu Al-Qur\'an dan Tafsir (PTIQ Jakarta)',
+                'bio' => 'Hafidz 30 Juz bersanad muttashil, aktif membina santri halaqah tahfidz dan seni tilawatil quran.',
+                'display_order' => 4,
+                'is_active' => true,
+            ]
+        );
+
+        $teacher3 = User::updateOrCreate(
+            ['email' => 'guru3@simad.id'],
+            [
+                'name' => 'Ustadzah Siti Maryam, S.Pd.',
+                'phone_number' => '081200000006',
+                'role' => UserRole::Teacher,
+                'password' => Hash::make('password'),
+                'position' => 'Wali Kelas 1-B & Guru Matematika',
+                'education' => 'S1 Pendidikan Matematika (UIN Sunan Kalijaga)',
+                'bio' => 'Mengembangkan metode berhitung ceria dan logika matematika dasar berbasis kontekstual.',
+                'display_order' => 5,
+                'is_active' => true,
+            ]
+        );
+
+        $teacher4 = User::updateOrCreate(
+            ['email' => 'guru4@simad.id'],
+            [
+                'name' => 'Ustadz Muhammad Ridwan, S.Kom.',
+                'phone_number' => '081200000007',
+                'role' => UserRole::Teacher,
+                'password' => Hash::make('password'),
+                'position' => 'Guru TIK & Pembina Hadrah Banjari',
+                'education' => 'S1 Teknik Informatika (Universitas Brawijaya)',
+                'bio' => 'Penggiat seni sholawat hadrah tradisional Jawa Timur dan pengenalan literasi digital sehat untuk santri madrasah.',
+                'display_order' => 6,
                 'is_active' => true,
             ]
         );
@@ -418,18 +480,20 @@ class DatabaseSeeder extends Seeder
                     $notes = 'Tanpa keterangan';
                 }
 
-                Attendance::firstOrCreate(
-                    [
+                $existingAtt = Attendance::where('student_id', $student->id)
+                    ->whereDate('date', $date)
+                    ->first();
+
+                if (! $existingAtt) {
+                    Attendance::create([
                         'student_id' => $student->id,
                         'date' => $date,
-                    ],
-                    [
                         'classroom_id' => $student->classroom_id,
                         'recorded_by' => $student->classroom->homeroom_teacher_id ?? $teacher1->id,
                         'status' => $status,
                         'notes' => $notes,
-                    ]
-                );
+                    ]);
+                }
             }
         }
 
@@ -813,26 +877,246 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        foreach ($ppdbSamples as $p) {
-            PpdbRegistration::firstOrCreate(
-                ['registration_number' => $p['reg_num']],
+        // 13. Kalender Akademik & Agenda Madrasah
+        $eventsData = [
+            [
+                'title' => 'Awal Masuk Tahun Ajaran Baru 2026/2027 (MATSAMA)',
+                'event_type' => 'akademik',
+                'start_date' => '2026-07-15',
+                'end_date' => '2026-07-18',
+                'description' => 'Masa Ta\'aruf Siswa Madrasah (MATSAMA) bagi santri baru kelas 1 dan pengenalan lingkungan belajar.',
+                'is_holiday' => false,
+            ],
+            [
+                'title' => 'Peringatan Hari Kemerdekaan RI Ke-81',
+                'event_type' => 'kegiatan',
+                'start_date' => '2026-08-17',
+                'end_date' => '2026-08-17',
+                'description' => 'Upacara bendera merah putih terpadu di halaman madrasah dilanjutkan aneka perlombaan islami.',
+                'is_holiday' => true,
+            ],
+            [
+                'title' => 'Peringatan Maulid Nabi Muhammad SAW 1448 H',
+                'event_type' => 'phbi',
+                'start_date' => '2026-09-04',
+                'end_date' => '2026-09-04',
+                'description' => 'Pembacaan Maulid Simthuddurar bersama majelis hadrah madrasah dan santunan anak yatim piatu.',
+                'is_holiday' => false,
+            ],
+            [
+                'title' => 'Asesmen Sumatif Tengah Semester (ASTS) Ganjil',
+                'event_type' => 'ujian',
+                'start_date' => '2026-09-21',
+                'end_date' => '2026-09-26',
+                'description' => 'Pelaksanaan evaluasi pembelajaran tengah semester ganjil berbasis lembar soal dan lisan tahfidz.',
+                'is_holiday' => false,
+            ],
+            [
+                'title' => 'Peringatan Hari Santri Nasional 2026',
+                'event_type' => 'phbi',
+                'start_date' => '2026-10-22',
+                'end_date' => '2026-10-22',
+                'description' => 'Apel akbar Hari Santri berbusana muslim/sarung dilanjutkan kirab santri Kalipucung.',
+                'is_holiday' => false,
+            ],
+            [
+                'title' => 'Asesmen Sumatif Akhir Semester (ASAS) Ganjil',
+                'event_type' => 'ujian',
+                'start_date' => '2026-11-30',
+                'end_date' => '2026-12-08',
+                'description' => 'Ujian akhir semester ganjil untuk seluruh jenjang kelas 1 sampai kelas 6.',
+                'is_holiday' => false,
+            ],
+            [
+                'title' => 'Pembagian Rapor Hasil Belajar Semester Ganjil',
+                'event_type' => 'akademik',
+                'start_date' => '2026-12-19',
+                'end_date' => '2026-12-19',
+                'description' => 'Penerimaan lembar hasil belajar santri oleh wali murid di ruang kelas masing-masing.',
+                'is_holiday' => false,
+            ],
+            [
+                'title' => 'Libur Akhir Semester Ganjil',
+                'event_type' => 'libur',
+                'start_date' => '2026-12-21',
+                'end_date' => '2027-01-02',
+                'description' => 'Libur resmi pembelajaran semester ganjil tahun ajaran 2026/2027.',
+                'is_holiday' => true,
+            ],
+        ];
+
+        foreach ($eventsData as $ev) {
+            SchoolEvent::firstOrCreate(
+                ['title' => $ev['title'], 'start_date' => $ev['start_date']],
                 [
-                    'child_name' => $p['child_name'],
-                    'nik' => $p['nik'],
-                    'gender' => $p['gender'],
-                    'birth_place' => $p['b_place'],
-                    'birth_date' => $p['b_date'],
-                    'previous_school' => $p['prev_school'],
-                    'parent_name' => $p['p_name'],
-                    'parent_whatsapp' => $p['p_wa'],
-                    'parent_job' => $p['p_job'],
-                    'address' => $p['addr'],
-                    'file_birth_certificate' => 'ppdb/akta/sample_akta.pdf',
-                    'file_family_card' => 'ppdb/kk/sample_kk.pdf',
-                    'status' => $p['status'],
-                    'admin_notes' => $p['notes'],
+                    'academic_year_id' => $academicYear->id,
+                    'event_type' => $ev['event_type'],
+                    'end_date' => $ev['end_date'],
+                    'description' => $ev['description'],
+                    'is_holiday' => $ev['is_holiday'],
                 ]
             );
+        }
+
+        // 14. Ekstrakurikuler & Pendaftaran Santri
+        $ekskulData = [
+            [
+                'name' => 'Seni Hadrah & Sholawat Banjari',
+                'category' => 'seni_budaya',
+                'instructor_name' => 'Ustadz Muhammad Ridwan, S.Kom.',
+                'schedule_day' => 'Kamis',
+                'schedule_time' => '15:30 - 17:00 WIB',
+                'location' => 'Aula Serbaguna Madrasah',
+                'description' => 'Melatih olah vokal qasidah islami, tabuhan terbang banjari, dan kecintaan pada sholawat.',
+            ],
+            [
+                'name' => 'Tahfidz Club & Seni Tilawah',
+                'category' => 'keagamaan',
+                'instructor_name' => 'Ustadz Ahmad Al-Hafidz, S.Pd.I.',
+                'schedule_day' => 'Selasa',
+                'schedule_time' => '15:30 - 17:00 WIB',
+                'location' => 'Musholla Raudlatul Muta\'allimin',
+                'description' => 'Pendalaman hafalan Al-Qur\'an Juz 29-30 dengan kaidah makharijul huruf dan maqam tilawah.',
+            ],
+            [
+                'name' => 'Gerakan Pramuka Gudep MI Plus',
+                'category' => 'kepanduan',
+                'instructor_name' => 'Kak Hendra Kurniawan, S.Pd.',
+                'schedule_day' => 'Jumat',
+                'schedule_time' => '14:00 - 16:00 WIB',
+                'location' => 'Lapangan Utama Madrasah',
+                'description' => 'Menempa kemandirian, kedisiplinan, sandi morse, pioneering, dan kepanduan siaga-penggalang.',
+            ],
+            [
+                'name' => 'Klub Sains & Matematika Ceria',
+                'category' => 'sains',
+                'instructor_name' => 'Ustadzah Siti Maryam, S.Pd.',
+                'schedule_day' => 'Rabu',
+                'schedule_time' => '15:30 - 16:45 WIB',
+                'location' => 'Laboratorium IPA & Komputer',
+                'description' => 'Eksperimen sains sederhana, pemecahan teka-teki logika, dan persiapan olimpiade KSM madrasah.',
+            ],
+            [
+                'name' => 'Seni Kaligrafi & Khath Al-Qur\'an',
+                'category' => 'seni_budaya',
+                'instructor_name' => 'Ustadz Zainul Abidin',
+                'schedule_day' => 'Senin',
+                'schedule_time' => '15:30 - 16:45 WIB',
+                'location' => 'Ruang Kesenian',
+                'description' => 'Mempelajari kaidah penulisan khat Naskhi dan Riq\'ah dengan media kuas, tinta, dan kanvas.',
+            ],
+            [
+                'name' => 'Bulu Tangkis & Futsal Santri',
+                'category' => 'olahraga',
+                'instructor_name' => 'Coach Bayu Setiawan',
+                'schedule_day' => 'Sabtu',
+                'schedule_time' => '07:00 - 08:30 WIB',
+                'location' => 'Gelanggang Olahraga Kalipucung',
+                'description' => 'Latihan kebugaran fisik, teknik pukulan bulu tangkis, dan ketangkasan bermain bola futsal.',
+            ],
+        ];
+
+        $createdEkskuls = [];
+        foreach ($ekskulData as $ed) {
+            $createdEkskuls[] = Extracurricular::firstOrCreate(
+                ['name' => $ed['name']],
+                [
+                    'category' => $ed['category'],
+                    'instructor_name' => $ed['instructor_name'],
+                    'schedule_day' => $ed['schedule_day'],
+                    'schedule_time' => $ed['schedule_time'],
+                    'location' => $ed['location'],
+                    'description' => $ed['description'],
+                    'is_active' => true,
+                ]
+            );
+        }
+
+        // Daftarkan santri demo anak pak Ahmad Dahlan dan beberapa santri lain
+        $allCreatedStudents = Student::all();
+        if ($allCreatedStudents->isNotEmpty() && !empty($createdEkskuls)) {
+            foreach ($allCreatedStudents->take(15) as $idx => $st) {
+                $chosenEkskul = $createdEkskuls[$idx % count($createdEkskuls)];
+                ExtracurricularEnrollment::firstOrCreate(
+                    [
+                        'student_id' => $st->id,
+                        'extracurricular_id' => $chosenEkskul->id,
+                        'academic_year_id' => $academicYear->id,
+                    ],
+                    [
+                        'status' => 'active',
+                    ]
+                );
+            }
+        }
+
+        // 15. Jadwal KBM Mingguan (Roster Pelajaran Kelas 1-A & 1-B)
+        $classrooms = Classroom::all();
+        $subjects = Subject::all();
+        $teachersList = [$teacher1, $teacher2, $teacher3, $teacher4];
+
+        if ($classrooms->isNotEmpty() && $subjects->isNotEmpty()) {
+            $daysOfWeek = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+            $timeSlots = [
+                1 => ['07:30', '08:45'],
+                2 => ['09:00', '10:15'],
+                3 => ['10:30', '11:45'],
+            ];
+
+            foreach ($classrooms as $clsIdx => $cls) {
+                foreach ($daysOfWeek as $dayIdx => $day) {
+                    foreach ($timeSlots as $period => $times) {
+                        $subj = $subjects[($dayIdx + $period + $clsIdx) % $subjects->count()];
+                        $tchr = $teachersList[($dayIdx + $clsIdx) % count($teachersList)];
+
+                        ClassSchedule::firstOrCreate(
+                            [
+                                'classroom_id' => $cls->id,
+                                'day_of_week' => $day,
+                                'period_order' => $period,
+                                'academic_year_id' => $academicYear->id,
+                            ],
+                            [
+                                'subject_id' => $subj->id,
+                                'teacher_id' => $tchr->id,
+                                'start_time' => $times[0],
+                                'end_time' => $times[1],
+                            ]
+                        );
+                    }
+                }
+            }
+        }
+
+        // 16. Mutaba'ah Ibadah Yaumiyah Santri (7 Hari Terakhir)
+        if ($allCreatedStudents->isNotEmpty()) {
+            $recentDates = [];
+            for ($d = 0; $d < 7; $d++) {
+                $recentDates[] = now()->subDays($d)->toDateString();
+            }
+
+            foreach ($allCreatedStudents->take(10) as $st) {
+                foreach ($recentDates as $dIdx => $rDate) {
+                    DailyWorshipRecord::firstOrCreate(
+                        [
+                            'student_id' => $st->id,
+                            'date' => $rDate,
+                        ],
+                        [
+                            'subuh' => true,
+                            'dzuhur' => true,
+                            'ashar' => true,
+                            'maghrib' => true,
+                            'isya' => $dIdx % 2 === 0,
+                            'dhuha' => $dIdx % 3 !== 0,
+                            'tadarus_quran' => true,
+                            'birrul_walidain' => true,
+                            'parent_notes' => $dIdx === 0 ? 'Alhamdulillah ananda bersemangat sholat berjamaah tepat waktu.' : null,
+                            'teacher_notes' => $dIdx === 0 ? 'Barakallah ananda, terus istiqomah ya!' : null,
+                        ]
+                    );
+                }
+            }
         }
     }
 }

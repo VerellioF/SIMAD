@@ -292,6 +292,132 @@
         </div>
     </section>
 
+    <!-- KALENDER AGENDA & EKSTRAKURIKULER SHOWCASE -->
+    <section class="py-20 bg-ivory">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+            
+            <!-- Grid: Agenda & Ekskul -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left: Agenda Mendatang (5 cols) -->
+                <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-6">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                        <div>
+                            <span class="text-xs font-bold text-gold-600 uppercase tracking-wider">Kalender Akademik</span>
+                            <h3 class="text-xl font-extrabold text-emerald-950 mt-1">Agenda Madrasah</h3>
+                        </div>
+                        <a href="{{ route('public.calendar') }}" class="text-xs font-bold text-emerald-800 hover:text-emerald-950 transition flex items-center gap-1">
+                            <span>Lihat Semua</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+
+                    <div class="space-y-4">
+                        @forelse($upcomingEvents as $ev)
+                            <div class="flex items-start gap-4 p-3 rounded-2xl hover:bg-slate-50 transition border border-transparent hover:border-slate-100">
+                                <div class="w-12 h-12 rounded-xl flex-shrink-0 flex flex-col items-center justify-center text-center {{ $ev->is_holiday ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-emerald-50 text-emerald-900 border border-emerald-100' }}">
+                                    <span class="text-[9px] uppercase font-bold">{{ $ev->start_date->isoFormat('MMM') }}</span>
+                                    <span class="text-base font-black leading-none">{{ $ev->start_date->format('d') }}</span>
+                                </div>
+                                <div class="min-w-0">
+                                    <span class="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-slate-100 text-slate-600">
+                                        {{ ucfirst($ev->event_type) }}
+                                    </span>
+                                    <h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-1 leading-snug truncate">{{ $ev->title }}</h5>
+                                    <p class="text-[11px] text-slate-500 mt-0.5">{{ $ev->start_date->isoFormat('D MMMM Y') }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-xs text-slate-400 py-4 text-center">Belum ada agenda terdekat.</p>
+                        @endforelse
+                    </div>
+
+                    <a href="{{ route('public.calendar') }}" class="block w-full text-center py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-emerald-950 font-bold text-xs border border-slate-200 transition">
+                        Buka Kalender Akademik Lengkap
+                    </a>
+                </div>
+
+                <!-- Right: Ekstrakurikuler Pilihan (7 cols) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-emerald-850 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">Minat & Bakat Santri</span>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-2">Ekstrakurikuler Unggulan</h3>
+                        </div>
+                        <a href="{{ route('public.ekskul') }}" class="hidden sm:inline-flex items-center gap-1 text-xs font-bold text-emerald-850 hover:underline">
+                            <span>Katalog Selengkapnya</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        @foreach($featuredEkskuls as $fe)
+                            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 hover:shadow-md transition flex flex-col justify-between group">
+                                <div>
+                                    <div class="flex justify-between items-start mb-2">
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-100 text-emerald-850">
+                                            {{ str_replace('_', ' ', ucfirst($fe->category)) }}
+                                        </span>
+                                        <span class="text-[10px] text-slate-400 font-semibold">{{ $fe->enrollments_count }} Santri</span>
+                                    </div>
+                                    <h4 class="font-bold text-slate-900 text-sm group-hover:text-emerald-800 transition">{{ $fe->name }}</h4>
+                                    <p class="text-xs text-slate-500 mt-1 line-clamp-2">{{ $fe->description }}</p>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+                                    <span>Jadwal: <strong class="text-slate-700">{{ $fe->schedule_day }}</strong></span>
+                                    <span class="text-emerald-800 font-bold group-hover:translate-x-0.5 transition-transform">Detail →</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="sm:hidden text-center">
+                        <a href="{{ route('public.ekskul') }}" class="inline-block text-xs font-bold text-emerald-800 underline">Lihat Semua Ekstrakurikuler</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Showcase Dewan Guru & Pimpinan -->
+            @if($featuredTeachers->isNotEmpty())
+            <div class="pt-10 border-t border-slate-200/80">
+                <div class="text-center max-w-xl mx-auto mb-10">
+                    <span class="text-xs font-bold text-emerald-850 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">Pendidik Berakhlak & Kompeten</span>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-2">Dewan Asatidz & Pimpinan</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-2">Dimentori oleh tenaga pendidik lulusan perguruan tinggi Islam dan umum terkemuka dengan sanad keilmuan yang jelas.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    @foreach($featuredTeachers as $ft)
+                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 text-center hover:shadow-md transition flex flex-col justify-between">
+                            <div>
+                                <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-emerald-900 to-emerald-700 text-white flex items-center justify-center text-xl font-black shadow-md mb-3">
+                                    {{ strtoupper(substr($ft->name, 0, 2)) }}
+                                </div>
+                                <h4 class="font-bold text-slate-900 text-sm leading-snug">{{ $ft->name }}</h4>
+                                <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-850">
+                                    {{ $ft->position ?? 'Guru Asatidz' }}
+                                </span>
+                                @if($ft->education)
+                                    <p class="text-[10px] text-slate-400 mt-1 line-clamp-1">{{ $ft->education }}</p>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="text-center mt-8">
+                    <a href="{{ route('public.teachers') }}" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs shadow transition">
+                        <span>Lihat Profil Lengkap Seluruh Dewan Asatidz</span>
+                        <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+                </div>
+            </div>
+            @endif
+
+        </div>
+    </section>
+
     <!-- CALL TO ACTION BANNER PPDB -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-24">
         <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden shadow-2xl border border-gold-500/40">

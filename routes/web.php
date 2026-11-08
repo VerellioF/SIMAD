@@ -3,34 +3,48 @@
 declare(strict_types=1);
 
 use App\Exports\PpdbEmisExport;
+use App\Http\Controllers\Admin\AdminAgendaController;
 use App\Http\Controllers\Admin\AdminAnnouncementController;
 use App\Http\Controllers\Admin\AdminArticleController;
 use App\Http\Controllers\Admin\AdminClassroomController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminExtracurricularController;
 use App\Http\Controllers\Admin\AdminGalleryController;
 use App\Http\Controllers\Admin\AdminPpdbController;
+use App\Http\Controllers\Admin\AdminScheduleController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminTeacherController;
 use App\Http\Controllers\Admin\AdminTuitionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Parent\ParentAttendanceController;
 use App\Http\Controllers\Parent\ParentDashboardController;
+use App\Http\Controllers\Parent\ParentExtracurricularController;
 use App\Http\Controllers\Parent\ParentGradeController;
 use App\Http\Controllers\Parent\ParentLeaveRequestController;
+use App\Http\Controllers\Parent\ParentScheduleController;
 use App\Http\Controllers\Parent\ParentTahfidzController;
 use App\Http\Controllers\Parent\ParentTuitionController;
+use App\Http\Controllers\Parent\ParentWorshipController;
 use App\Http\Controllers\PpdbController;
+use App\Http\Controllers\PublicCalendarController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\PublicExtracurricularController;
+use App\Http\Controllers\PublicTeacherController;
 use App\Http\Controllers\Teacher\AttendanceController;
 use App\Http\Controllers\Teacher\GradeController;
 use App\Http\Controllers\Teacher\LeaveRequestController;
 use App\Http\Controllers\Teacher\TahfidzController;
 use App\Http\Controllers\Teacher\TeacherDashboardController;
+use App\Http\Controllers\Teacher\TeacherScheduleController;
+use App\Http\Controllers\Teacher\TeacherWorshipController;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
-// 1. Public Landing Page
+// 1. Halaman Publik & Profil Madrasah
 Route::get('/', [PublicController::class, 'index'])->name('home');
+Route::get('/tentang/guru', [PublicTeacherController::class, 'index'])->name('public.teachers');
+Route::get('/kalender', [PublicCalendarController::class, 'index'])->name('public.calendar');
+Route::get('/ekstrakurikuler', [PublicExtracurricularController::class, 'index'])->name('public.ekskul');
 
 // 2. Modul PPDB Online (Publik)
 Route::prefix('ppdb')->name('ppdb.')->group(function () {
@@ -95,6 +109,24 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::get('/galeri', [AdminGalleryController::class, 'index'])->name('galleries.index');
     Route::post('/galeri', [AdminGalleryController::class, 'store'])->name('galleries.store');
     Route::delete('/galeri/{gallery}', [AdminGalleryController::class, 'destroy'])->name('galleries.destroy');
+
+    // Modul Tambahan: Agenda, Jadwal & Ekskul
+    Route::get('/agenda', [AdminAgendaController::class, 'index'])->name('agenda.index');
+    Route::post('/agenda', [AdminAgendaController::class, 'store'])->name('agenda.store');
+    Route::put('/agenda/{event}', [AdminAgendaController::class, 'update'])->name('agenda.update');
+    Route::delete('/agenda/{event}', [AdminAgendaController::class, 'destroy'])->name('agenda.destroy');
+
+    Route::get('/jadwal', [AdminScheduleController::class, 'index'])->name('schedules.index');
+    Route::post('/jadwal', [AdminScheduleController::class, 'store'])->name('schedules.store');
+    Route::put('/jadwal/{schedule}', [AdminScheduleController::class, 'update'])->name('schedules.update');
+    Route::delete('/jadwal/{schedule}', [AdminScheduleController::class, 'destroy'])->name('schedules.destroy');
+
+    Route::get('/ekskul', [AdminExtracurricularController::class, 'index'])->name('ekskul.index');
+    Route::post('/ekskul', [AdminExtracurricularController::class, 'store'])->name('ekskul.store');
+    Route::put('/ekskul/{ekskul}', [AdminExtracurricularController::class, 'update'])->name('ekskul.update');
+    Route::delete('/ekskul/{ekskul}', [AdminExtracurricularController::class, 'destroy'])->name('ekskul.destroy');
+    Route::post('/ekskul/peserta', [AdminExtracurricularController::class, 'enrollStudent'])->name('ekskul.enroll');
+    Route::delete('/ekskul/peserta/{enrollment}', [AdminExtracurricularController::class, 'removeStudent'])->name('ekskul.unenroll');
 });
 
 // 5. Custom Portal Guru & Wali Kelas
@@ -112,6 +144,11 @@ Route::prefix('guru')->middleware(['auth', 'role:teacher'])->name('teacher.')->g
     Route::post('/tahfidz', [TahfidzController::class, 'store'])->name('tahfidz.store');
     Route::get('/nilai', [GradeController::class, 'index'])->name('grades.index');
     Route::post('/nilai', [GradeController::class, 'store'])->name('grades.store');
+
+    // Jadwal Mengajar & Mutaba'ah Ibadah Santri
+    Route::get('/jadwal', [TeacherScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('/mutabaah', [TeacherWorshipController::class, 'index'])->name('worship.index');
+    Route::post('/mutabaah/catatan', [TeacherWorshipController::class, 'updateNotes'])->name('worship.notes');
 });
 
 // 6. Custom Portal Wali Murid
@@ -129,4 +166,12 @@ Route::prefix('wali')->middleware(['auth', 'role:parent'])->name('parent.')->gro
     Route::get('/spp', [ParentTuitionController::class, 'index'])->name('tuition.index');
     Route::post('/spp/{bill}/konfirmasi', [ParentTuitionController::class, 'confirmPayment'])->name('tuition.confirm');
     Route::get('/spp/{bill}/kwitansi', [ParentTuitionController::class, 'receipt'])->name('tuition.receipt');
+
+    // Jadwal Pelajaran, Mutaba'ah Ibadah & Ekstrakurikuler
+    Route::get('/jadwal', [ParentScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('/mutabaah', [ParentWorshipController::class, 'index'])->name('worship.index');
+    Route::post('/mutabaah', [ParentWorshipController::class, 'store'])->name('worship.store');
+    Route::get('/ekskul', [ParentExtracurricularController::class, 'index'])->name('ekskul.index');
+    Route::post('/ekskul/daftar', [ParentExtracurricularController::class, 'enroll'])->name('ekskul.enroll');
+    Route::delete('/ekskul/{enrollment}', [ParentExtracurricularController::class, 'cancel'])->name('ekskul.cancel');
 });

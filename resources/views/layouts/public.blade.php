@@ -116,8 +116,9 @@
                 <!-- Desktop Menu -->
                 <nav class="hidden lg:flex items-center space-x-7 text-sm font-semibold text-slate-700">
                     <a href="/" class="hover:text-emerald-900 transition">Beranda</a>
-                    <a href="/#profil" class="hover:text-emerald-900 transition">Profil</a>
-                    <a href="/#program" class="hover:text-emerald-900 transition">Program Unggulan</a>
+                    <a href="{{ route('public.teachers') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.teachers') ? 'text-emerald-900 font-bold' : '' }}">Dewan Asatidz</a>
+                    <a href="{{ route('public.calendar') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.calendar') ? 'text-emerald-900 font-bold' : '' }}">Kalender</a>
+                    <a href="{{ route('public.ekskul') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.ekskul') ? 'text-emerald-900 font-bold' : '' }}">Ekstrakurikuler</a>
                     <a href="/#galeri" class="hover:text-emerald-900 transition">Galeri</a>
                     <a href="/ppdb/cek-status" class="hover:text-emerald-900 transition">Cek Status PPDB</a>
                 </nav>
@@ -141,8 +142,9 @@
             <div x-show="mobileMenu" x-cloak @click.away="mobileMenu = false" class="lg:hidden mt-4 pt-4 pb-6 border-t border-slate-100 space-y-3">
                 <nav class="flex flex-col space-y-2 text-sm font-semibold text-slate-700">
                     <a href="/" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Beranda</a>
-                    <a href="/#profil" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Profil & Visi Misi</a>
-                    <a href="/#program" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Program Unggulan</a>
+                    <a href="{{ route('public.teachers') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Dewan Asatidz & Pimpinan</a>
+                    <a href="{{ route('public.calendar') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Kalender Akademik</a>
+                    <a href="{{ route('public.ekskul') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Ekstrakurikuler</a>
                     <a href="/#galeri" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Galeri & Warta</a>
                     <a href="/ppdb/cek-status" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Cek Status PPDB</a>
                 </nav>

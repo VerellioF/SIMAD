@@ -70,4 +70,14 @@ class Student extends Model
     {
         return $this->hasMany(TuitionBill::class);
     }
+
+    public function extracurricularEnrollments(): HasMany
+    {
+        return $this->hasMany(ExtracurricularEnrollment::class);
+    }
+
+    public function dailyWorshipRecords(): HasMany
+    {
+        return $this->hasMany(DailyWorshipRecord::class);
+    }
 }
