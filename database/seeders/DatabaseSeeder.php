@@ -26,6 +26,7 @@ use App\Models\Article;
 use App\Models\Attendance;
 use App\Models\Classroom;
 use App\Models\ClassSchedule;
+use App\Models\CharacterRule;
 use App\Models\DailyWorshipRecord;
 use App\Models\Extracurricular;
 use App\Models\ExtracurricularEnrollment;
@@ -34,6 +35,7 @@ use App\Models\PpdbRegistration;
 use App\Models\SchoolEvent;
 use App\Models\SchoolGallery;
 use App\Models\Student;
+use App\Models\StudentConductRecord;
 use App\Models\Subject;
 use App\Models\TahfidzRecord;
 use App\Models\TuitionBill;
@@ -1097,12 +1099,14 @@ class DatabaseSeeder extends Seeder
 
             foreach ($allCreatedStudents->take(10) as $st) {
                 foreach ($recentDates as $dIdx => $rDate) {
-                    DailyWorshipRecord::firstOrCreate(
-                        [
+                    $existingWorship = DailyWorshipRecord::where('student_id', $st->id)
+                        ->whereDate('date', $rDate)
+                        ->first();
+
+                    if (! $existingWorship) {
+                        DailyWorshipRecord::create([
                             'student_id' => $st->id,
                             'date' => $rDate,
-                        ],
-                        [
                             'subuh' => true,
                             'dzuhur' => true,
                             'ashar' => true,
@@ -1113,6 +1117,157 @@ class DatabaseSeeder extends Seeder
                             'birrul_walidain' => true,
                             'parent_notes' => $dIdx === 0 ? 'Alhamdulillah ananda bersemangat sholat berjamaah tepat waktu.' : null,
                             'teacher_notes' => $dIdx === 0 ? 'Barakallah ananda, terus istiqomah ya!' : null,
+                        ]);
+                    }
+                }
+            }
+        }
+
+        // 17. Katalog Tata Tertib & Poin Karakter Santri
+        $characterRulesData = [
+            // Apresiasi Positif
+            [
+                'name' => 'Membantu ustadz/ustadzah dan sesama santri dengan ikhlas',
+                'type' => 'apresiasi',
+                'category' => 'akhlak_adab',
+                'points' => 10,
+                'description' => 'Keteladanan adab tolong menolong sesama saudara muslim.',
+            ],
+            [
+                'name' => 'Menjadi imam sholat rawatib / muadzin musholla madrasah',
+                'type' => 'apresiasi',
+                'category' => 'ibadah',
+                'points' => 15,
+                'description' => 'Keberanian memimpin ibadah berjamaah dengan tartil dan fasih.',
+            ],
+            [
+                'name' => 'Meraih juara lomba akademik / seni islami tingkat kecamatan/kota',
+                'type' => 'apresiasi',
+                'category' => 'prestasi',
+                'points' => 25,
+                'description' => 'Mengharumkan nama madrasah dalam ajang perlombaan.',
+            ],
+            [
+                'name' => 'Menjaga kebersihan kelas & membuang sampah pada tempatnya',
+                'type' => 'apresiasi',
+                'category' => 'kebersihan_kerapian',
+                'points' => 5,
+                'description' => 'Pembiasaan kebersihan sebagai cerminan iman (An-Nadhafatu minal iman).',
+            ],
+            [
+                'name' => 'Mencapai target hafalan Al-Qur\'an Juz 30 lebih cepat',
+                'type' => 'apresiasi',
+                'category' => 'ibadah',
+                'points' => 20,
+                'description' => 'Ketekunan muroja\'ah dan ziyadah hafalan secara istiqomah.',
+            ],
+
+            // Pelanggaran & Pembinaan
+            [
+                'name' => 'Terlambat hadir ke madrasah tanpa keterangan sah',
+                'type' => 'pelanggaran',
+                'category' => 'kedisiplinan',
+                'points' => 5,
+                'description' => 'Datang melebihi bel masuk jam 07:00 WIB.',
+            ],
+            [
+                'name' => 'Pakaian seragam tidak lengkap atau tidak rapi',
+                'type' => 'pelanggaran',
+                'category' => 'kebersihan_kerapian',
+                'points' => 5,
+                'description' => 'Tidak mengenakan atribut madrasah atau peci/jilbab yang ditentukan.',
+            ],
+            [
+                'name' => 'Membuat gaduh saat sholat berjamaah di musholla',
+                'type' => 'pelanggaran',
+                'category' => 'ibadah',
+                'points' => 10,
+                'description' => 'Mengganggu kekhusyukan jamaah sholat dhuha / dzuhur.',
+            ],
+            [
+                'name' => 'Mengejek atau berkata kurang santun kepada teman',
+                'type' => 'pelanggaran',
+                'category' => 'akhlak_adab',
+                'points' => 10,
+                'description' => 'Melanggar adab kesantunan berbicara (Lisanul mar\'i yabda\' min qalbihi).',
+            ],
+        ];
+
+        $createdRules = [];
+        foreach ($characterRulesData as $crd) {
+            $createdRules[] = CharacterRule::firstOrCreate(
+                ['name' => $crd['name']],
+                [
+                    'type' => $crd['type'],
+                    'category' => $crd['category'],
+                    'points' => $crd['points'],
+                    'description' => $crd['description'],
+                    'is_active' => true,
+                ]
+            );
+        }
+
+        // Catatan Karakter untuk Sampel Santri
+        if ($allCreatedStudents->isNotEmpty() && !empty($createdRules)) {
+            $sampleConducts = [
+                [
+                    'st_idx' => 0,
+                    'rule' => $createdRules[0], // Membantu ustadz
+                    'type' => 'apresiasi',
+                    'points' => 10,
+                    'title' => 'Membantu merapikan Al-Qur\'an di musholla',
+                    'desc' => 'Ananda berinisiatif menata kembali mushaf Al-Qur\'an setelah sholat dhuha bersama.',
+                    'action' => 'Diberikan bintang teladan dan apresiasi di depan kelas',
+                    'date' => now()->subDays(2)->toDateString(),
+                ],
+                [
+                    'st_idx' => 0,
+                    'rule' => $createdRules[1], // Muadzin
+                    'type' => 'apresiasi',
+                    'points' => 15,
+                    'title' => 'Menjadi muadzin sholat Dzuhur berjamaah',
+                    'desc' => 'Adzan sangat merdu, fasih, dan tepat waktu.',
+                    'action' => 'Apresiasi dari Kepala Madrasah',
+                    'date' => now()->subDay()->toDateString(),
+                ],
+                [
+                    'st_idx' => 1,
+                    'rule' => $createdRules[3], // Menjaga kebersihan
+                    'type' => 'apresiasi',
+                    'points' => 5,
+                    'title' => 'Memimpin piket kebersihan kelas',
+                    'desc' => 'Kelas 1-A sangat rapi dan wangi sebelum jam pertama dimulai.',
+                    'action' => 'Pujian wali kelas',
+                    'date' => now()->subDays(3)->toDateString(),
+                ],
+                [
+                    'st_idx' => 2,
+                    'rule' => $createdRules[5], // Terlambat
+                    'type' => 'pelanggaran',
+                    'points' => 5,
+                    'title' => 'Terlambat hadir 15 menit',
+                    'desc' => 'Terjebak hujan di jalan dan belum siap jas hujan.',
+                    'action' => 'Dinasehati dengan santun & diajak muroja\'ah Surat An-Nas',
+                    'date' => now()->subDays(4)->toDateString(),
+                ],
+            ];
+
+            foreach ($sampleConducts as $sc) {
+                if (isset($allCreatedStudents[$sc['st_idx']])) {
+                    $st = $allCreatedStudents[$sc['st_idx']];
+                    StudentConductRecord::firstOrCreate(
+                        [
+                            'student_id' => $st->id,
+                            'title' => $sc['title'],
+                            'incident_date' => $sc['date'],
+                        ],
+                        [
+                            'character_rule_id' => $sc['rule']->id,
+                            'recorded_by' => $teacher1->id,
+                            'type' => $sc['type'],
+                            'points' => $sc['points'],
+                            'description' => $sc['desc'],
+                            'follow_up_action' => $sc['action'],
                         ]
                     );
                 }

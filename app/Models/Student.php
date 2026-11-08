@@ -80,4 +80,18 @@ class Student extends Model
     {
         return $this->hasMany(DailyWorshipRecord::class);
     }
+
+    public function conductRecords(): HasMany
+    {
+        return $this->hasMany(StudentConductRecord::class);
+    }
+
+    public function calculateTotalConductScore(): int
+    {
+        $baseScore = 100; // Standar awal poin karakter santri
+        $apresiasi = $this->conductRecords()->where('type', 'apresiasi')->sum('points');
+        $pelanggaran = $this->conductRecords()->where('type', 'pelanggaran')->sum('points');
+
+        return $baseScore + $apresiasi - $pelanggaran;
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminAgendaController;
 use App\Http\Controllers\Admin\AdminAnnouncementController;
 use App\Http\Controllers\Admin\AdminArticleController;
 use App\Http\Controllers\Admin\AdminClassroomController;
+use App\Http\Controllers\Admin\AdminConductController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminExtracurricularController;
 use App\Http\Controllers\Admin\AdminGalleryController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\AdminTeacherController;
 use App\Http\Controllers\Admin\AdminTuitionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Parent\ParentAttendanceController;
+use App\Http\Controllers\Parent\ParentConductController;
 use App\Http\Controllers\Parent\ParentDashboardController;
 use App\Http\Controllers\Parent\ParentExtracurricularController;
 use App\Http\Controllers\Parent\ParentGradeController;
@@ -34,6 +36,7 @@ use App\Http\Controllers\Teacher\AttendanceController;
 use App\Http\Controllers\Teacher\GradeController;
 use App\Http\Controllers\Teacher\LeaveRequestController;
 use App\Http\Controllers\Teacher\TahfidzController;
+use App\Http\Controllers\Teacher\TeacherConductController;
 use App\Http\Controllers\Teacher\TeacherDashboardController;
 use App\Http\Controllers\Teacher\TeacherScheduleController;
 use App\Http\Controllers\Teacher\TeacherWorshipController;
@@ -127,6 +130,13 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::delete('/ekskul/{ekskul}', [AdminExtracurricularController::class, 'destroy'])->name('ekskul.destroy');
     Route::post('/ekskul/peserta', [AdminExtracurricularController::class, 'enrollStudent'])->name('ekskul.enroll');
     Route::delete('/ekskul/peserta/{enrollment}', [AdminExtracurricularController::class, 'removeStudent'])->name('ekskul.unenroll');
+
+    // Disiplin & Karakter Positif Santri
+    Route::get('/disiplin', [AdminConductController::class, 'index'])->name('conduct.index');
+    Route::post('/disiplin/catatan', [AdminConductController::class, 'storeRecord'])->name('conduct.store_record');
+    Route::delete('/disiplin/catatan/{record}', [AdminConductController::class, 'destroyRecord'])->name('conduct.destroy_record');
+    Route::post('/disiplin/aturan', [AdminConductController::class, 'storeRule'])->name('conduct.store_rule');
+    Route::delete('/disiplin/aturan/{rule}', [AdminConductController::class, 'destroyRule'])->name('conduct.destroy_rule');
 });
 
 // 5. Custom Portal Guru & Wali Kelas
@@ -149,6 +159,10 @@ Route::prefix('guru')->middleware(['auth', 'role:teacher'])->name('teacher.')->g
     Route::get('/jadwal', [TeacherScheduleController::class, 'index'])->name('schedules.index');
     Route::get('/mutabaah', [TeacherWorshipController::class, 'index'])->name('worship.index');
     Route::post('/mutabaah/catatan', [TeacherWorshipController::class, 'updateNotes'])->name('worship.notes');
+
+    // Disiplin & Poin Karakter Positif Santri
+    Route::get('/disiplin', [TeacherConductController::class, 'index'])->name('conduct.index');
+    Route::post('/disiplin', [TeacherConductController::class, 'store'])->name('conduct.store');
 });
 
 // 6. Custom Portal Wali Murid
@@ -174,4 +188,7 @@ Route::prefix('wali')->middleware(['auth', 'role:parent'])->name('parent.')->gro
     Route::get('/ekskul', [ParentExtracurricularController::class, 'index'])->name('ekskul.index');
     Route::post('/ekskul/daftar', [ParentExtracurricularController::class, 'enroll'])->name('ekskul.enroll');
     Route::delete('/ekskul/{enrollment}', [ParentExtracurricularController::class, 'cancel'])->name('ekskul.cancel');
+
+    // Disiplin & Raport Karakter Ananda
+    Route::get('/disiplin', [ParentConductController::class, 'index'])->name('conduct.index');
 });
