@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="hadrahBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B2A4A"/>
+      <stop offset="50%" stop-color="#0D3B2E"/>
+      <stop offset="100%" stop-color="#08251C"/>
+    </linearGradient>
+    <linearGradient id="goldH" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="100%" stop-color="#D4AF37"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#hadrahBg)"/>
+  <!-- Rebana Drum Illustration Center -->
+  <g transform="translate(400, 200)">
+    <ellipse cx="0" cy="0" rx="130" ry="60" fill="#FAF8F5" stroke="url(#goldH)" stroke-width="4"/>
+    <ellipse cx="0" cy="0" rx="115" ry="50" fill="none" stroke="#D1D5DB" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <path d="M-130,0 L-130,40 C-130,73 130,73 130,40 L130,0 Z" fill="#92400E" stroke="url(#goldH)" stroke-width="3"/>
+    <!-- Metallic Jingle Coins (Kecrek) on Rim -->
+    <circle cx="-110" cy="20" r="10" fill="url(#goldH)" stroke="#78350F" stroke-width="2"/>
+    <circle cx="0" cy="40" r="10" fill="url(#goldH)" stroke="#78350F" stroke-width="2"/>
+    <circle cx="110" cy="20" r="10" fill="url(#goldH)" stroke="#78350F" stroke-width="2"/>
+  </g>
+  <!-- Musical Wave Lines -->
+  <path d="M100,280 Q250,220 400,280 T700,280" fill="none" stroke="url(#goldH)" stroke-width="2" opacity="0.3"/>
+  <rect x="0" y="380" width="800" height="120" fill="#051C15" opacity="0.9"/>
+  <text x="40" y="425" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="800" fill="#FAF8F5">Grup Seni Hadrah &amp; Sholawat Rebana</text>
+  <text x="40" y="455" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="500" fill="#D4AF37">Pentas seni islami dan syiar sholawat santri di tingkat kecamatan &amp; kabupaten</text>
+</svg>

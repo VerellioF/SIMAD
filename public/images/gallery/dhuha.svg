@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="dhuhaBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F4C3A"/>
+      <stop offset="50%" stop-color="#145A46"/>
+      <stop offset="100%" stop-color="#0A2C21"/>
+    </linearGradient>
+    <linearGradient id="goldDhuha" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="100%" stop-color="#D4AF37"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#dhuhaBg)"/>
+  <!-- Morning Sun Rays in Mosque -->
+  <circle cx="400" cy="180" r="100" fill="url(#goldDhuha)" opacity="0.25"/>
+  <g stroke="url(#goldDhuha)" stroke-width="1.5" opacity="0.3">
+    <line x1="400" y1="180" x2="200" y2="40"/>
+    <line x1="400" y1="180" x2="600" y2="40"/>
+    <line x1="400" y1="180" x2="150" y2="180"/>
+    <line x1="400" y1="180" x2="650" y2="180"/>
+  </g>
+  <!-- Mosque Pillars Silhouette -->
+  <g fill="#072219" opacity="0.75">
+    <rect x="80" y="80" width="40" height="320"/>
+    <rect x="680" y="80" width="40" height="320"/>
+    <path d="M120,120 C240,60 560,60 680,120 L680,80 L120,80 Z"/>
+  </g>
+  <!-- Rows of Praying Santri Silhouettes -->
+  <g fill="#051C15">
+    <circle cx="340" cy="280" r="14"/>
+    <path d="M320,298 C330,290 350,290 360,298 L365,340 L315,340 Z"/>
+    <circle cx="400" cy="280" r="14"/>
+    <path d="M380,298 C390,290 410,290 420,298 L425,340 L375,340 Z"/>
+    <circle cx="460" cy="280" r="14"/>
+    <path d="M440,298 C450,290 470,290 480,298 L485,340 L435,340 Z"/>
+  </g>
+  <rect x="0" y="380" width="800" height="120" fill="#051C15" opacity="0.9"/>
+  <text x="40" y="425" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="800" fill="#FAF8F5">Pembiasaan Sholat Dhuha Berjamaah</text>
+  <text x="40" y="455" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="500" fill="#D4AF37">Penanaman nilai spiritualitas dan istiqomah ibadah fardhu &amp; sunnah</text>
+</svg>

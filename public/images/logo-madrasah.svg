@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D3B2E" />
+      <stop offset="100%" stop-color="#08251C" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5E08F" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#997715" />
+    </linearGradient>
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background Circle & Border -->
+  <circle cx="100" cy="100" r="95" fill="url(#emeraldGrad)" stroke="url(#goldGrad)" stroke-width="3" filter="url(#subtleShadow)"/>
+  
+  <!-- Outer Decorative Ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" stroke-dasharray="4,3" opacity="0.8"/>
+  <circle cx="100" cy="100" r="82" fill="none" stroke="url(#goldGrad)" stroke-width="1"/>
+
+  <!-- 8-Pointed Star (Rub el Hizb) -->
+  <g transform="translate(100, 100) scale(0.68) translate(-100, -100)" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" opacity="0.95">
+    <rect x="35" y="35" width="130" height="130" rx="12" />
+    <rect x="35" y="35" width="130" height="130" rx="12" transform="rotate(45 100 100)" />
+  </g>
+
+  <!-- Islamic Dome / Arch Silhouette Center -->
+  <path d="M70,128 C70,95 85,82 100,68 C115,82 130,95 130,128 Z" fill="#0B3326" stroke="url(#goldGrad)" stroke-width="1.5" />
+  
+  <!-- Radiant Rays -->
+  <g stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.6">
+    <line x1="100" y1="65" x2="100" y2="48" />
+    <line x1="88" y1="68" x2="76" y2="54" />
+    <line x1="112" y1="68" x2="124" y2="54" />
+    <line x1="80" y1="78" x2="65" y2="68" />
+    <line x1="120" y1="78" x2="135" y2="68" />
+  </g>
+
+  <!-- Crescent & Star on Dome Peak -->
+  <path d="M99,44 A5,5 0 1,1 96,51 A6.5,6.5 0 1,0 99,44 Z" fill="url(#goldGrad)" />
+  <polygon points="102,46 103,48 105,48 103.5,49.5 104,51.5 102,50 100,51.5 100.5,49.5 99,48 101,48" fill="url(#goldGrad)" transform="scale(0.8) translate(26, 11)"/>
+
+  <!-- Open Quran Book -->
+  <g fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left Page -->
+    <path d="M100,125 C88,114 74,115 62,118 L62,138 C74,135 88,134 100,145 Z" fill="#FAF8F5" />
+    <!-- Right Page -->
+    <path d="M100,125 C112,114 126,115 138,118 L138,138 C126,135 112,134 100,145 Z" fill="#FAF8F5" />
+    <!-- Book Stand (Rehal) -->
+    <path d="M72,145 L100,138 L128,145" stroke="url(#goldGrad)" stroke-width="3" />
+    <path d="M75,148 L65,160 M125,148 L135,160" stroke="url(#goldGrad)" stroke-width="3.5" />
+    <path d="M85,152 L115,152" stroke="url(#goldGrad)" stroke-width="2.5" />
+  </g>
+
+  <!-- Miniature Lines on Quran Pages -->
+  <g stroke="#0D3B2E" stroke-width="1.2" opacity="0.75" stroke-linecap="round">
+    <line x1="68" y1="124" x2="94" y2="120" />
+    <line x1="68" y1="128" x2="94" y2="124" />
+    <line x1="68" y1="132" x2="94" y2="128" />
+    <line x1="106" y1="120" x2="132" y2="124" />
+    <line x1="106" y1="124" x2="132" y2="128" />
+    <line x1="106" y1="128" x2="132" y2="132" />
+  </g>
+
+  <!-- Upper Ribbon Text -->
+  <text x="100" y="32" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="800" fill="url(#goldGrad)" text-anchor="middle" letter-spacing="2">MI PLUS RAUDLATUL MUTA'ALLIMIN</text>
+  <text x="100" y="178" font-family="'Plus Jakarta Sans', sans-serif" font-size="7.5" font-weight="700" fill="url(#goldGrad)" text-anchor="middle" letter-spacing="3">KALIPUCUNG - BLITAR</text>
+</svg>

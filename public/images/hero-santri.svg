@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="600" height="750">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#051C15" />
+      <stop offset="40%" stop-color="#0D3B2E" />
+      <stop offset="80%" stop-color="#145A46" />
+      <stop offset="100%" stop-color="#0B3326" />
+    </linearGradient>
+    <linearGradient id="goldLustre" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5E08F" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#A68019" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0D3B2E" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="archClip">
+      <path d="M60,200 C60,60 300,10 300,10 C300,10 540,60 540,200 L540,730 L60,730 Z" />
+    </clipPath>
+  </defs>
+
+  <!-- Arch Border Base -->
+  <path d="M50,200 C50,50 300,0 300,0 C300,0 550,50 550,200 L550,740 L50,740 Z" fill="#08251C" stroke="url(#goldLustre)" stroke-width="4"/>
+
+  <!-- Inside Clipped Arch -->
+  <g clip-path="url(#archClip)">
+    <rect x="0" y="0" width="600" height="750" fill="url(#skyGrad)" />
+    
+    <!-- Radiant Glow Behind Moon -->
+    <circle cx="300" cy="220" r="180" fill="url(#sunGlow)" />
+
+    <!-- Islamic Geometric Stars Pattern in Sky -->
+    <g stroke="url(#goldLustre)" stroke-width="0.8" opacity="0.25" fill="none">
+      <circle cx="300" cy="220" r="120" stroke-dasharray="3,6" />
+      <circle cx="300" cy="220" r="150" />
+      <polygon points="300,70 330,190 450,220 330,250 300,370 270,250 150,220 270,190" />
+      <polygon points="300,100 320,200 420,220 320,240 300,340 280,240 180,220 280,200" transform="rotate(45 300 220)" />
+    </g>
+
+    <!-- Crescent Moon & Star -->
+    <g transform="translate(300, 160) scale(1.4) translate(-300, -160)">
+      <path d="M315,130 A45,45 0 1,1 270,175 A55,55 0 1,0 315,130 Z" fill="url(#goldLustre)" filter="drop-shadow(0 0 12px rgba(212,175,55,0.7))"/>
+      <polygon points="325,145 328,153 336,153 330,158 332,166 325,161 318,166 320,158 314,153 322,153" fill="url(#goldLustre)"/>
+    </g>
+
+    <!-- Mosque Silhouettes in Distance -->
+    <g fill="#072219" opacity="0.85">
+      <!-- Central Dome -->
+      <path d="M220,440 C220,350 300,320 300,300 C300,320 380,350 380,440 Z" />
+      <!-- Left Minaret -->
+      <rect x="140" y="320" width="22" height="150" rx="3" />
+      <polygon points="135,320 151,260 167,320" />
+      <!-- Right Minaret -->
+      <rect x="438" y="320" width="22" height="150" rx="3" />
+      <polygon points="433,320 449,260 465,320" />
+    </g>
+
+    <!-- Mosque Interior Arch Pillars -->
+    <g fill="#0B3326" stroke="url(#goldLustre)" stroke-width="2">
+      <!-- Left Pillar -->
+      <rect x="60" y="240" width="50" height="490" fill="#092A20" />
+      <path d="M60,250 C80,230 90,230 110,250 L110,240 L60,240 Z" fill="url(#goldLustre)" />
+      <!-- Right Pillar -->
+      <rect x="490" y="240" width="50" height="490" fill="#092A20" />
+      <path d="M490,250 C510,230 520,230 540,250 L540,240 L490,240 Z" fill="url(#goldLustre)" />
+    </g>
+
+    <!-- Main Subject: Santri Silhouette with Holy Quran & Rehal -->
+    <!-- Soft Aura -->
+    <circle cx="300" cy="540" r="140" fill="url(#goldLustre)" opacity="0.15" filter="blur(20px)" />
+
+    <!-- Open Holy Quran on Rehal (Wooden Stand) in Foreground -->
+    <g transform="translate(300, 560)">
+      <!-- Radiant Light from the Quran -->
+      <polygon points="0,-20 -120,-160 120,-160" fill="url(#goldLustre)" opacity="0.18" filter="blur(8px)" />
+      
+      <!-- Rehal (Wood Stand) -->
+      <path d="M-60,75 L0,35 L60,75" stroke="#78350F" stroke-width="12" stroke-linecap="round" />
+      <path d="M-65,75 L-40,110 M65,75 L40,110" stroke="#78350F" stroke-width="12" stroke-linecap="round" />
+      <path d="M-20,95 L20,95" stroke="#92400E" stroke-width="8" stroke-linecap="round" />
+
+      <!-- Open Holy Quran -->
+      <!-- Left Page -->
+      <path d="M0,25 C-35,5 -75,8 -105,15 L-105,-30 C-75,-38 -35,-38 0,-15 Z" fill="#FAF8F5" stroke="url(#goldLustre)" stroke-width="3"/>
+      <!-- Right Page -->
+      <path d="M0,25 C35,5 75,8 105,15 L105,-30 C75,-38 35,-38 0,-15 Z" fill="#FAF8F5" stroke="url(#goldLustre)" stroke-width="3"/>
+      
+      <!-- Gold Ribbon Bookmark -->
+      <path d="M0,-15 C10,20 -5,60 0,80 L-10,75 L-20,80 C-15,60 -5,20 0,-15 Z" fill="url(#goldLustre)" />
+
+      <!-- Text Calligraphy Simulation -->
+      <g stroke="#0D3B2E" stroke-width="2.5" stroke-linecap="round" opacity="0.85">
+        <line x1="-90" y1="-18" x2="-20" y2="-18" />
+        <line x1="-90" y1="-8" x2="-20" y2="-8" />
+        <line x1="-90" y1="2" x2="-20" y2="2" />
+        <line x1="20" y1="-18" x2="90" y2="-18" />
+        <line x1="20" y1="-8" x2="90" y2="-8" />
+        <line x1="20" y1="2" x2="90" y2="2" />
+      </g>
+    </g>
+
+    <!-- Santri Sitting in Khusyu' (Silhouette) -->
+    <!-- Santri Putra (Left Side) -->
+    <g fill="#072017">
+      <!-- Songkok / Peci -->
+      <path d="M190,440 C190,425 220,425 220,440 L223,452 L187,452 Z" />
+      <!-- Head -->
+      <circle cx="205" cy="458" r="16" />
+      <!-- Baju Koko & Sarung Sitting -->
+      <path d="M175,475 C190,468 220,468 235,475 L245,550 C245,570 160,570 160,550 Z" />
+    </g>
+
+    <!-- Santri Putri (Right Side with Jilbab) -->
+    <g fill="#072017">
+      <!-- Jilbab Syar'i -->
+      <path d="M375,455 C375,430 415,430 415,455 C415,480 430,515 435,550 C435,570 355,570 355,550 C360,515 375,480 375,455 Z" />
+    </g>
+
+    <!-- Foreground Ornamental Arch Filigree -->
+    <path d="M60,200 C60,60 300,10 300,10 C300,10 540,60 540,200" fill="none" stroke="url(#goldLustre)" stroke-width="6" />
+    <path d="M80,210 C80,85 300,35 300,35 C300,35 520,85 520,210" fill="none" stroke="url(#goldLustre)" stroke-width="2" stroke-dasharray="6,4" />
+
+    <!-- Bottom Badge Card -->
+    <g transform="translate(75, 620)">
+      <rect x="0" y="0" width="450" height="95" rx="20" fill="#0D3B2E" fill-opacity="0.95" stroke="url(#goldLustre)" stroke-width="2"/>
+      <circle cx="45" cy="48" r="24" fill="url(#goldLustre)" />
+      <polygon points="45,34 49,43 59,43 51,49 54,58 45,52 36,58 39,49 31,43 41,43" fill="#0D3B2E"/>
+      <text x="85" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="800" fill="#FAF8F5">Pendidikan Karakter &amp; Qur'ani</text>
+      <text x="85" y="62" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="500" fill="#D4AF37">MI Plus Raudlatul Muta'allimin Kalipucung Blitar</text>
+      <text x="85" y="78" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5" font-weight="600" fill="#99F6E4">Target Lulusan: Hafal Juz 30 &amp; Berakhlakul Karimah</text>
+    </g>
+  </g>
+</svg>

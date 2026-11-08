@@ -48,8 +48,9 @@
                     <div class="relative w-full max-w-md">
                         <div class="absolute inset-0 bg-gold-500/20 islamic-arch transform rotate-3 scale-95 -z-10"></div>
                         <div class="bg-gradient-to-b from-emerald-800 to-emerald-950 p-3 islamic-arch border-2 border-gold-500/50 shadow-2xl">
-                            <div class="islamic-arch overflow-hidden bg-emerald-950/80 aspect-[4/5] flex flex-col justify-end p-6 text-white relative">
-                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/40 to-transparent"></div>
+                            <div class="islamic-arch overflow-hidden bg-emerald-950 aspect-[4/5] flex flex-col justify-end p-6 text-white relative">
+                                <img src="{{ asset('images/hero-santri.svg') }}" alt="Santri MI Plus Raudlatul Muta'allimin" class="absolute inset-0 w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/30 to-transparent"></div>
                                 <div class="relative z-10 space-y-2">
                                     <span class="inline-block px-3 py-1 rounded-md bg-gold-500 text-emerald-950 text-xs font-bold uppercase tracking-wider">Tahfidz & Karakter</span>
                                     <h3 class="text-xl font-bold text-white">Lingkungan Belajar Asri & Islami</h3>
@@ -251,9 +252,9 @@
             <!-- Galleries Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 @forelse($galleries as $gallery)
-                    <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition group">
-                        <div class="h-48 bg-emerald-950 flex items-center justify-center text-emerald-300 text-xs font-mono p-4 text-center">
-                            <span>Foto: {{ $gallery->title }}</span>
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition group">
+                        <div class="h-48 bg-emerald-950 overflow-hidden relative">
+                            <img src="{{ asset($gallery->image_path) }}" alt="{{ $gallery->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                         </div>
                         <div class="p-4">
                             <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
