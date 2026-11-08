@@ -12,6 +12,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\View\PanelsRenderHook;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -28,9 +29,29 @@ class TeacherPanelProvider extends PanelProvider
             ->id('teacher')
             ->path('guru')
             ->brandName('SIMAD Portal Guru')
+            ->brandLogo(fn () => view('filament.brand-logo'))
+            ->brandLogoHeight('2.75rem')
+            ->font('Plus Jakarta Sans')
+            ->favicon('/favicon.ico')
             ->login()
+            ->renderHook(
+                PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE,
+                fn () => view('filament.auth.login-header', [
+                    'title' => 'Portal Guru & Wali Kelas',
+                    'subtitle' => 'Input kehadiran harian santri, mutaba\'ah tahfidz, dan penilaian raport',
+                    'badge' => 'Asatidz Panel',
+                    'color' => 'teal',
+                ])
+            )
+            ->renderHook(
+                PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
+                fn () => view('filament.auth.login-footer', [
+                    'currentPanel' => 'teacher',
+                ])
+            )
             ->colors([
                 'primary' => Color::Teal,
+                'accent' => Color::Amber,
             ])
             ->discoverResources(in: app_path('Filament/Teacher/Resources'), for: 'App\\Filament\\Teacher\\Resources')
             ->discoverPages(in: app_path('Filament/Teacher/Pages'), for: 'App\\Filament\\Teacher\\Pages')

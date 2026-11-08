@@ -15,7 +15,7 @@
                 Cek Status Seleksi PPDB Online
             </h1>
             <p class="text-sm text-slate-600 max-w-lg mx-auto">
-                Masukkan <strong>Nomor Registrasi</strong> (contoh: <em>PPDB-2026-0001</em>) atau <strong>NIK 16 digit</strong> calon santri untuk melihat progres seleksi berkas.
+                Masukkan <strong>Nomor Registrasi</strong> (contoh: <em>PPDB-2026-0001</em>) atau <strong>NIK 16 digit</strong> calon santri untuk melihat progres verifikasi berkas.
             </p>
         </div>
 
@@ -50,15 +50,49 @@
                             'rejected' => 'bg-red-600',
                             default => 'bg-amber-500',
                         };
+
+                        $stepActive = match($result->status->value) {
+                            'pending' => 1,
+                            'verified' => 2,
+                            'accepted' => 3,
+                            'rejected' => 2,
+                            default => 1,
+                        };
                     @endphp
+
                     <div class="{{ $badgeBg }} text-white px-6 py-4 flex flex-wrap items-center justify-between gap-2">
                         <div class="flex items-center gap-2">
-                            <span class="text-xs uppercase font-bold tracking-wider">Status Seleksi:</span>
+                            <span class="text-xs uppercase font-bold tracking-wider">Status Terkini:</span>
                             <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-extrabold uppercase">
                                 {{ $result->status->label() }}
                             </span>
                         </div>
-                        <span class="text-xs font-mono opacity-90">{{ $result->registration_number }}</span>
+                        <span class="text-xs font-mono font-bold">{{ $result->registration_number }}</span>
+                    </div>
+
+                    <!-- Progress Stepper Visualization -->
+                    <div class="px-6 py-6 bg-slate-50 border-b border-slate-200">
+                        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                            <div class="space-y-1">
+                                <div class="w-7 h-7 mx-auto rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shadow">✓</div>
+                                <span class="font-bold text-slate-800 block text-[11px]">1. Pendaftaran</span>
+                                <span class="text-[10px] text-slate-400 block">Terkirim</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="w-7 h-7 mx-auto rounded-full {{ $stepActive >= 2 ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600' }} flex items-center justify-center font-bold text-xs shadow">
+                                    {{ $stepActive >= 2 ? '✓' : '2' }}
+                                </div>
+                                <span class="font-bold text-slate-800 block text-[11px]">2. Verifikasi Dokumen</span>
+                                <span class="text-[10px] text-slate-400 block">Panitia TU</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="w-7 h-7 mx-auto rounded-full {{ $stepActive >= 3 ? 'bg-emerald-600 text-white' : ($result->status->value === 'rejected' ? 'bg-red-500 text-white' : 'bg-slate-200 text-slate-600') }} flex items-center justify-center font-bold text-xs shadow">
+                                    {{ $stepActive >= 3 ? '✓' : ($result->status->value === 'rejected' ? '✕' : '3') }}
+                                </div>
+                                <span class="font-bold text-slate-800 block text-[11px]">3. Pengumuman Kelulusan</span>
+                                <span class="text-[10px] text-slate-400 block">Hasil Seleksi</span>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Details Body -->
@@ -91,11 +125,14 @@
                         @endif
 
                         <!-- Action Button -->
-                        <div class="flex justify-end pt-2">
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                            <span class="text-xs text-slate-500">
+                                Butuh perubahan berkas? Hubungi Panitia TU via WhatsApp.
+                            </span>
                             <a href="/ppdb/cetak/{{ $result->registration_number }}" target="_blank"
-                                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-sm shadow-md transition">
+                                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-sm shadow-md transition">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                                <span>Unduh Lembar Bukti (PDF)</span>
+                                <span>Unduh Bukti Pendaftaran (PDF)</span>
                             </a>
                         </div>
                     </div>

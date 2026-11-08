@@ -51,7 +51,7 @@
         }
     </style>
 </head>
-<body class="bg-ivory text-slate-800 font-sans antialiased selection:bg-gold-500 selection:text-white">
+<body class="bg-ivory text-slate-800 font-sans antialiased selection:bg-gold-500 selection:text-white" x-data="{ mobileMenu: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 50)">
 
     <!-- Top Bar Islami -->
     <div class="bg-emerald-950 text-emerald-100 text-xs py-2 border-b border-emerald-900/50">
@@ -68,11 +68,11 @@
                 </span>
             </div>
 
-            <!-- Portal Login Dropdown -->
+            <!-- Portal Login Dropdown & Direct Links -->
             <div class="flex items-center space-x-3" x-data="{ open: false }">
                 <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', config('simad.contact_phone')) }}" target="_blank" class="hover:text-gold-400 transition flex items-center gap-1">
                     <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-                    Hotline TU
+                    <span>Hotline TU</span>
                 </a>
                 <span>|</span>
                 <div class="relative">
@@ -80,18 +80,19 @@
                         <span>Masuk Portal</span>
                         <svg class="w-3 h-3 transition-transform" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-slate-100 py-1.5 z-50 text-slate-700">
-                        <a href="/wali/login" class="flex items-center gap-2 px-4 py-2 hover:bg-emerald-50 hover:text-emerald-900 transition">
+                    <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-slate-100 py-2 z-50 text-slate-700">
+                        <div class="px-3 py-1.5 border-b border-slate-100 text-[10px] font-bold uppercase text-slate-400">Pilih Portal Akses</div>
+                        <a href="/wali/login" class="flex items-center gap-2.5 px-4 py-2 hover:bg-emerald-50 hover:text-emerald-900 transition text-xs">
                             <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                            <span>Portal Wali Murid</span>
+                            <span class="font-medium">Portal Wali Murid</span>
                         </a>
-                        <a href="/guru/login" class="flex items-center gap-2 px-4 py-2 hover:bg-emerald-50 hover:text-emerald-900 transition">
+                        <a href="/guru/login" class="flex items-center gap-2.5 px-4 py-2 hover:bg-emerald-50 hover:text-emerald-900 transition text-xs">
                             <span class="w-2 h-2 rounded-full bg-teal-500"></span>
-                            <span>Portal Guru / Ustadz</span>
+                            <span class="font-medium">Portal Guru / Asatidz</span>
                         </a>
-                        <a href="/admin/login" class="flex items-center gap-2 px-4 py-2 hover:bg-emerald-50 hover:text-emerald-900 transition">
+                        <a href="/admin/login" class="flex items-center gap-2.5 px-4 py-2 hover:bg-emerald-50 hover:text-emerald-900 transition text-xs">
                             <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-                            <span>Backoffice TU & Admin</span>
+                            <span class="font-medium">Backoffice TU & Admin</span>
                         </a>
                     </div>
                 </div>
@@ -100,34 +101,63 @@
     </div>
 
     <!-- Main Navigation Bar -->
-    <header class="bg-white/95 backdrop-blur sticky top-0 z-40 border-b border-slate-200/80 shadow-sm">
+    <header class="bg-white/95 backdrop-blur sticky top-0 z-40 border-b border-slate-200/80 shadow-sm transition-all duration-200" :class="scrolled ? 'py-2 shadow-md' : 'py-3.5'">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center">
                 <!-- Brand / Logo -->
-                <a href="/" class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-900 flex items-center justify-center text-gold-400 font-bold text-xl shadow-md border border-gold-500/40">
+                <a href="/" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-900 flex items-center justify-center text-gold-400 font-bold text-xl shadow-md border border-gold-500/40 group-hover:scale-105 transition-transform">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     </div>
                     <div>
-                        <span class="block text-lg font-extrabold text-emerald-900 leading-tight">MI Plus Raudlatul Muta'allimin</span>
-                        <span class="block text-xs font-medium text-slate-500">Kalipucung, Sanankulon, Blitar</span>
+                        <span class="block text-base sm:text-lg font-extrabold text-emerald-950 leading-tight">MI Plus Raudlatul Muta'allimin</span>
+                        <span class="block text-xs font-semibold text-emerald-700">Kalipucung, Sanankulon, Blitar</span>
                     </div>
                 </a>
 
                 <!-- Desktop Menu -->
-                <nav class="hidden md:flex items-center space-x-7 text-sm font-semibold text-slate-700">
+                <nav class="hidden lg:flex items-center space-x-7 text-sm font-semibold text-slate-700">
                     <a href="/" class="hover:text-emerald-900 transition">Beranda</a>
-                    <a href="#profil" class="hover:text-emerald-900 transition">Profil</a>
-                    <a href="#program" class="hover:text-emerald-900 transition">Program Unggulan</a>
-                    <a href="#galeri" class="hover:text-emerald-900 transition">Galeri Kegiatan</a>
+                    <a href="/#profil" class="hover:text-emerald-900 transition">Profil</a>
+                    <a href="/#program" class="hover:text-emerald-900 transition">Program Unggulan</a>
+                    <a href="/#galeri" class="hover:text-emerald-900 transition">Galeri</a>
                     <a href="/ppdb/cek-status" class="hover:text-emerald-900 transition">Cek Status PPDB</a>
                 </nav>
 
-                <!-- CTA Action -->
+                <!-- Actions: Desktop & Mobile Hamburger -->
                 <div class="flex items-center gap-3">
-                    <a href="/ppdb/daftar" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all border border-emerald-700">
+                    <a href="/ppdb/daftar" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all border border-emerald-700">
                         <span>PPDB Online</span>
                         <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
+
+                    <!-- Hamburger Mobile Button -->
+                    <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100 transition" aria-label="Menu Navigasi">
+                        <svg x-show="!mobileMenu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg x-show="mobileMenu" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Drawer -->
+            <div x-show="mobileMenu" x-cloak @click.away="mobileMenu = false" class="lg:hidden mt-4 pt-4 pb-6 border-t border-slate-100 space-y-3">
+                <nav class="flex flex-col space-y-2 text-sm font-semibold text-slate-700">
+                    <a href="/" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Beranda</a>
+                    <a href="/#profil" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Profil & Visi Misi</a>
+                    <a href="/#program" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Program Unggulan</a>
+                    <a href="/#galeri" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Galeri & Warta</a>
+                    <a href="/ppdb/cek-status" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Cek Status PPDB</a>
+                </nav>
+
+                <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
+                    <a href="/ppdb/daftar" class="col-span-2 text-center py-2.5 rounded-xl bg-gold-500 text-emerald-950 font-bold text-sm shadow">
+                        Daftar PPDB Online
+                    </a>
+                    <a href="/wali/login" class="text-center py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700">
+                        Portal Wali
+                    </a>
+                    <a href="/guru/login" class="text-center py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700">
+                        Portal Guru
                     </a>
                 </div>
             </div>
@@ -139,19 +169,26 @@
         @yield('content')
     </main>
 
+    <!-- Floating WhatsApp Action -->
+    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', config('simad.contact_phone')) }}" target="_blank"
+       class="fixed bottom-6 right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform border-2 border-white"
+       title="Konsultasi PPDB WhatsApp">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+    </a>
+
     <!-- Footer -->
     <footer class="bg-emerald-950 text-white pt-16 pb-8 border-t-4 border-gold-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-emerald-900">
                 <div class="md:col-span-2 space-y-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-emerald-900 flex items-center justify-center text-gold-400 font-bold border border-gold-500/40">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-900 flex items-center justify-center text-gold-400 font-bold border border-gold-500/40">
                             MI
                         </div>
                         <h4 class="text-xl font-bold text-white">MI Plus Raudlatul Muta'allimin</h4>
                     </div>
                     <p class="text-emerald-200/80 text-sm leading-relaxed max-w-lg">
-                        Lembaga pendidikan dasar Islam berkarakter di Blitar yang memadukan kurikulum Kemenag dengan penguatan hafalan Al-Qur'an (Tahfidz Juz 30), pembiasaan akhlaqul karimah, dan kesenian hadrah rebana.
+                        Lembaga pendidikan dasar Islam terpadu di Blitar yang memadukan kurikulum Kemenag dengan penguatan hafalan Al-Qur'an (Tahfidz Juz 30), pembiasaan akhlaqul karimah, dan kesenian hadrah rebana.
                     </p>
                     <div class="text-xs text-gold-400/90 font-medium space-y-1">
                         <p>NSM: {{ config('simad.nsm') }} • NPSN: {{ config('simad.npsn') }}</p>

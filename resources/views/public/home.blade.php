@@ -90,6 +90,107 @@
         </div>
     </section>
 
+    <!-- PROFIL MADRASAH & VISI MISI -->
+    <section id="profil" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24" x-data="{ tab: 'visi' }">
+        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-8 sm:p-12 overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-5 space-y-4">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
+                        Profil Lembaga
+                    </span>
+                    <h2 class="text-3xl font-extrabold text-emerald-950 leading-tight">
+                        Mengenal Lebih Dekat MI Plus Raudlatul Muta'allimin
+                    </h2>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Terletak di Dusun Kalipucung, Sanankulon, Blitar, kami hadir sebagai wadah pendidikan dasar Islam yang mengedepankan pembiasaan ibadah praktis, adab keseharian, serta pencapaian akademik berstandar nasional.
+                    </p>
+                    
+                    <!-- Tab Buttons -->
+                    <div class="flex gap-2 pt-2 border-b border-slate-100">
+                        <button @click="tab = 'visi'" :class="tab === 'visi' ? 'border-emerald-800 text-emerald-900 font-bold border-b-2' : 'text-slate-500 hover:text-slate-800'" class="pb-2 text-sm transition">
+                            Visi & Misi
+                        </button>
+                        <button @click="tab = 'tujuan'" :class="tab === 'tujuan' ? 'border-emerald-800 text-emerald-900 font-bold border-b-2' : 'text-slate-500 hover:text-slate-800'" class="pb-2 text-sm transition ml-4">
+                            Tujuan Lembaga
+                        </button>
+                        <button @click="tab = 'budaya'" :class="tab === 'budaya' ? 'border-emerald-800 text-emerald-900 font-bold border-b-2' : 'text-slate-500 hover:text-slate-800'" class="pb-2 text-sm transition ml-4">
+                            Budaya Madrasah
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-emerald-950 text-white rounded-2xl p-6 sm:p-8 border border-gold-500/30">
+                    <!-- Tab Visi -->
+                    <div x-show="tab === 'visi'" class="space-y-4">
+                        <h4 class="text-lg font-bold text-gold-400 flex items-center gap-2">
+                            <span>Visi Madrasah</span>
+                        </h4>
+                        <p class="text-emerald-100 text-sm italic font-serif leading-relaxed pl-3 border-l-2 border-gold-400">
+                            "Terwujudnya Santri yang Beriman, Bertaqwa, Berakhlaq Mulia, Unggul dalam Prestasi, dan Berjiwa Qur'ani."
+                        </p>
+                        <h4 class="text-base font-bold text-gold-400 pt-2">Misi Utama</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-emerald-200">
+                            <li class="flex items-start gap-2">
+                                <span class="text-gold-400 font-bold">1.</span>
+                                <span>Menumbuhkembangkan pembiasaan ibadah fardhu dan sunnah sejak dini.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-gold-400 font-bold">2.</span>
+                                <span>Melaksanakan program tahfidz Al-Qur'an Juz 30 dengan tartil dan tajwid yang benar.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-gold-400 font-bold">3.</span>
+                                <span>Menyelenggarakan pembelajaran saintifik yang memicu rasa ingin tahu dan kreativitas santri.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab Tujuan -->
+                    <div x-show="tab === 'tujuan'" x-cloak class="space-y-4">
+                        <h4 class="text-lg font-bold text-gold-400">Tujuan Pendidikan Madrasah</h4>
+                        <ul class="space-y-2 text-xs sm:text-sm text-emerald-200">
+                            <li class="flex items-start gap-2">
+                                <span class="text-gold-400 font-bold">•</span>
+                                <span>Lulusan hafal minimal Juz 30 (Juz 'Amma) dan terbiasa membaca Al-Qur'an setiap hari.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-gold-400 font-bold">•</span>
+                                <span>Mampu mempraktikkan tata cara wudhu dan sholat fardhu secara mandiri dan benar.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-gold-400 font-bold">•</span>
+                                <span>Memiliki kesiapan melanjutkan ke jenjang MTs/SMP favorit maupun pondok pesantren.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab Budaya -->
+                    <div x-show="tab === 'budaya'" x-cloak class="space-y-4">
+                        <h4 class="text-lg font-bold text-gold-400">5 Budaya Santri Raudlatul Muta'allimin</h4>
+                        <div class="grid grid-cols-2 gap-3 text-xs text-emerald-200">
+                            <div class="p-2.5 rounded-lg bg-emerald-900/60 border border-emerald-800">
+                                <span class="font-bold text-gold-400 block mb-0.5">1. 5S</span>
+                                Senyum, Sapa, Salam, Sopan, Santun kepada guru dan orang tua.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-emerald-900/60 border border-emerald-800">
+                                <span class="font-bold text-gold-400 block mb-0.5">2. Dhuha Berjamaah</span>
+                                Mengetuk pintu rezeki berkah setiap pagi sebelum mulai pelajaran.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-emerald-900/60 border border-emerald-800">
+                                <span class="font-bold text-gold-400 block mb-0.5">3. Bersih & Rapi</span>
+                                Menjaga kebersihan madrasah sebagai cerminan sebagian dari iman.
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-emerald-900/60 border border-emerald-800">
+                                <span class="font-bold text-gold-400 block mb-0.5">4. Gemar Berinfaq</span>
+                                Melatih empati dan kedermawanan melalui kotak amal harian.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- PROGRAM UNGGULAN -->
     <section id="program" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
         <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">

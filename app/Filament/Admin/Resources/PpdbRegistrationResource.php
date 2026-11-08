@@ -159,6 +159,13 @@ class PpdbRegistrationResource extends Resource
                     ->label('Jenis Kelamin')
                     ->options(['L' => 'Laki-laki', 'P' => 'Perempuan']),
             ])
+            ->headerActions([
+                Tables\Actions\Action::make('export_emis')
+                    ->label('Export Data EMIS (Excel)')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('success')
+                    ->url(fn (): string => route('admin.ppdb.export_emis'), shouldOpenInNewTab: true),
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
