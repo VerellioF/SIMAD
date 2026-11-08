@@ -27,6 +27,7 @@ use App\Models\Attendance;
 use App\Models\Classroom;
 use App\Models\ClassSchedule;
 use App\Models\CharacterRule;
+use App\Models\CurriculumStructure;
 use App\Models\DailyWorshipRecord;
 use App\Models\Extracurricular;
 use App\Models\ExtracurricularEnrollment;
@@ -1272,6 +1273,81 @@ class DatabaseSeeder extends Seeder
                     );
                 }
             }
+        }
+
+        // 18. Struktur Kurikulum Terpadu Madrasah (Fase A, B, C)
+        $curriculumData = [
+            // FASE A (Kelas 1-2)
+            // Kemenag PAI
+            ['phase' => 'fase_a', 'curriculum_type' => 'kemenag_pai', 'name' => "Al-Qur'an Hadits", 'code' => 'PAI-QH-A', 'hours_per_week' => 2, 'display_order' => 1, 'competency_goals' => 'Mengenal huruf hijaiyah bersambung, makharijul huruf dasar, dan hafalan surah-surah pendek (An-Naas s.d Al-Fiil).'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'kemenag_pai', 'name' => 'Akidah Akhlak', 'code' => 'PAI-AA-A', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Memahami rukun iman, kalimat thoyyibah (Basmalah, Hamdalah, Ta\'awwudz), dan adab makan, minum, serta berbakti kepada orang tua.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'kemenag_pai', 'name' => 'Fiqih Ibadah', 'code' => 'PAI-FQ-A', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Tata cara bersuci (istinja\' & wudhu), gerakan dan bacaan shalat fardhu 5 waktu, dan adab masjid.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'kemenag_pai', 'name' => 'Bahasa Arab Dasar', 'code' => 'B-ARB-A', 'hours_per_week' => 2, 'display_order' => 4, 'competency_goals' => 'Kosakata harian benda di kelas, perkenalan diri (ta\'aruf), sapaan islami, dan angka 1-10 dalam bahasa Arab.'],
+            // Kurikulum Merdeka Nasional
+            ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Pendidikan Pancasila', 'code' => 'TMP-PP-A', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Mengenal simbol Garuda Pancasila, aturan di rumah dan madrasah, serta sikap toleransi dan gotong royong.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Bahasa Indonesia', 'code' => 'TMP-BI-A', 'hours_per_week' => 6, 'display_order' => 2, 'competency_goals' => 'Literasi membaca permulaan, mengeja suku kata, menulis kalimat sederhana, dan menyimak cerita teladan.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Matematika Realistik', 'code' => 'MAT-A', 'hours_per_week' => 5, 'display_order' => 3, 'competency_goals' => 'Membilang bilangan cacah 1-100, penjumlahan & pengurangan konkret, bangun datar dasar, dan pengukuran panjang non-baku.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Seni Budaya & Keterampilan', 'code' => 'SBK-A', 'hours_per_week' => 3, 'display_order' => 4, 'competency_goals' => 'Menggambar ekspresi, kolase bahan alam, dan menyanyikan lagu-lagu islami dan lagu nasional bertema alam.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'nasional_merdeka', 'name' => 'PJOK (Pendidikan Jasmani)', 'code' => 'PJOK-A', 'hours_per_week' => 3, 'display_order' => 5, 'competency_goals' => 'Gerak dasar lokomotor, non-lokomotor, senam santri ceria, dan kebiasaan pola hidup bersih dan sehat.'],
+            // Muatan Lokal & Pesantren Plus
+            ['phase' => 'fase_a', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Tahfidzul Qur\'an & Talaqqi', 'code' => 'MLK-TF-A', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Menuntaskan hafalan Juz 30 (An-Naas s.d At-Takatsur) dengan tartil dan bimbingan talaqqi langsung ustadz bersanad.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Kitab Pegon & Imla\' Arabiyah', 'code' => 'MLK-PG-A', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Mengenal abjad Arab-Pegon (Jawa/Indonesia berhuruf hijaiyah) dan teknik penulisan khat naskhi dasar.'],
+            ['phase' => 'fase_a', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Praktik Ubudiyah & Doa Harian', 'code' => 'MLK-UB-A', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Hafalan doa harian sesudah sholat, wirid pendek ba\'da sholat, dan pembiasaan sholat dhuha berjamaah.'],
+
+            // FASE B (Kelas 3-4)
+            // Kemenag PAI
+            ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => "Al-Qur'an Hadits", 'code' => 'PAI-QH-B', 'hours_per_week' => 2, 'display_order' => 1, 'competency_goals' => 'Hukum bacaan nun sukun/tanwin (idzhar, ikhfa\', idgham, iqlab), memahami kandungan surat Al-Qari\'ah dan Al-\'Adiyat.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => 'Akidah Akhlak', 'code' => 'PAI-AA-B', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Asmaul Husna, meyakini sifat-sifat wajib bagi Allah dan Rasul, serta adab berteman dan menghindari sifat tercela.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => 'Fiqih Ibadah', 'code' => 'PAI-FQ-B', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Ketentuan sholat berjamaah, sholat sunnah rawatib & dhuha, serta syarat sah dan pembatal puasa Ramadhan.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => 'Sejarah Kebudayaan Islam', 'code' => 'PAI-SKI-B', 'hours_per_week' => 2, 'display_order' => 4, 'competency_goals' => 'Sejarah masyarakat Arab pra-Islam, biografi masa kecil, kerasulan, dan keteladanan dakwah Nabi Muhammad SAW.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'kemenag_pai', 'name' => 'Bahasa Arab Terapan', 'code' => 'B-ARB-B', 'hours_per_week' => 2, 'display_order' => 5, 'competency_goals' => 'Struktur kalimat tanya sederhana, percakapan tema keluarga, profesi, peralatan sekolah, dan aktivitas santri.'],
+            // Kurikulum Merdeka Nasional
+            ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Pendidikan Pancasila', 'code' => 'TMP-PP-B', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Menghargai keragaman suku, bahasa, & budaya Indonesia, hak dan kewajiban warga negara, dan musyawarah mufakat.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Bahasa Indonesia', 'code' => 'TMP-BI-B', 'hours_per_week' => 5, 'display_order' => 2, 'competency_goals' => 'Menulis paragraf deskriptif & naratif, membaca teks pemahaman, kaidah EYD, dan berpidato singkat.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Matematika Realistik', 'code' => 'MAT-B', 'hours_per_week' => 5, 'display_order' => 3, 'competency_goals' => 'Perkalian & pembagian bersusun, konsep pecahan senilai, keliling & luas bangun datar, dan penyajian data sederhana.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'IPAS (Sains & Sosial)', 'code' => 'IPAS-B', 'hours_per_week' => 5, 'display_order' => 4, 'competency_goals' => 'Siklus hidup hewan & tumbuhan, wujud zat materi, gaya dan gerak, bentang alam lokal, serta kearifan lokal Nusantara.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Seni Budaya & Prakarya', 'code' => 'SBK-B', 'hours_per_week' => 3, 'display_order' => 5, 'competency_goals' => 'Seni kriya, kerajinan bahan anyam/daur ulang, dan apresiasi seni musik hadroh islami nusantara.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'nasional_merdeka', 'name' => 'PJOK (Pendidikan Jasmani)', 'code' => 'PJOK-B', 'hours_per_week' => 3, 'display_order' => 6, 'competency_goals' => 'Permainan bola kecil & besar beregu, kebugaran jasmani santri, dan keselamatan aktivitas fisik luar ruangan.'],
+            // Muatan Lokal & Pesantren Plus
+            ['phase' => 'fase_b', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Tahfidzul Qur\'an & Tartil', 'code' => 'MLK-TF-B', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Hafalan lanjutan Juz 30 (Al-Qari\'ah s.d An-Naba\') dan pengenalan Juz 29 awal dengan standar muraja\'ah mutqin.'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Aksara Pegon & Terjemah Gandul', 'code' => 'MLK-PG-B', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Membaca dan menulis teks cerita hikmah beraksara Pegon dengan rumus makna gandul (utawi, iku, ing).'],
+            ['phase' => 'fase_b', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Praktik Amaliyah Aswaja & Ubudiyah', 'code' => 'MLK-UB-B', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Dzikir tahlil singkat, sholawat Thibbil Qulub, adab majelis ta\'lim, dan etika silaturahmi.'],
+
+            // FASE C (Kelas 5-6)
+            // Kemenag PAI
+            ['phase' => 'fase_c', 'curriculum_type' => 'kemenag_pai', 'name' => "Al-Qur'an Hadits", 'code' => 'PAI-QH-C', 'hours_per_week' => 2, 'display_order' => 1, 'competency_goals' => 'Hukum bacaan Mad dan Waqaf, tafsir tematik ayat-ayat tentang kelestarian alam dan keutamaan penuntut ilmu.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'kemenag_pai', 'name' => 'Akidah Akhlak', 'code' => 'PAI-AA-C', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Beriman kepada hari akhir dan qadha-qadar, adab berinteraksi di ruang digital (etika medsos islami), dan berbuat adil.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'kemenag_pai', 'name' => 'Fiqih Ibadah & Muamalah', 'code' => 'PAI-FQ-C', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Rukun dan manasik haji & umrah, ketentuan zakat fitrah & mal, serta dasar-dasar jual beli halal tanpa riba.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'kemenag_pai', 'name' => 'Sejarah Kebudayaan Islam', 'code' => 'PAI-SKI-C', 'hours_per_week' => 2, 'display_order' => 4, 'competency_goals' => 'Kepemimpinan Khulafaur Rasyidin (Abu Bakar, Umar, Utsman, Ali) dan sejarah dakwah Walisongo di tanah Jawa.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'kemenag_pai', 'name' => 'Bahasa Arab Komprehensif', 'code' => 'B-ARB-C', 'hours_per_week' => 2, 'display_order' => 5, 'competency_goals' => 'Qowa\'id dasar (isim, fi\'il, huruf, dhomir), membaca kisah teladan para sahabat, dan insya\' (mengarang ringkas).'],
+            // Kurikulum Merdeka Nasional
+            ['phase' => 'fase_c', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Pendidikan Pancasila', 'code' => 'TMP-PP-C', 'hours_per_week' => 3, 'display_order' => 1, 'competency_goals' => 'Pengamalan nilai-nilai Pancasila dalam pergaulan global, supremasi norma hukum, dan kesadaran bela negara.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Bahasa Indonesia', 'code' => 'TMP-BI-C', 'hours_per_week' => 5, 'display_order' => 2, 'competency_goals' => 'Teks eksplanasi, teks eksposisi, literatur riset perpustakaan, dan penulisan karya tulis cerita ilmiah anak.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Matematika Terapan', 'code' => 'MAT-C', 'hours_per_week' => 5, 'display_order' => 3, 'competency_goals' => 'Pecahan desimal, persen, perbandingan rasio & skala peta, volume bangun ruang, serta pengolahan data statistik dasar.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'nasional_merdeka', 'name' => 'IPAS Sains & Ekologi', 'code' => 'IPAS-C', 'hours_per_week' => 5, 'display_order' => 4, 'competency_goals' => 'Siklus hidup organ tubuh manusia, energi terbarukan ramah lingkungan, tata surya, dan aksi mitigasi perubahan iklim.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'nasional_merdeka', 'name' => 'Seni Budaya & Desain Kreatif', 'code' => 'SBK-C', 'hours_per_week' => 3, 'display_order' => 5, 'competency_goals' => 'Seni rupa dua & tiga dimensi, seni poster digital sederhana, dan kaligrafi mushaf kontemporer.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'nasional_merdeka', 'name' => 'PJOK (Pendidikan Jasmani)', 'code' => 'PJOK-C', 'hours_per_week' => 3, 'display_order' => 6, 'competency_goals' => 'Olahraga beladiri seni pencak silat madrasah, renang gaya dada, dan keterampilan dasar pertolongan pertama (P3K).'],
+            // Muatan Lokal & Pesantren Plus
+            ['phase' => 'fase_c', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Tahfidzul Qur\'an & Matan Tajwid', 'code' => 'MLK-TF-C', 'hours_per_week' => 4, 'display_order' => 1, 'competency_goals' => 'Hafalan Juz 29 (Al-Mulk s.d Al-Mursalat) serta hafalan nadhom dasar Matan Jazariyyah / Tuhfatul Athfal.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Nahwu Shorof Ibtidai', 'code' => 'MLK-NS-C', 'hours_per_week' => 2, 'display_order' => 2, 'competency_goals' => 'Mengenal pola dasar kalimah fi\'il & isim, wazan tasrif lughawi dasar untuk bekal membaca kitab kuning turats.'],
+            ['phase' => 'fase_c', 'curriculum_type' => 'muatan_lokal_pesantren', 'name' => 'Risalah Ubudiyah & Fiqih Praktis', 'code' => 'MLK-UB-C', 'hours_per_week' => 2, 'display_order' => 3, 'competency_goals' => 'Praktik tata cara pengurusan jenazah dasar, khutbah singkat anak, dan bimbingan kepemimpinan santri teladan.'],
+        ];
+
+        foreach ($curriculumData as $cItem) {
+            CurriculumStructure::firstOrCreate(
+                [
+                    'phase' => $cItem['phase'],
+                    'code' => $cItem['code'],
+                ],
+                [
+                    'curriculum_type' => $cItem['curriculum_type'],
+                    'name' => $cItem['name'],
+                    'hours_per_week' => $cItem['hours_per_week'],
+                    'display_order' => $cItem['display_order'],
+                    'competency_goals' => $cItem['competency_goals'],
+                    'is_active' => true,
+                ]
+            );
         }
     }
 }
