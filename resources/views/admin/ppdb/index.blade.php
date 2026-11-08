@@ -122,6 +122,11 @@
                                 <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase border {{ $badge }}">
                                     {{ $reg->status->label() }}
                                 </span>
+                                <div class="mt-1">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold border {{ $reg->paymentStatusBadge() }}">
+                                        {{ $reg->paymentStatusLabel() }}
+                                    </span>
+                                </div>
                             </td>
                             <td class="py-4 px-6 text-slate-500 font-mono text-[11px]">
                                 {{ $reg->created_at->format('d/m/Y H:i') }}

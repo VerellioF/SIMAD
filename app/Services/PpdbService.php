@@ -40,6 +40,9 @@ class PpdbService
             $photoPath = isset($data['file_photo']) && $data['file_photo'] instanceof UploadedFile
                 ? $this->storeDocument($data['file_photo'], 'photos')
                 : null;
+            $paymentProofPath = isset($data['file_payment_proof']) && $data['file_payment_proof'] instanceof UploadedFile
+                ? $this->storeDocument($data['file_payment_proof'], 'payment_proofs')
+                : null;
 
             return PpdbRegistration::create([
                 'registration_number' => $registrationNumber,
@@ -56,6 +59,10 @@ class PpdbService
                 'file_birth_certificate' => $birthCertPath,
                 'file_family_card' => $familyCardPath,
                 'file_photo' => $photoPath,
+                'registration_fee' => (int) config('simad.ppdb_fee', 50000),
+                'payment_status' => 'unpaid',
+                'payment_method' => $data['payment_method'] ?? 'transfer',
+                'file_payment_proof' => $paymentProofPath,
                 'status' => PpdbStatus::Pending,
             ]);
         });

@@ -56,14 +56,26 @@ class AdminPpdbController extends Controller
     {
         $validated = $request->validate([
             'status' => ['required', Rule::enum(PpdbStatus::class)],
+            'payment_status' => ['nullable', 'in:unpaid,paid'],
             'admin_notes' => ['nullable', 'string', 'max:1000'],
         ]);
 
-        $registration->update([
+        $updateData = [
             'status' => $validated['status'],
             'admin_notes' => $validated['admin_notes'] ?? null,
-        ]);
+        ];
 
-        return back()->with('success', "Status pendaftaran {$registration->registration_number} berhasil diperbarui.");
+        if (isset($validated['payment_status'])) {
+            $updateData['payment_status'] = $validated['payment_status'];
+            if ($validated['payment_status'] === 'paid' && ! $registration->paid_at) {
+                $updateData['paid_at'] = now();
+            } elseif ($validated['payment_status'] === 'unpaid') {
+                $updateData['paid_at'] = null;
+            }
+        }
+
+        $registration->update($updateData);
+
+        return back()->with('success', "Status pendaftaran & pembayaran {$registration->registration_number} berhasil diperbarui.");
     }
 }

@@ -29,6 +29,8 @@ class StorePpdbRegistrationRequest extends FormRequest
             'file_birth_certificate' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
             'file_family_card' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
             'file_photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'payment_method' => ['nullable', 'in:transfer,cash'],
+            'file_payment_proof' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:2048'],
         ];
     }
 

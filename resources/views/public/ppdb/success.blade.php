@@ -33,6 +33,47 @@
                 <p class="text-[11px] text-emerald-200/80">Simpan nomor registrasi ini untuk melacak status seleksi atau mengunduh ulang bukti pendaftaran.</p>
             </div>
 
+            <!-- Payment Summary Card -->
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-left space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+                    <div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 block">Biaya Formulir & Infaq Observasi</span>
+                        <span class="text-lg font-black text-slate-900 font-mono">{{ $registration->formattedFee() }}</span>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold border {{ $registration->paymentStatusBadge() }}">
+                        {{ $registration->paymentStatusLabel() }}
+                    </span>
+                </div>
+
+                @if($registration->payment_method === 'cash')
+                    <div class="text-xs text-slate-600 flex items-start gap-2">
+                        <span class="text-emerald-700 font-bold">ℹ️</span>
+                        <p>
+                            Metode Pembayaran: <strong>Bayar Tunai di Loket TU</strong>.<br>
+                            Silakan lakukan pembayaran biaya pendaftaran sebesar <strong>{{ $registration->formattedFee() }}</strong> di kantor madrasah saat menyerahkan berkas fisik atau saat jadwal observasi santri.
+                        </p>
+                    </div>
+                @else
+                    <div class="text-xs text-slate-600 space-y-2">
+                        <div class="p-3 bg-white rounded-xl border border-slate-200 space-y-1">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block">Rekening Resmi Pembayaran PPDB:</span>
+                            <div class="font-bold text-slate-800">Bank Syariah Indonesia (BSI)</div>
+                            <div class="font-mono font-extrabold text-emerald-900 text-sm">7123456789 <span class="text-xs font-normal text-slate-500 font-sans">a.n. YAYASAN RAUDLATUL MUTA'ALLIMIN</span></div>
+                        </div>
+                        @if($registration->file_payment_proof)
+                            <p class="text-[11px] text-emerald-700 flex items-center gap-1 font-semibold">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Bukti transfer telah diunggah dan sedang menunggu verifikasi tim bendahara/TU.
+                            </p>
+                        @else
+                            <p class="text-[11px] text-amber-700">
+                                Jika belum mentransfer atau belum mengunggah bukti, Anda dapat konfirmasi bukti transfer melalui WhatsApp panitia madrasah.
+                            </p>
+                        @endif
+                    </div>
+                @endif
+            </div>
+
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
                 <a href="/ppdb/cetak/{{ $registration->registration_number }}" target="_blank"

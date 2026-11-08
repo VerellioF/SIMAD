@@ -27,6 +27,11 @@ class PpdbRegistration extends Model
         'file_birth_certificate',
         'file_family_card',
         'file_photo',
+        'registration_fee',
+        'payment_status',
+        'payment_method',
+        'file_payment_proof',
+        'paid_at',
         'status',
         'admin_notes',
     ];
@@ -36,6 +41,34 @@ class PpdbRegistration extends Model
         return [
             'birth_date' => 'date',
             'status' => PpdbStatus::class,
+            'registration_fee' => 'integer',
+            'paid_at' => 'datetime',
         ];
+    }
+
+    public function isPaid(): bool
+    {
+        return $this->payment_status === 'paid';
+    }
+
+    public function formattedFee(): string
+    {
+        return 'Rp ' . number_format($this->registration_fee, 0, ',', '.');
+    }
+
+    public function paymentStatusLabel(): string
+    {
+        return match ($this->payment_status) {
+            'paid' => 'Lunas (Terverifikasi)',
+            default => 'Menunggu Pembayaran',
+        };
+    }
+
+    public function paymentStatusBadge(): string
+    {
+        return match ($this->payment_status) {
+            'paid' => 'bg-emerald-100 text-emerald-800 border-emerald-200',
+            default => 'bg-amber-100 text-amber-800 border-amber-200',
+        };
     }
 }

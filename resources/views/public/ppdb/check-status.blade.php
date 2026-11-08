@@ -116,6 +116,20 @@
                             </div>
                         </div>
 
+                        <!-- Biaya & Status Pembayaran -->
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div>
+                                <span class="block text-xs uppercase tracking-wider text-slate-400">Biaya Formulir & Observasi</span>
+                                <span class="font-extrabold text-base text-slate-900 font-mono">{{ $result->formattedFee() }}</span>
+                                <span class="text-xs text-slate-500 block">Metode: {{ $result->payment_method === 'cash' ? 'Bayar Tunai di Loket TU' : 'Transfer Bank (BSI)' }}</span>
+                            </div>
+                            <div>
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border {{ $result->paymentStatusBadge() }}">
+                                    {{ $result->paymentStatusLabel() }}
+                                </span>
+                            </div>
+                        </div>
+
                         <!-- Notes from Panitia -->
                         @if($result->admin_notes)
                             <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm space-y-1">

@@ -200,6 +200,26 @@
         </tr>
     </table>
 
+    <!-- BIAYA PENDAFTARAN & METODE -->
+    <div class="section-title">C. Administrasi Biaya Pendaftaran</div>
+    <table class="data-table">
+        <tr>
+            <td class="label">Biaya Formulir & Observasi</td>
+            <td class="colon">:</td>
+            <td class="value"><strong>{{ $registration->formattedFee() }}</strong></td>
+        </tr>
+        <tr>
+            <td class="label">Metode Pembayaran</td>
+            <td class="colon">:</td>
+            <td class="value">{{ $registration->payment_method === 'cash' ? 'Bayar Tunai di Loket TU Madrasah' : 'Transfer Bank Syariah Indonesia (BSI)' }}</td>
+        </tr>
+        <tr>
+            <td class="label">Status Pembayaran</td>
+            <td class="colon">:</td>
+            <td class="value"><strong>{{ $registration->paymentStatusLabel() }}</strong> @if($registration->paid_at) (Terverifikasi {{ $registration->paid_at->translatedFormat('d F Y') }}) @endif</td>
+        </tr>
+    </table>
+
     <!-- PETUNJUK BERKAS OBSERVASI -->
     <div class="checklist-box">
         <p>Kelengkapan Berkas Fisik yang Wajib Dibawa Saat Jadwal Observasi:</p>

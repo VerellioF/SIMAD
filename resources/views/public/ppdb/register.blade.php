@@ -10,6 +10,8 @@
     fileAktaName: '',
     fileKkName: '',
     fileFotoName: '',
+    filePaymentName: '',
+    paymentMethod: '{{ old('payment_method', 'transfer') }}',
 }">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -57,7 +59,7 @@
                 </button>
                 <button type="button" @click="step = 3" class="text-left py-2.5 px-3 rounded-2xl transition border" :class="step === 3 ? 'bg-emerald-50 text-emerald-950 font-bold border-emerald-300 ring-2 ring-emerald-500/20' : 'border-slate-100 text-slate-400 hover:text-slate-600'">
                     <span class="block text-[11px] uppercase tracking-wider font-bold" :class="step === 3 ? 'text-emerald-700' : 'text-slate-400'">Langkah 3</span>
-                    <span class="text-xs sm:text-sm font-semibold truncate block">Unggah Berkas</span>
+                    <span class="text-xs sm:text-sm font-semibold truncate block">Unggah Berkas & Biaya</span>
                 </button>
             </div>
 
@@ -210,12 +212,14 @@
                 <div x-show="step === 3" x-cloak class="space-y-6">
                     <div class="flex items-center justify-between pb-2 border-b border-slate-100">
                         <h3 class="text-base sm:text-lg font-bold text-slate-800">
-                            3. Unggah Dokumen Kelengkapan
+                            3. Unggah Berkas & Biaya Pendaftaran
                         </h3>
                         <span class="text-xs text-slate-400">Tahap 3 dari 3</span>
                     </div>
 
                     <div class="space-y-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">A. Dokumen Persyaratan</h4>
+
                         <!-- Akta Kelahiran -->
                         <div class="p-5 rounded-2xl border-2 border-dashed border-slate-300 hover:border-emerald-500 bg-slate-50/50 transition">
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
@@ -257,6 +261,90 @@
                                 <span x-show="fileFotoName" class="text-emerald-700 font-semibold" x-text="'File terpilih: ' + fileFotoName"></span>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- B. Biaya & Metode Pembayaran -->
+                    <div class="pt-4 border-t border-slate-100 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">B. Biaya Pendaftaran & Observasi</h4>
+                            <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 font-extrabold text-xs">
+                                {{ config('simad.ppdb_fee_formatted', 'Rp 50.000') }}
+                            </span>
+                        </div>
+
+                        <!-- Info Card Nominal -->
+                        <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-900 to-emerald-950 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-gold-500/30">
+                            <div>
+                                <span class="text-[11px] uppercase tracking-wider text-gold-400 font-bold block">Biaya Formulir & Infaq Observasi</span>
+                                <p class="text-xs text-emerald-100 mt-1 max-w-md">
+                                    Mencakup map fisik portofolio santri, lembar instrumen observasi kesiapan belajar, kartu peserta, dan konsumsi observasi santri.
+                                </p>
+                            </div>
+                            <div class="text-right sm:text-right shrink-0">
+                                <span class="text-2xl font-black text-gold-400 font-mono">{{ config('simad.ppdb_fee_formatted', 'Rp 50.000') }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Pilihan Metode Pembayaran -->
+                        <div class="space-y-3">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                                Pilih Cara Pembayaran <span class="text-red-500">*</span>
+                            </label>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <!-- Transfer Bank -->
+                                <label class="relative flex items-start p-4 rounded-2xl border-2 cursor-pointer transition"
+                                    :class="paymentMethod === 'transfer' ? 'border-emerald-600 bg-emerald-50/50 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'">
+                                    <input type="radio" name="payment_method" value="transfer" x-model="paymentMethod" class="mt-1 text-emerald-800 focus:ring-emerald-600">
+                                    <div class="ml-3">
+                                        <span class="block text-xs font-bold text-slate-900">Transfer Bank (BSI Syariah)</span>
+                                        <span class="block text-[11px] text-slate-500 mt-0.5">Transfer via ATM / Mobile Banking, unggah bukti bayar.</span>
+                                    </div>
+                                </label>
+
+                                <!-- Bayar Tunai -->
+                                <label class="relative flex items-start p-4 rounded-2xl border-2 cursor-pointer transition"
+                                    :class="paymentMethod === 'cash' ? 'border-emerald-600 bg-emerald-50/50 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'">
+                                    <input type="radio" name="payment_method" value="cash" x-model="paymentMethod" class="mt-1 text-emerald-800 focus:ring-emerald-600">
+                                    <div class="ml-3">
+                                        <span class="block text-xs font-bold text-slate-900">Bayar Tunai di Loket TU</span>
+                                        <span class="block text-[11px] text-slate-500 mt-0.5">Dibayarkan langsung saat penyerahan berkas fisik di madrasah.</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Transfer Instruction & Proof Upload (Show if transfer) -->
+                        <div x-show="paymentMethod === 'transfer'" x-transition class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-white rounded-xl border border-slate-200/80">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Bank Tujuan</span>
+                                    <span class="font-bold text-xs text-slate-800">Bank Syariah Indonesia (BSI)</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Nomor Rekening</span>
+                                    <span class="font-mono font-extrabold text-sm text-emerald-900 select-all">7123456789</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Atas Nama</span>
+                                    <span class="font-semibold text-xs text-slate-800">YAYASAN RAUDLATUL MUTA'ALLIMIN</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                                    Unggah Bukti Transfer <span class="text-xs font-normal text-slate-400">(Opsional jika bayar kemudian)</span>
+                                </label>
+                                <input type="file" name="file_payment_proof" accept=".jpg,.jpeg,.png,.pdf"
+                                    @change="filePaymentName = $event.target.files[0]?.name || ''"
+                                    class="w-full text-xs text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-100 file:text-emerald-900 hover:file:bg-emerald-200">
+                                <div class="flex items-center justify-between mt-1 text-[11px] text-slate-500">
+                                    <span>Format: JPG / PNG / PDF (Maksimal 2MB)</span>
+                                    <span x-show="filePaymentName" class="text-emerald-700 font-semibold" x-text="'File terpilih: ' + filePaymentName"></span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Syarat & Ketentuan Accordion / Callout -->
