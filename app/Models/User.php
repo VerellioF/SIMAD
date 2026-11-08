@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\UserRole;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -58,20 +56,6 @@ class User extends Authenticatable implements FilamentUser
     public function isParent(): bool
     {
         return $this->role === UserRole::Parent;
-    }
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        if (! $this->is_active) {
-            return false;
-        }
-
-        return match ($panel->getId()) {
-            'admin' => $this->isAdmin(),
-            'teacher' => $this->isTeacher(),
-            'parent' => $this->isParent(),
-            default => false,
-        };
     }
 
     public function students(): HasMany
