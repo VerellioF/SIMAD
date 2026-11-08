@@ -19,8 +19,11 @@
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-emerald-950">
                     Pendaftaran Berhasil Dikirim!
                 </h1>
+                <p class="text-xs text-gold-600 font-bold uppercase tracking-wider">
+                    Pendaftaran Siswa Baru Telah Diterima Sistem
+                </p>
                 <p class="text-slate-600 text-sm max-w-md mx-auto">
-                    Terima kasih, data calon santri atas nama <strong>{{ $registration->child_name }}</strong> telah tersimpan di sistem SIMAD MI Plus Raudlatul Muta'allimin.
+                    Alhamdulillah, data calon siswa atas nama <strong>{{ $registration->child_name }}</strong> telah tersimpan di sistem SIMAD MI Plus Raudlatul Muta'allimin.
                 </p>
             </div>
 
@@ -50,7 +53,7 @@
                         <span class="text-emerald-700 font-bold">ℹ️</span>
                         <p>
                             Metode Pembayaran: <strong>Bayar Tunai di Loket TU</strong>.<br>
-                            Silakan lakukan pembayaran biaya pendaftaran sebesar <strong>{{ $registration->formattedFee() }}</strong> di kantor madrasah saat menyerahkan berkas fisik atau saat jadwal observasi santri.
+                            Silakan lakukan pembayaran biaya pendaftaran sebesar <strong>{{ $registration->formattedFee() }}</strong> di kantor madrasah saat menyerahkan berkas fisik atau saat jadwal observasi calon siswa.
                         </p>
                     </div>
                 @else
@@ -90,9 +93,10 @@
 
             <!-- Information Callout -->
             <div class="text-left bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1.5">
-                <p class="font-bold text-slate-800">Petunjuk Selanjutnya:</p>
-                <p>1. Panitia seleksi PPDB madrasah akan memverifikasi berkas Anda dalam 1-3 hari kerja.</p>
-                <p>2. Konfirmasi jadwal observasi/wawancara santri akan dikirimkan melalui WhatsApp ke nomor <strong>{{ $registration->parent_whatsapp }}</strong>.</p>
+                <p class="font-bold text-slate-800">Petunjuk Selanjutnya untuk Bapak/Ibu:</p>
+                <p>1. Panitia seleksi PPDB madrasah akan memverifikasi berkas pendaftaran Anda dalam 1-3 hari kerja.</p>
+                <p>2. Konfirmasi jadwal observasi kesiapan belajar calon siswa akan dikirimkan melalui WhatsApp ke nomor <strong>{{ $registration->parent_whatsapp }}</strong>.</p>
+                <p>3. Observasi dirancang dengan pendekatan ramah anak yang menyenangkan untuk mengenali minat dan kesiapan ananda.</p>
             </div>
 
         </div>

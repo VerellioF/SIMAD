@@ -8,11 +8,12 @@
     <div class="absolute inset-0 pattern-overlay opacity-10"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/30 text-xs font-semibold uppercase tracking-wider mb-3">
-            Keluarga Besar Pendidik
+            Keluarga Besar Tenaga Pendidik
         </span>
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Dewan Asatidz & Pimpinan</h1>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Dewan Guru & Pimpinan Sekolah</h1>
+        <p class="text-xs text-gold-400 font-semibold tracking-wider uppercase mt-2">Dewan Asatidz & Pimpinan MI Plus Raudlatul Muta'allimin</p>
         <p class="mt-4 text-emerald-200 text-sm sm:text-base max-w-2xl mx-auto font-light">
-            Mengenal para pendidik berdedikasi tinggi, santun, berakhlak mulia, dan berkompetensi di bidang ilmu umum serta kepesantrenan di MI Plus Raudlatul Muta'allimin.
+            Mengenal bapak dan ibu guru pendidik yang berdedikasi tinggi, ramah, telaten, berakhlak mulia, dan berkompetensi di bidang ilmu umum serta keagamaan Islam.
         </p>
     </div>
 </section>
@@ -44,7 +45,7 @@
                         <p class="text-xs font-semibold text-gold-600 mt-1">{{ $leader->education }}</p>
                     @endif
                     <p class="text-xs text-slate-500 mt-3 leading-relaxed">
-                        {{ $leader->bio ?? 'Berdedikasi dalam membimbing para santri dengan keteladanan akhlaqul karimah dan wawasan keilmuan kontemporer.' }}
+                        {{ $leader->bio ?? 'Berdedikasi dalam mendidik dan membimbing siswa-siswi dengan keteladanan akhlaqul karimah dan wawasan keilmuan kontemporer.' }}
                     </p>
                 </div>
                 @endforeach
@@ -56,7 +57,7 @@
         <div>
             <div class="text-center max-w-xl mx-auto mb-10">
                 <span class="text-xs font-bold text-emerald-850 uppercase tracking-widest">Tenaga Pendidik</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-1">Dewan Guru Asatidz</h2>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-1">Dewan Bapak & Ibu Guru (Dewan Guru Asatidz)</h2>
                 <div class="w-16 h-1 bg-gold-500 mx-auto mt-3 rounded-full"></div>
             </div>
 
@@ -79,7 +80,7 @@
                 </div>
                 @empty
                 <div class="col-span-4 text-center py-10 bg-white rounded-2xl border border-slate-100 text-slate-500 text-sm">
-                    Belum ada data guru asatidz yang ditampilkan.
+                    Belum ada data dewan guru yang ditampilkan.
                 </div>
                 @endforelse
             </div>

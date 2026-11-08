@@ -170,7 +170,7 @@
 
                 <!-- PPDB Online Card CTA -->
                 <div class="rounded-3xl bg-gradient-to-br from-emerald-950 to-emerald-900 p-6 text-white text-center border border-gold-500/30 space-y-3 shadow-md">
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-gold-400 block">Penerimaan Santri Baru</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gold-400 block">Penerimaan Siswa Baru (PPDB)</span>
                     <h3 class="text-lg font-extrabold text-white">Daftarkan Ananda ke MI Plus Sekarang</h3>
                     <p class="text-xs text-emerald-200">Kurikulum terpadu Kemenag, Kurikulum Merdeka, dan Tahfidz Yanbu'a.</p>
                     <div class="pt-2">

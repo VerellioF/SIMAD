@@ -136,7 +136,7 @@
 
     <!-- JUDUL DOKUMEN & NOMOR REGISTRASI -->
     <div class="doc-title">
-        <h1>Lembar Bukti Pendaftaran Santri Baru (PPDB Online)</h1>
+        <h1>Lembar Bukti Pendaftaran Siswa Baru (PPDB Online)</h1>
         <div class="badge-box">
             {{ $registration->registration_number }}
         </div>
@@ -145,23 +145,23 @@
         </p>
     </div>
 
-    <!-- DATA CALON SANTRI -->
-    <div class="section-title">A. Biodata Calon Santri</div>
+    <!-- DATA CALON SISWA -->
+    <div class="section-title">A. Biodata Calon Siswa</div>
     <table class="data-table">
         <tr>
-            <td class="label">Nama Lengkap Santri</td>
+            <td class="label">Nama Lengkap Siswa</td>
             <td class="colon">:</td>
             <td class="value"><strong>{{ $registration->child_name }}</strong></td>
         </tr>
         <tr>
-            <td class="label">NIK Santri</td>
+            <td class="label">NIK Siswa (16 Digit)</td>
             <td class="colon">:</td>
             <td class="value">{{ $registration->nik }}</td>
         </tr>
         <tr>
             <td class="label">Jenis Kelamin</td>
             <td class="colon">:</td>
-            <td class="value">{{ $registration->gender === 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+            <td class="value">{{ $registration->gender === 'L' ? 'Laki-laki (Putra)' : 'Perempuan (Putri)' }}</td>
         </tr>
         <tr>
             <td class="label">Tempat, Tanggal Lahir</td>
@@ -169,14 +169,14 @@
             <td class="value">{{ $registration->birth_place }}, {{ $registration->birth_date->translatedFormat('d F Y') }}</td>
         </tr>
         <tr>
-            <td class="label">Asal Lembaga (RA/TK)</td>
+            <td class="label">Asal Lembaga (TK/RA/PAUD)</td>
             <td class="colon">:</td>
             <td class="value">{{ $registration->previous_school }}</td>
         </tr>
     </table>
 
     <!-- DATA ORANG TUA / WALI -->
-    <div class="section-title">B. Data Orang Tua / Wali</div>
+    <div class="section-title">B. Data Orang Tua / Wali Murid</div>
     <table class="data-table">
         <tr>
             <td class="label">Nama Orang Tua / Wali</td>
@@ -239,7 +239,7 @@
     <table class="signatures">
         <tr>
             <td>
-                Orang Tua / Wali Santri,
+                Orang Tua / Wali Murid,
                 <div class="sign-space"></div>
                 ( <strong>{{ $registration->parent_name }}</strong> )
             </td>

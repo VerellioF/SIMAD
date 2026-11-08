@@ -12,7 +12,7 @@
         </span>
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Kurikulum Terpadu Madrasah</h1>
         <p class="mt-4 text-emerald-200 text-sm sm:text-base max-w-2xl mx-auto font-light leading-relaxed">
-            Memadukan Kurikulum Merdeka Nasional, Kurikulum Keagamaan Kemenag RI, serta Muatan Lokal dan Kepesantrenan Plus Salafus Sholih.
+            Memadukan Kurikulum Merdeka Nasional Kemendikbudristek, Kurikulum Keagamaan Standar Kemenag RI, serta Muatan Lokal Penguatan Karakter & Tahfidz Juz 30.
         </p>
     </div>
 </section>
@@ -53,9 +53,9 @@
                     3
                 </div>
                 <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full">Kekhasan MI Plus</span>
-                <h3 class="text-lg font-bold text-slate-900 mt-2">Pesantren & Tahfidz Plus</h3>
+                <h3 class="text-lg font-bold text-slate-900 mt-2">Karakter Islami & Tahfidz Plus</h3>
                 <p class="text-xs text-slate-600 mt-2 leading-relaxed">
-                    Target hafalan Juz 30 dan Juz 29 mutqin, pengenalan aksara Pegon, dasar kitab kuning (Akhlaq & Tajwid), serta amaliah Aswaja An-Nahdliyyah.
+                    Target hafalan Juz 30 dan Juz 29 mutqin, pengenalan aksara Pegon, dasar budi pekerti islami, serta amaliah Aswaja An-Nahdliyyah.
                 </p>
             </div>
         </div>
@@ -84,7 +84,7 @@
             @foreach([
                 'kemenag_pai' => 'Kelompok Mata Pelajaran PAI & Bahasa Arab (Kemenag)',
                 'nasional_merdeka' => 'Kelompok Mata Pelajaran Umum (Kurikulum Merdeka)',
-                'muatan_lokal_pesantren' => 'Kelompok Muatan Lokal & Kepesantrenan Plus'
+                'muatan_lokal_pesantren' => 'Kelompok Muatan Lokal & Penguatan Karakter Islami'
             ] as $typeKey => $typeTitle)
                 @php
                     $groupItems = $curriculums->get($typeKey, collect());

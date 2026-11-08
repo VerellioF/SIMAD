@@ -106,11 +106,11 @@
                 </span>
                 <span x-show="portal === 'teacher'" x-cloak class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-50 text-teal-800 border border-teal-200 text-xs font-bold">
                     <span class="w-2 h-2 rounded-full bg-teal-600"></span>
-                    <span>Portal Asatidz & Wali Kelas</span>
+                    <span>Portal Bapak/Ibu Guru & Wali Kelas</span>
                 </span>
                 <span x-show="portal === 'parent'" x-cloak class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">
                     <span class="w-2 h-2 rounded-full bg-amber-600"></span>
-                    <span>Portal Wali Murid & Pantau Santri</span>
+                    <span>Portal Orang Tua / Wali Murid & Pantau Siswa</span>
                 </span>
             </div>
 
@@ -187,7 +187,7 @@
                     </button>
                     <button type="button" @click="fillDemo('wali@simad.id', 'password', 'parent')"
                         class="p-2 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-300 text-center transition">
-                        <span class="block font-bold text-slate-800 text-[11px]">Wali Santri</span>
+                        <span class="block font-bold text-slate-800 text-[11px]">Wali Murid</span>
                         <span class="block text-[9px] text-slate-400">wali@simad.id</span>
                     </button>
                 </div>

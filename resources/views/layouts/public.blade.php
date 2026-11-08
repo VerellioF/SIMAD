@@ -94,19 +94,28 @@
                         <span>Masuk Portal</span>
                         <svg class="w-3 h-3 transition-transform" :class="{'rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-slate-100 py-2 z-50 text-slate-700">
-                        <div class="px-3 py-1.5 border-b border-slate-100 text-[10px] font-bold uppercase text-slate-400">Pilih Portal Akses</div>
+                    <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-slate-100 py-2.5 z-50 text-slate-700">
+                        <div class="px-3.5 py-1.5 border-b border-slate-100 text-[10px] font-bold uppercase text-slate-400">Pilih Portal Masuk</div>
                         <a href="/wali/login" class="flex items-center gap-2.5 px-4 py-2 hover:bg-emerald-50 hover:text-emerald-900 transition text-xs">
-                            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                            <span class="font-medium">Portal Wali Murid</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                            <div>
+                                <span class="font-bold block">Portal Wali Murid</span>
+                                <span class="text-[10px] text-slate-400 block">Orang Tua / Wali Siswa</span>
+                            </div>
                         </a>
                         <a href="/guru/login" class="flex items-center gap-2.5 px-4 py-2 hover:bg-emerald-50 hover:text-emerald-900 transition text-xs">
-                            <span class="w-2 h-2 rounded-full bg-teal-500"></span>
-                            <span class="font-medium">Portal Guru / Asatidz</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span>
+                            <div>
+                                <span class="font-bold block">Portal Guru & Wali Kelas</span>
+                                <span class="text-[10px] text-slate-400 block">Presensi, Nilai & Ibadah</span>
+                            </div>
                         </a>
                         <a href="/admin/login" class="flex items-center gap-2.5 px-4 py-2 hover:bg-emerald-50 hover:text-emerald-900 transition text-xs">
-                            <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-                            <span class="font-medium">Backoffice TU & Admin</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                            <div>
+                                <span class="font-bold block">Backoffice Staf TU</span>
+                                <span class="text-[10px] text-slate-400 block">Operator & Administrasi</span>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -162,8 +171,8 @@
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                                 </div>
                                 <div>
-                                    <span class="block font-bold text-xs text-slate-900">Dewan Asatidz & Pimpinan</span>
-                                    <span class="block text-[11px] text-slate-500">Profil Kepala Madrasah & Ustadz Pengampu</span>
+                                    <span class="block font-bold text-xs text-slate-900">Dewan Guru & Pimpinan (Dewan Asatidz)</span>
+                                    <span class="block text-[11px] text-slate-500">Profil Kepala Madrasah & Bapak/Ibu Guru</span>
                                 </div>
                             </a>
 
@@ -217,7 +226,7 @@
                                 ↳ Kurikulum Terpadu
                             </a>
                             <a href="{{ route('public.teachers') }}" @click="mobileMenu = false" class="block px-3 py-1.5 rounded-lg text-xs hover:bg-emerald-50 hover:text-emerald-900">
-                                ↳ Dewan Asatidz & Pimpinan
+                                ↳ Dewan Guru & Pimpinan (Dewan Asatidz)
                             </a>
                             <a href="{{ route('public.calendar') }}" @click="mobileMenu = false" class="block px-3 py-1.5 rounded-lg text-xs hover:bg-emerald-50 hover:text-emerald-900">
                                 ↳ Kalender Akademik
@@ -285,9 +294,9 @@
                     <ul class="space-y-2 text-sm text-emerald-200/80">
                         <li><a href="{{ route('public.news') }}" class="hover:text-white transition">Kabar, Pengumuman & Galeri</a></li>
                         <li><a href="{{ route('public.contact') }}" class="hover:text-white transition">Kontak & Lokasi Madrasah</a></li>
-                        <li><a href="/ppdb/daftar" class="hover:text-white transition">Pendaftaran PPDB Online</a></li>
-                        <li><a href="/ppdb/cek-status" class="hover:text-white transition">Cek Status Seleksi Santri</a></li>
-                        <li><a href="/wali/login" class="hover:text-white transition">Portal Wali Murid</a></li>
+                        <li><a href="/ppdb/daftar" class="hover:text-white transition">Pendaftaran Siswa Baru (PPDB Online)</a></li>
+                        <li><a href="/ppdb/cek-status" class="hover:text-white transition">Cek Status Pendaftaran Siswa</a></li>
+                        <li><a href="/wali/login" class="hover:text-white transition">Portal Orang Tua / Wali Murid</a></li>
                         <li><a href="/guru/login" class="hover:text-white transition">Portal Guru & Wali Kelas</a></li>
                         <li><a href="/admin/login" class="hover:text-white transition">Backoffice Staf TU</a></li>
                     </ul>

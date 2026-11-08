@@ -64,12 +64,12 @@
                         <div class="absolute inset-0 bg-gold-500/20 islamic-arch transform rotate-3 scale-95 -z-10"></div>
                         <div class="bg-gradient-to-b from-emerald-800 to-emerald-950 p-3 islamic-arch border-2 border-gold-500/60 shadow-2xl">
                             <div class="islamic-arch overflow-hidden bg-emerald-950 aspect-[4/5] flex flex-col justify-end p-6 text-white relative">
-                                <img src="{{ asset('images/hero-santri.svg') }}" alt="Santri MI Plus Raudlatul Muta'allimin" class="absolute inset-0 w-full h-full object-cover">
+                                <img src="{{ asset('images/hero-santri.svg') }}" alt="Siswa-Siswi MI Plus Raudlatul Muta'allimin" class="absolute inset-0 w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/30 to-transparent"></div>
                                 <div class="relative z-10 space-y-2">
                                     <span class="inline-block px-3 py-1 rounded-md bg-gold-500 text-emerald-950 text-xs font-bold uppercase tracking-wider">Tahfidz & Karakter</span>
-                                    <h3 class="text-xl font-bold text-white">Lingkungan Belajar Asri & Islami</h3>
-                                    <p class="text-xs text-emerald-200">Mencetak santri cerdas, santun, dan hafal Juz 30.</p>
+                                    <h3 class="text-xl font-bold text-white">Lingkungan Belajar Asri & Ramah Anak</h3>
+                                    <p class="text-xs text-emerald-200">Membina siswa-siswi cerdas, santun, dan berkarakter Qur'ani.</p>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
         <div class="bg-gradient-to-r from-white via-[#fbf8ef] to-white rounded-3xl shadow-lg border-2 border-gold-500/30 p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-200/80 relative overflow-hidden pattern-islamic-light">
             <div class="p-4 relative z-10">
                 <span class="block text-3xl lg:text-4xl font-extrabold text-emerald-900 font-mono">350+</span>
-                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Santri Aktif</span>
+                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Siswa & Siswi Aktif</span>
             </div>
             <div class="p-4 relative z-10">
                 <span class="block text-3xl lg:text-4xl font-extrabold text-emerald-900 font-mono">100%</span>
@@ -102,11 +102,11 @@
             </div>
             <div class="p-4 relative z-10">
                 <span class="block text-3xl lg:text-4xl font-extrabold text-emerald-900 font-mono">25+</span>
-                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Guru & Asatidz</span>
+                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Bapak & Ibu Guru</span>
             </div>
             <div class="p-4 relative z-10">
                 <span class="block text-3xl lg:text-4xl font-extrabold text-gold-600 font-mono">Juz 30</span>
-                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Target Tahfidz Lulus</span>
+                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Target Tahfidz Kelulusan</span>
             </div>
         </div>
     </section>
@@ -155,13 +155,13 @@
                             <span>Visi Madrasah</span>
                         </h4>
                         <p class="text-emerald-100 text-sm italic font-serif leading-relaxed pl-3 border-l-2 border-gold-400">
-                            "Terwujudnya Santri yang Beriman, Bertaqwa, Berakhlaq Mulia, Unggul dalam Prestasi, dan Berjiwa Qur'ani."
+                            "Terwujudnya Siswa-Siswi yang Beriman, Bertaqwa, Berakhlaq Mulia, Unggul dalam Prestasi, dan Berkarakter Qur'ani."
                         </p>
                         <h4 class="text-base font-bold text-gold-400 pt-2">Misi Utama</h4>
                         <ul class="space-y-2 text-xs sm:text-sm text-emerald-200">
                             <li class="flex items-start gap-2">
                                 <span class="text-gold-400 font-bold">1.</span>
-                                <span>Menumbuhkembangkan pembiasaan ibadah fardhu dan sunnah sejak dini.</span>
+                                <span>Menumbuhkembangkan pembiasaan ibadah fardhu dan sunnah sejak dini pada peserta didik.</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-gold-400 font-bold">2.</span>
@@ -169,7 +169,7 @@
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-gold-400 font-bold">3.</span>
-                                <span>Menyelenggarakan pembelajaran saintifik yang memicu rasa ingin tahu dan kreativitas santri.</span>
+                                <span>Menyelenggarakan pembelajaran saintifik yang memicu rasa ingin tahu, nalar kritis, dan kreativitas siswa.</span>
                             </li>
                         </ul>
                     </div>
@@ -180,38 +180,38 @@
                         <ul class="space-y-2 text-xs sm:text-sm text-emerald-200">
                             <li class="flex items-start gap-2">
                                 <span class="text-gold-400 font-bold">•</span>
-                                <span>Lulusan hafal minimal Juz 30 (Juz 'Amma) dan terbiasa membaca Al-Qur'an setiap hari.</span>
+                                <span>Lulusan hafal minimal Juz 30 (Juz 'Amma) dan terbiasa membaca Al-Qur'an setiap hari di rumah.</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-gold-400 font-bold">•</span>
-                                <span>Mampu mempraktikkan tata cara wudhu dan sholat fardhu secara mandiri dan benar.</span>
+                                <span>Mampu mempraktikkan tata cara wudhu dan sholat fardhu secara mandiri, khusyuk, dan tertib.</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <span class="text-gold-400 font-bold">•</span>
-                                <span>Memiliki kesiapan melanjutkan ke jenjang MTs/SMP favorit maupun pondok pesantren.</span>
+                                <span>Memiliki kesiapan akademik dan akhlak untuk melanjutkan ke jenjang MTs/SMP unggulan maupun pondok pesantren.</span>
                             </li>
                         </ul>
                     </div>
 
                     <!-- Tab Budaya -->
                     <div x-show="tab === 'budaya'" x-cloak class="space-y-4 relative z-10">
-                        <h4 class="text-lg font-bold text-gold-400">5 Budaya Santri Raudlatul Muta'allimin</h4>
+                        <h4 class="text-lg font-bold text-gold-400">5 Budaya Karakter Siswa Hebat</h4>
                         <div class="grid grid-cols-2 gap-3 text-xs text-emerald-200">
                             <div class="p-2.5 rounded-xl bg-emerald-900/80 border border-emerald-800">
                                 <span class="font-bold text-gold-400 block mb-0.5">1. 5S</span>
-                                Senyum, Sapa, Salam, Sopan, Santun kepada guru dan orang tua.
+                                Senyum, Sapa, Salam, Sopan, dan Santun kepada Bapak/Ibu Guru serta orang tua.
                             </div>
                             <div class="p-2.5 rounded-xl bg-emerald-900/80 border border-emerald-800">
                                 <span class="font-bold text-gold-400 block mb-0.5">2. Dhuha Berjamaah</span>
-                                Mengetuk pintu rezeki berkah setiap pagi sebelum mulai pelajaran.
+                                Mengetuk pintu rezeki berkah dan ketenangan hati setiap pagi sebelum belajar.
                             </div>
                             <div class="p-2.5 rounded-xl bg-emerald-900/80 border border-emerald-800">
                                 <span class="font-bold text-gold-400 block mb-0.5">3. Bersih & Rapi</span>
-                                Menjaga kebersihan madrasah sebagai cerminan sebagian dari iman.
+                                Menjaga kebersihan madrasah dan kerapian diri sebagai cerminan iman.
                             </div>
                             <div class="p-2.5 rounded-xl bg-emerald-900/80 border border-emerald-800">
                                 <span class="font-bold text-gold-400 block mb-0.5">4. Gemar Berinfaq</span>
-                                Melatih empati dan kedermawanan melalui kotak amal harian.
+                                Melatih empati, kepedulian sosial, dan keikhlasan melalui kotak infaq harian.
                             </div>
                         </div>
                     </div>
@@ -228,7 +228,7 @@
             <div>
                 <img src="{{ asset('images/ornaments/islamic-divider.svg') }}" class="h-4 mx-auto opacity-75" alt="">
             </div>
-            <p class="text-slate-600 text-sm sm:text-base">Perpaduan seimbang antara kurikulum standar Kemenag dengan pembiasaan adab dan tradisi pesantren.</p>
+            <p class="text-slate-600 text-sm sm:text-base">Perpaduan seimbang antara kurikulum standar Kemenag, Kurikulum Merdeka nasional, dan penguatan karakter islami.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -238,7 +238,7 @@
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                 </div>
                 <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-900 transition-colors">Tahfidz & Tartil Qur'an</h4>
-                <p class="text-slate-600 text-sm leading-relaxed">Bimbingan hafalan Juz 30 berjenjang dengan mutaba'ah harian, hukum tajwid, makharijul huruf, dan wisuda tahfidz.</p>
+                <p class="text-slate-600 text-sm leading-relaxed">Bimbingan hafalan Juz 30 berjenjang dengan mutaba'ah harian, hukum tajwid, makharijul huruf, dan wisuda tahfidz kelulusan.</p>
             </div>
 
             <!-- Card 2 -->
@@ -247,7 +247,7 @@
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-900 transition-colors">Pembiasaan Ibadah Fardhu & Dhuha</h4>
-                <p class="text-slate-600 text-sm leading-relaxed">Sholat dhuha berjamaah setiap pagi, pembacaan Asmaul Husna, sholat dzuhur berjamaah, serta doa harian terstruktur.</p>
+                <p class="text-slate-600 text-sm leading-relaxed">Sholat dhuha berjamaah setiap pagi, pembacaan Asmaul Husna, sholat dzuhur berjamaah, serta hafalan doa harian terstruktur.</p>
             </div>
 
             <!-- Card 3 -->
@@ -256,7 +256,7 @@
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
                 </div>
                 <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-900 transition-colors">Hadrah & Sholawat Rebana</h4>
-                <p class="text-slate-600 text-sm leading-relaxed">Pengembangan bakat seni hadrah rebana, seni suara islami, dan pentas kreasi santri di berbagai event Kemenag dan umum.</p>
+                <p class="text-slate-600 text-sm leading-relaxed">Pengembangan bakat seni hadrah rebana, seni suara islami, dan pentas kreasi siswa-siswi di berbagai event Kemenag dan umum.</p>
             </div>
 
             <!-- Card 4 -->
@@ -264,8 +264,8 @@
                 <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-900 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-gold-400 transition-colors shadow-sm">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
                 </div>
-                <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-900 transition-colors">Sains & Kepramukaan</h4>
-                <p class="text-slate-600 text-sm leading-relaxed">Eksplorasi matematika & sains madrasah, kegiatan kepramukaan, outbound santri, dan kemandirian sejak dini.</p>
+                <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-900 transition-colors">Sains, Literasi & Pramuka</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">Eksplorasi matematika nalaria & sains terapan, kepramukaan siaga/penggalang, literasi buku, dan kemandirian sejak dini.</p>
             </div>
         </div>
     </section>
@@ -316,7 +316,7 @@
                     <div class="flex items-center justify-between mb-6">
                         <div>
                             <h3 class="text-2xl font-bold text-slate-900">Warta & Berita Terkini</h3>
-                            <p class="text-xs text-slate-500 mt-0.5">Liputan agenda santri, prestasi, dan kegiatan madrasah</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Liputan agenda siswa-siswi, prestasi, dan kegiatan madrasah</p>
                         </div>
                         <a href="{{ route('public.news', ['tab' => 'berita']) }}" class="text-xs font-bold text-emerald-800 hover:underline">
                             Lihat Semua Berita →
@@ -401,7 +401,7 @@
                 <div class="lg:col-span-7 space-y-6">
                     <div class="flex items-center justify-between">
                         <div>
-                            <span class="text-xs font-bold text-emerald-850 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">Minat & Bakat Santri</span>
+                            <span class="text-xs font-bold text-emerald-850 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">Minat & Bakat Siswa-Siswi</span>
                             <h3 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-2">Ekstrakurikuler Unggulan</h3>
                         </div>
                         <a href="{{ route('public.ekskul') }}" class="hidden sm:inline-flex items-center gap-1 text-xs font-bold text-emerald-850 hover:underline">
@@ -418,7 +418,7 @@
                                         <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-100 text-emerald-850">
                                             {{ str_replace('_', ' ', ucfirst($fe->category)) }}
                                         </span>
-                                        <span class="text-[10px] text-slate-400 font-semibold">{{ $fe->enrollments_count }} Santri</span>
+                                        <span class="text-[10px] text-slate-400 font-semibold">{{ $fe->enrollments_count }} Siswa Aktif</span>
                                     </div>
                                     <h4 class="font-bold text-slate-900 text-sm group-hover:text-emerald-800 transition">{{ $fe->name }}</h4>
                                     <p class="text-xs text-slate-500 mt-1 line-clamp-2">{{ $fe->description }}</p>
@@ -443,8 +443,8 @@
             <div class="pt-10 border-t border-slate-200/80">
                 <div class="text-center max-w-xl mx-auto mb-10">
                     <span class="text-xs font-bold text-emerald-850 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">Pendidik Berakhlak & Kompeten</span>
-                    <h3 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-2">Dewan Asatidz & Pimpinan</h3>
-                    <p class="text-xs sm:text-sm text-slate-500 mt-2">Dimentori oleh tenaga pendidik lulusan perguruan tinggi Islam dan umum terkemuka dengan sanad keilmuan yang jelas.</p>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-emerald-950 mt-2">Dewan Guru & Pimpinan Madrasah</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-2">Dididik dan dibimbing langsung oleh dewan guru (Dewan Asatidz) berkompeten lulusan perguruan tinggi Islam dan umum terkemuka.</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -456,7 +456,7 @@
                                 </div>
                                 <h4 class="font-bold text-slate-900 text-sm leading-snug">{{ $ft->name }}</h4>
                                 <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-850">
-                                    {{ $ft->position ?? 'Guru Asatidz' }}
+                                    {{ $ft->position ?? 'Guru Mata Pelajaran' }}
                                 </span>
                                 @if($ft->education)
                                     <p class="text-[10px] text-slate-400 mt-1 line-clamp-1">{{ $ft->education }}</p>
@@ -468,7 +468,7 @@
 
                 <div class="text-center mt-8">
                     <a href="{{ route('public.teachers') }}" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs shadow transition">
-                        <span>Lihat Profil Lengkap Seluruh Dewan Asatidz</span>
+                        <span>Lihat Profil Lengkap Seluruh Dewan Guru</span>
                         <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 </div>

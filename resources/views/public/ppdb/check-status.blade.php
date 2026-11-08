@@ -15,7 +15,7 @@
                 Cek Status Seleksi PPDB Online
             </h1>
             <p class="text-sm text-slate-600 max-w-lg mx-auto">
-                Masukkan <strong>Nomor Registrasi</strong> (contoh: <em>PPDB-2026-0001</em>) atau <strong>NIK 16 digit</strong> calon santri untuk melihat progres verifikasi berkas.
+                Masukkan <strong>Nomor Registrasi</strong> (contoh: <em>PPDB-2026-0001</em>) atau <strong>NIK 16 digit</strong> calon siswa untuk melihat progres verifikasi berkas dan hasil seleksi.
             </p>
         </div>
 
@@ -27,7 +27,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     </div>
                     <input type="text" name="q" value="{{ $query }}" required
-                        placeholder="Ketik Nomor Registrasi atau NIK Santri..."
+                        placeholder="Ketik Nomor Registrasi atau NIK Calon Siswa..."
                         class="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:border-transparent text-sm">
                 </div>
                 <button type="submit"
@@ -99,19 +99,19 @@
                     <div class="p-6 sm:p-8 space-y-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-6 border-b border-slate-100 text-sm">
                             <div>
-                                <span class="block text-xs uppercase tracking-wider text-slate-400">Nama Calon Santri</span>
+                                <span class="block text-xs uppercase tracking-wider text-slate-400">Nama Calon Siswa</span>
                                 <span class="font-bold text-slate-800 text-base">{{ $result->child_name }}</span>
                             </div>
                             <div>
-                                <span class="block text-xs uppercase tracking-wider text-slate-400">NIK Santri</span>
+                                <span class="block text-xs uppercase tracking-wider text-slate-400">NIK Calon Siswa</span>
                                 <span class="font-mono text-slate-700">{{ $result->nik }}</span>
                             </div>
                             <div>
-                                <span class="block text-xs uppercase tracking-wider text-slate-400">Asal Lembaga (RA/TK)</span>
+                                <span class="block text-xs uppercase tracking-wider text-slate-400">Asal Lembaga (TK/RA/PAUD)</span>
                                 <span class="text-slate-700">{{ $result->previous_school }}</span>
                             </div>
                             <div>
-                                <span class="block text-xs uppercase tracking-wider text-slate-400">Wali Santri</span>
+                                <span class="block text-xs uppercase tracking-wider text-slate-400">Orang Tua / Wali Murid</span>
                                 <span class="text-slate-700">{{ $result->parent_name }}</span>
                             </div>
                         </div>

@@ -193,7 +193,7 @@
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kategori Pertanyaan</label>
                     <select name="category" required
                             class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 focus:ring-2 focus:ring-emerald-800 bg-slate-50/50">
-                        <option value="ppdb" {{ old('category') === 'ppdb' ? 'selected' : '' }}>Konsultasi PPDB & Pendaftaran Santri Baru</option>
+                        <option value="ppdb" {{ old('category') === 'ppdb' ? 'selected' : '' }}>Konsultasi PPDB & Pendaftaran Siswa Baru</option>
                         <option value="kurikulum" {{ old('category') === 'kurikulum' ? 'selected' : '' }}>Informasi Kurikulum Terpadu & Tahfidz</option>
                         <option value="administrasi" {{ old('category') === 'administrasi' ? 'selected' : '' }}>Administrasi & Mutasi Masuk/Keluar</option>
                         <option value="umum" {{ old('category') === 'umum' ? 'selected' : '' }}>Pertanyaan Kemitraan / Umum</option>

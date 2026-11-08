@@ -35,7 +35,7 @@
                     Kabar, Pengumuman & Galeri Madrasah
                 </h1>
                 <p class="text-emerald-100/90 text-sm sm:text-base leading-relaxed">
-                    Ikuti perkembangan terkini, prestasi santri, pengumuman resmi madrasah, dan dokumentasi kegiatan pembelajaran di MI Plus Raudlatul Muta'allimin.
+                    Ikuti perkembangan terkini, prestasi siswa-siswi, pengumuman resmi madrasah, dan dokumentasi kegiatan pembelajaran di MI Plus Raudlatul Muta'allimin.
                 </p>
             </div>
             <div class="absolute -right-12 -bottom-12 w-64 h-64 rounded-full bg-gold-500/10 blur-2xl pointer-events-none"></div>

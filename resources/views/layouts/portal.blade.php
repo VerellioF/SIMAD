@@ -63,9 +63,9 @@
                                 @if(auth()->user()->isAdmin())
                                     Backoffice Tata Usaha & Admin
                                 @elseif(auth()->user()->isTeacher())
-                                    Portal Guru & Asatidz
+                                    Portal Guru & Wali Kelas
                                 @else
-                                    Portal Wali Murid
+                                    Portal Orang Tua / Wali Murid
                                 @endif
                             </span>
                         </div>
@@ -191,18 +191,18 @@
                         </div>
                     @elseif(auth()->user()->isTeacher())
                         <div class="space-y-1">
-                            <span class="block px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Portal Asatidz</span>
+                            <span class="block px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Portal Guru & Wali Kelas</span>
                             <a href="{{ route('teacher.dashboard') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold {{ request()->routeIs('teacher.dashboard') ? 'bg-teal-50 text-teal-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-5 h-5 {{ request()->routeIs('teacher.dashboard') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                                 <span>Beranda Guru</span>
                             </a>
                             <a href="{{ route('teacher.attendance.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold {{ request()->routeIs('teacher.attendance.*') ? 'bg-teal-50 text-teal-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-5 h-5 {{ request()->routeIs('teacher.attendance.*') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-                                <span>Presensi Santri</span>
+                                <span>Presensi Siswa</span>
                             </a>
                             <a href="{{ route('teacher.leave.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold {{ request()->routeIs('teacher.leave.*') ? 'bg-teal-50 text-teal-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-5 h-5 {{ request()->routeIs('teacher.leave.*') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                <span>Validasi Izin Santri</span>
+                                <span>Izin Kehadiran Siswa</span>
                             </a>
                             <a href="{{ route('teacher.tahfidz.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold {{ request()->routeIs('teacher.tahfidz.*') ? 'bg-teal-50 text-teal-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-5 h-5 {{ request()->routeIs('teacher.tahfidz.*') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
@@ -218,7 +218,7 @@
                             </a>
                             <a href="{{ route('teacher.worship.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold {{ request()->routeIs('teacher.worship.*') ? 'bg-teal-50 text-teal-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-5 h-5 {{ request()->routeIs('teacher.worship.*') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                <span>Mutaba'ah Ibadah Santri</span>
+                                <span>Mutaba'ah Ibadah Siswa</span>
                             </a>
                             <a href="{{ route('teacher.conduct.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold {{ request()->routeIs('teacher.conduct.*') ? 'bg-teal-50 text-teal-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-5 h-5 {{ request()->routeIs('teacher.conduct.*') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -231,7 +231,7 @@
                         </div>
                     @else
                         <div class="space-y-1">
-                            <span class="block px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Portal Wali Santri</span>
+                            <span class="block px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Portal Orang Tua / Wali Murid</span>
                             <a href="{{ route('parent.dashboard') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold {{ request()->routeIs('parent.dashboard') ? 'bg-amber-50 text-amber-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-5 h-5 {{ request()->routeIs('parent.dashboard') ? 'text-amber-600' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                                 <span>Beranda Ananda</span>
@@ -242,7 +242,7 @@
                             </a>
                             <a href="{{ route('parent.leave.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold {{ request()->routeIs('parent.leave.*') ? 'bg-amber-50 text-amber-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-5 h-5 {{ request()->routeIs('parent.leave.*') ? 'text-amber-600' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                <span>Surat Izin Santri</span>
+                                <span>Surat Izin Kehadiran</span>
                             </a>
                             <a href="{{ route('parent.schedules.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold {{ request()->routeIs('parent.schedules.*') ? 'bg-amber-50 text-amber-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-5 h-5 {{ request()->routeIs('parent.schedules.*') ? 'text-amber-600' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>

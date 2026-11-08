@@ -9,13 +9,13 @@
     <div class="bg-gradient-to-r from-amber-950 via-amber-900 to-amber-950 p-6 sm:p-8 rounded-3xl text-white shadow-lg border border-amber-500/30">
         <div class="space-y-1">
             <span class="inline-block px-3 py-1 rounded-full bg-amber-500 text-amber-950 text-xs font-bold uppercase tracking-wider">
-                Portal Wali Santri
+                Portal Orang Tua / Wali Murid
             </span>
             <h1 class="text-2xl sm:text-3xl font-extrabold text-white">
                 Ahlan wa Sahlan, Bapak/Ibu {{ auth()->user()->name }}
             </h1>
             <p class="text-xs sm:text-sm text-amber-200">
-                Pantau perkembangan kehadiran, setoran hafalan Qur'an, dan administrasi pendidikan putra-putri tercinta.
+                Pantau perkembangan kehadiran, nilai, ibadah harian, dan administrasi pendidikan putra-putri tercinta.
             </p>
         </div>
     </div>
@@ -35,7 +35,7 @@
                             <div class="flex items-center gap-2">
                                 <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">{{ $student->full_name }}</h2>
                                 <span class="px-2 py-0.5 rounded text-[10px] font-bold {{ $student->gender === 'L' ? 'bg-blue-50 text-blue-700' : 'bg-pink-50 text-pink-700' }}">
-                                    {{ $student->gender === 'L' ? 'Ikhwan' : 'Akhwat' }}
+                                    {{ $student->gender === 'L' ? 'Putra' : 'Putri' }}
                                 </span>
                             </div>
                             <p class="text-xs text-slate-500 font-mono mt-0.5">
@@ -69,7 +69,7 @@
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
                         <span class="text-[10px] uppercase font-bold text-slate-400 block">Target Tahfidz</span>
                         <span class="text-xl font-extrabold text-amber-700 block">Juz 30 (Juz 'Amma)</span>
-                        <span class="text-[11px] text-slate-500 block">Mutaba'ah harian dibimbing asatidz</span>
+                        <span class="text-[11px] text-slate-500 block">Mutaba'ah harian dibimbing bapak/ibu guru</span>
                     </div>
 
                     <!-- Status Administrasi SPP -->
@@ -103,9 +103,9 @@
                 <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                 </div>
-                <h3 class="text-base font-bold text-slate-800">Akun Belum Terhubung dengan Data Santri</h3>
+                <h3 class="text-base font-bold text-slate-800">Akun Belum Terhubung dengan Data Siswa</h3>
                 <p class="text-xs text-slate-500 max-w-md mx-auto">
-                    Akun wali murid ini belum ditautkan ke data santri aktif di buku induk madrasah. Silakan hubungi Staf Tata Usaha untuk verifikasi data kependudukan.
+                    Akun wali murid ini belum ditautkan ke data siswa aktif di buku induk madrasah. Silakan hubungi Staf Tata Usaha untuk verifikasi data kependudukan.
                 </p>
             </div>
         @endforelse

@@ -8,11 +8,11 @@
     <div class="absolute inset-0 pattern-overlay opacity-10"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/30 text-xs font-semibold uppercase tracking-wider mb-3">
-            Minat & Bakat Santri
+            Minat & Bakat Siswa-Siswi
         </span>
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Ekstrakurikuler Unggulan</h1>
         <p class="mt-4 text-emerald-200 text-sm sm:text-base max-w-2xl mx-auto font-light">
-            Wadah pengembangan potensi spiritual, kepemimpinan, seni Islam, dan kreativitas ilmiah bagi santri MI Plus Raudlatul Muta'allimin.
+            Wadah pengembangan potensi spiritual, kepemimpinan, olahraga, seni Islam, dan kreativitas ilmiah bagi siswa-siswi MI Plus Raudlatul Muta'allimin.
         </p>
     </div>
 </section>
@@ -44,7 +44,7 @@
                                 {{ str_replace('_', ' ', ucfirst($ekskul->category)) }}
                             </span>
                             <span class="px-2.5 py-0.5 rounded-full bg-gold-500 text-emerald-950 font-extrabold text-[10px]">
-                                {{ $ekskul->enrollments_count }} Santri Aktif
+                                {{ $ekskul->enrollments_count }} Siswa Aktif
                             </span>
                         </div>
                         <div class="relative z-10">
@@ -56,7 +56,7 @@
                     <!-- Details -->
                     <div class="p-6 space-y-4">
                         <p class="text-xs text-slate-600 leading-relaxed line-clamp-3">
-                            {{ $ekskul->description ?? 'Kegiatan ekstrakurikuler terpadu untuk membentuk karakter santri yang berprestasi dan berakhlak mulia.' }}
+                            {{ $ekskul->description ?? 'Kegiatan ekstrakurikuler terpadu untuk membentuk karakter siswa-siswi yang berprestasi dan berakhlak mulia.' }}
                         </p>
 
                         <div class="pt-3 border-t border-slate-100 space-y-2 text-xs text-slate-500">
