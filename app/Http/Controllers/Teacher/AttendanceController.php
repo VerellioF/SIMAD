@@ -8,7 +8,10 @@ use App\Enums\AttendanceStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Classroom;
+use App\Models\ClassSchedule;
 use App\Models\Student;
+use App\Models\Subject;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,31 +22,119 @@ class AttendanceController extends Controller
     public function index(Request $request): View
     {
         $teacher = Auth::user();
-        $classroom = Classroom::where('homeroom_teacher_id', $teacher->id)->first();
-
         $date = $request->query('date', now()->toDateString());
 
+        // Map Carbon dayOfWeek to Indonesian day string
+        $dayMap = [
+            1 => 'senin',
+            2 => 'selasa',
+            3 => 'rabu',
+            4 => 'kamis',
+            5 => 'jumat',
+            6 => 'sabtu',
+            0 => 'ahad',
+        ];
+        $carbonDate = Carbon::parse($date);
+        $dayName = $dayMap[$carbonDate->dayOfWeek] ?? 'senin';
+
+        // 1. All schedules taught by this teacher
+        $mySchedules = ClassSchedule::query()
+            ->where('teacher_id', $teacher->id)
+            ->with(['classroom', 'subject'])
+            ->orderByRaw("CASE day_of_week
+                WHEN 'senin' THEN 1
+                WHEN 'selasa' THEN 2
+                WHEN 'rabu' THEN 3
+                WHEN 'kamis' THEN 4
+                WHEN 'jumat' THEN 5
+                WHEN 'sabtu' THEN 6
+                ELSE 7 END")
+            ->orderBy('start_time')
+            ->get();
+
+        // Today's teaching schedules
+        $todaySchedules = $mySchedules->where('day_of_week', $dayName);
+
+        // Teacher's homeroom classroom (if any)
+        $homeroomClassroom = Classroom::where('homeroom_teacher_id', $teacher->id)->first();
+
+        // 2. Determine selected schedule or classroom/subject
+        $selectedScheduleId = $request->query('schedule_id');
+        $activeSchedule = null;
+
+        if ($selectedScheduleId && $selectedScheduleId !== 'homeroom') {
+            $activeSchedule = $mySchedules->firstWhere('id', (int) $selectedScheduleId);
+        } elseif (! $selectedScheduleId && $todaySchedules->isNotEmpty()) {
+            $activeSchedule = $todaySchedules->first();
+        } elseif (! $selectedScheduleId && $mySchedules->isNotEmpty()) {
+            $activeSchedule = $mySchedules->first();
+        }
+
+        // Active classroom & subject
+        if ($activeSchedule) {
+            $classroom = $activeSchedule->classroom;
+            $subject = $activeSchedule->subject;
+            $selectedScheduleId = (string) $activeSchedule->id;
+        } else {
+            // Fallback to homeroom or first classroom available
+            $classroom = $homeroomClassroom ?? Classroom::orderBy('grade_level')->orderBy('name')->first();
+            $subjectId = $request->query('subject_id');
+            $subject = $subjectId ? Subject::find($subjectId) : null;
+            $selectedScheduleId = 'homeroom';
+        }
+
+        // 3. Students list for active classroom
         $students = $classroom
-            ? Student::where('classroom_id', $classroom->id)->orderBy('full_name')->get()
-            : collect();
-
-        $existingAttendances = $classroom
-            ? Attendance::where('classroom_id', $classroom->id)
-                ->whereDate('date', $date)
+            ? Student::where('classroom_id', $classroom->id)
+                ->where('status', 'active')
+                ->orderBy('full_name')
                 ->get()
-                ->keyBy('student_id')
             : collect();
 
-        return view('teacher.attendance.index', compact('classroom', 'students', 'date', 'existingAttendances'));
+        // 4. Existing attendances for this classroom, subject, and date
+        $attendanceQuery = Attendance::where('classroom_id', $classroom?->id)
+            ->whereDate('date', $date);
+
+        if ($subject) {
+            $attendanceQuery->where('subject_id', $subject->id);
+        }
+
+        $existingAttendances = $attendanceQuery->get()->keyBy('student_id');
+
+        // Quick summary counts
+        $summary = [
+            'hadir' => $existingAttendances->where('status', AttendanceStatus::Hadir)->count(),
+            'sakit' => $existingAttendances->where('status', AttendanceStatus::Sakit)->count(),
+            'izin' => $existingAttendances->where('status', AttendanceStatus::Izin)->count(),
+            'alpa' => $existingAttendances->where('status', AttendanceStatus::Alpa)->count(),
+            'total' => $students->count(),
+        ];
+
+        return view('teacher.attendance.index', compact(
+            'classroom',
+            'subject',
+            'activeSchedule',
+            'mySchedules',
+            'todaySchedules',
+            'homeroomClassroom',
+            'selectedScheduleId',
+            'students',
+            'date',
+            'dayName',
+            'existingAttendances',
+            'summary'
+        ));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $teacher = Auth::user();
-        $classroom = Classroom::where('homeroom_teacher_id', $teacher->id)->firstOrFail();
 
         $validated = $request->validate([
             'date' => ['required', 'date'],
+            'classroom_id' => ['nullable', 'exists:classrooms,id'],
+            'subject_id' => ['nullable', 'exists:subjects,id'],
+            'class_schedule_id' => ['nullable', 'exists:class_schedules,id'],
             'attendances' => ['required', 'array'],
             'attendances.*.student_id' => ['required', 'exists:students,id'],
             'attendances.*.status' => ['required', 'in:hadir,sakit,izin,alpa'],
@@ -51,15 +142,25 @@ class AttendanceController extends Controller
         ]);
 
         $date = $validated['date'];
+        $classroomId = $validated['classroom_id'] ?? Classroom::where('homeroom_teacher_id', $teacher->id)->first()?->id;
+
+        if (! $classroomId) {
+            return back()->with('error', 'Kelas tidak valid.');
+        }
+
+        $subjectId = $validated['subject_id'] ?? null;
+        $scheduleId = $validated['class_schedule_id'] ?? null;
 
         foreach ($validated['attendances'] as $item) {
             Attendance::updateOrCreate(
                 [
                     'student_id' => $item['student_id'],
+                    'classroom_id' => $classroomId,
+                    'subject_id' => $subjectId,
                     'date' => $date,
                 ],
                 [
-                    'classroom_id' => $classroom->id,
+                    'class_schedule_id' => $scheduleId,
                     'recorded_by' => $teacher->id,
                     'status' => $item['status'],
                     'notes' => $item['notes'] ?? null,
@@ -67,7 +168,12 @@ class AttendanceController extends Controller
             );
         }
 
-        return redirect()->route('teacher.attendance.index', ['date' => $date])
-            ->with('success', 'Presensi santri tanggal ' . date('d/m/Y', strtotime($date)) . ' berhasil disimpan.');
+        $subjectName = $subjectId ? Subject::find($subjectId)?->name : 'Wali Kelas / Harian';
+
+        return redirect()->route('teacher.attendance.index', [
+            'date' => $date,
+            'schedule_id' => $scheduleId ?? ($subjectId ? null : 'homeroom'),
+            'subject_id' => $subjectId,
+        ])->with('success', "Presensi santri mapel {$subjectName} tanggal " . date('d/m/Y', strtotime($date)) . ' berhasil disimpan.');
     }
 }

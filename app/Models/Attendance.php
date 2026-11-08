@@ -16,6 +16,8 @@ class Attendance extends Model
     protected $fillable = [
         'student_id',
         'classroom_id',
+        'subject_id',
+        'class_schedule_id',
         'recorded_by',
         'date',
         'status',
@@ -38,6 +40,16 @@ class Attendance extends Model
     public function classroom(): BelongsTo
     {
         return $this->belongsTo(Classroom::class);
+    }
+
+    public function subject(): BelongsTo
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
+    public function classSchedule(): BelongsTo
+    {
+        return $this->belongsTo(ClassSchedule::class);
     }
 
     public function recorder(): BelongsTo

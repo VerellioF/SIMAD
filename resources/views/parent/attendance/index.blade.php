@@ -75,6 +75,7 @@
                     <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                         <tr>
                             <th class="py-3.5 px-6">Tanggal</th>
+                            <th class="py-3.5 px-6">Mata Pelajaran / Sesi</th>
                             <th class="py-3.5 px-6">Status Kehadiran</th>
                             <th class="py-3.5 px-6">Catatan Guru</th>
                         </tr>
@@ -84,6 +85,16 @@
                             <tr class="hover:bg-slate-50 transition">
                                 <td class="py-4 px-6 font-mono font-bold text-slate-800">
                                     {{ $att->date->format('d/m/Y') }} ({{ $att->date->translatedFormat('l') }})
+                                </td>
+                                <td class="py-4 px-6">
+                                    @if($att->subject)
+                                        <span class="font-bold text-slate-800 block">{{ $att->subject->name }}</span>
+                                        @if($att->classSchedule)
+                                            <span class="text-[10px] text-emerald-800 font-mono">{{ $att->classSchedule->start_time }} - {{ $att->classSchedule->end_time }}</span>
+                                        @endif
+                                    @else
+                                        <span class="text-slate-500 italic text-[11px]">Presensi Harian Rombel</span>
+                                    @endif
                                 </td>
                                 <td class="py-4 px-6">
                                     @php
@@ -110,7 +121,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="py-8 text-center text-slate-400">
+                                <td colspan="4" class="py-8 text-center text-slate-400">
                                     Belum ada data presensi tercatat.
                                 </td>
                             </tr>

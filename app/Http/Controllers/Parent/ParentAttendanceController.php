@@ -23,6 +23,7 @@ class ParentAttendanceController extends Controller
 
         $attendances = $selectedStudent
             ? Attendance::where('student_id', $selectedStudent->id)
+                ->with(['subject', 'classSchedule'])
                 ->latest('date')
                 ->paginate(20)
                 ->withQueryString()

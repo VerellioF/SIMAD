@@ -169,6 +169,7 @@ Route::prefix('guru')->middleware(['auth', 'role:teacher'])->name('teacher.')->g
     // Jadwal Mengajar & Mutaba'ah Ibadah Santri
     Route::get('/jadwal', [TeacherScheduleController::class, 'index'])->name('schedules.index');
     Route::get('/mutabaah', [TeacherWorshipController::class, 'index'])->name('worship.index');
+    Route::post('/mutabaah', [TeacherWorshipController::class, 'store'])->name('worship.store');
     Route::post('/mutabaah/catatan', [TeacherWorshipController::class, 'updateNotes'])->name('worship.notes');
 
     // Disiplin & Poin Karakter Positif Santri
