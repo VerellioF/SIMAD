@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AdminScheduleController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminTeacherController;
 use App\Http\Controllers\Admin\AdminTuitionController;
+use App\Http\Controllers\Admin\AdminWhatsAppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Parent\ParentAttendanceController;
 use App\Http\Controllers\Parent\ParentConductController;
@@ -156,6 +157,11 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::post('/kurikulum', [AdminCurriculumController::class, 'store'])->name('curriculum.store');
     Route::put('/kurikulum/{curriculum}', [AdminCurriculumController::class, 'update'])->name('curriculum.update');
     Route::delete('/kurikulum/{curriculum}', [AdminCurriculumController::class, 'destroy'])->name('curriculum.destroy');
+
+    // WhatsApp Notification Hub
+    Route::get('/whatsapp', [AdminWhatsAppController::class, 'index'])->name('whatsapp.index');
+    Route::post('/whatsapp/kirim', [AdminWhatsAppController::class, 'sendCustomMessage'])->name('whatsapp.send');
+    Route::post('/whatsapp/uji-gateway', [AdminWhatsAppController::class, 'testGateway'])->name('whatsapp.test');
 });
 
 // 5. Custom Portal Guru & Wali Kelas

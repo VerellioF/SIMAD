@@ -11,6 +11,7 @@ use App\Models\Classroom;
 use App\Models\ClassSchedule;
 use App\Models\Student;
 use App\Models\Subject;
+use App\Services\WhatsAppNotificationService;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -85,7 +86,8 @@ class AttendanceController extends Controller
 
         // 3. Students list for active classroom
         $students = $classroom
-            ? Student::where('classroom_id', $classroom->id)
+            ? Student::with(['parent', 'classroom'])
+                ->where('classroom_id', $classroom->id)
                 ->where('status', 'active')
                 ->orderBy('full_name')
                 ->get()
@@ -150,6 +152,10 @@ class AttendanceController extends Controller
 
         $subjectId = $validated['subject_id'] ?? null;
         $scheduleId = $validated['class_schedule_id'] ?? null;
+        $subjectName = $subjectId ? Subject::find($subjectId)?->name : 'Wali Kelas / Harian';
+
+        $waService = app(WhatsAppNotificationService::class);
+        $waAlerts = [];
 
         foreach ($validated['attendances'] as $item) {
             Attendance::updateOrCreate(
@@ -166,14 +172,38 @@ class AttendanceController extends Controller
                     'notes' => $item['notes'] ?? null,
                 ]
             );
-        }
 
-        $subjectName = $subjectId ? Subject::find($subjectId)?->name : 'Wali Kelas / Harian';
+            // Automatically notify or prepare direct WhatsApp link for absent students
+            if (in_array($item['status'], ['alpa', 'sakit', 'izin'])) {
+                $student = Student::with(['parent', 'classroom'])->find($item['student_id']);
+                if ($student && $student->parent?->phone_number) {
+                    $res = $waService->sendAttendanceAlert(
+                        $student,
+                        $item['status'],
+                        $date,
+                        $subjectName,
+                        $item['notes'] ?? null,
+                        $teacher->id
+                    );
+
+                    if ($res) {
+                        $waAlerts[] = [
+                            'student_name' => $student->full_name,
+                            'status' => $item['status'],
+                            'phone' => $student->parent->phone_number,
+                            'wa_url' => $res['wa_url'],
+                            'is_sent' => $res['status'] === 'sent',
+                        ];
+                    }
+                }
+            }
+        }
 
         return redirect()->route('teacher.attendance.index', [
             'date' => $date,
             'schedule_id' => $scheduleId ?? ($subjectId ? null : 'homeroom'),
             'subject_id' => $subjectId,
-        ])->with('success', "Presensi siswa mapel {$subjectName} tanggal " . date('d/m/Y', strtotime($date)) . ' berhasil disimpan.');
+        ])->with('success', "Presensi siswa mapel {$subjectName} tanggal " . date('d/m/Y', strtotime($date)) . ' berhasil disimpan.')
+          ->with('wa_alerts', $waAlerts);
     }
 }

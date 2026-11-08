@@ -9,6 +9,7 @@ use App\Models\CharacterRule;
 use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\StudentConductRecord;
+use App\Services\WhatsAppNotificationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -59,10 +60,22 @@ class AdminConductController extends Controller
 
         $validated['recorded_by'] = $request->user()->id;
 
-        StudentConductRecord::create($validated);
+        $record = StudentConductRecord::create($validated);
 
-        return redirect()->route('admin.conduct.index', ['tab' => 'records'])
+        $student = Student::with(['parent', 'classroom'])->find($validated['student_id']);
+        $waService = app(WhatsAppNotificationService::class);
+        $waRes = $student ? $waService->sendConductAlert($student, $record, $request->user()->id) : null;
+
+        $redirect = redirect()->route('admin.conduct.index', ['tab' => 'records'])
             ->with('success', 'Catatan pembiasaan karakter siswa berhasil disimpan.');
+
+        if ($waRes) {
+            $redirect->with('wa_direct_url', $waRes['wa_url'])
+                     ->with('wa_student_name', $student?->full_name)
+                     ->with('wa_auto_sent', $waRes['status'] === 'sent');
+        }
+
+        return $redirect;
     }
 
     public function destroyRecord(StudentConductRecord $record): RedirectResponse

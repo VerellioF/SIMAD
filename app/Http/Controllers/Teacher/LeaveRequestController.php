@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Classroom;
 use App\Models\LeaveRequest;
+use App\Services\WhatsAppNotificationService;
 use Carbon\CarbonPeriod;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -69,6 +70,18 @@ class LeaveRequestController extends Controller
 
         $label = $validated['status'] === 'approved' ? 'disetujui' : 'ditolak';
 
-        return back()->with('success', "Pengajuan izin siswa {$leaveRequest->student->full_name} berhasil {$label}.");
+        $waService = app(WhatsAppNotificationService::class);
+        $leaveRequest->load(['student.classroom', 'parent']);
+        $waRes = $waService->sendLeaveAlert($leaveRequest, $teacher->id);
+
+        $redirect = back()->with('success', "Pengajuan izin siswa {$leaveRequest->student->full_name} berhasil {$label}.");
+
+        if ($waRes) {
+            $redirect->with('wa_direct_url', $waRes['wa_url'])
+                     ->with('wa_student_name', $leaveRequest->student->full_name)
+                     ->with('wa_auto_sent', $waRes['status'] === 'sent');
+        }
+
+        return $redirect;
     }
 }

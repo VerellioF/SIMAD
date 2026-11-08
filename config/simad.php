@@ -42,4 +42,18 @@ return [
             'account_holder' => 'YAYASAN RAUDLATUL MUTAALLIMIN',
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | WhatsApp Notification Gateway Settings
+    |--------------------------------------------------------------------------
+    */
+    'whatsapp' => [
+        'enabled' => env('WA_NOTIFICATIONS_ENABLED', true),
+        'auto_send' => env('WA_AUTO_SEND', false),
+        'provider' => env('WA_GATEWAY_PROVIDER', 'fonnte'), // 'fonnte', 'wablas', 'generic'
+        'token' => env('WA_GATEWAY_TOKEN', ''),
+        'endpoint' => env('WA_GATEWAY_URL', 'https://api.fonnte.com/send'),
+        'sender_name' => 'MI Plus Raudlatul Muta\'allimin',
+    ],
 ];

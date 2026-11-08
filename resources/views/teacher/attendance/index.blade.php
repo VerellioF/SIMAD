@@ -138,6 +138,45 @@
         </div>
     @endif
 
+    <!-- Alert Notifikasi WhatsApp Ketidakhadiran Siswa -->
+    @if(session('wa_alerts') && count(session('wa_alerts')) > 0)
+        <div class="p-5 rounded-3xl bg-amber-50 border border-amber-200 text-amber-900 shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="p-2 rounded-2xl bg-amber-100 text-amber-700">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                    </span>
+                    <div>
+                        <h4 class="font-black text-sm text-slate-900">Notifikasi WhatsApp Ketidakhadiran Siswa</h4>
+                        <p class="text-xs text-amber-800">Terdapat {{ count(session('wa_alerts')) }} siswa berstatus Alpa / Sakit / Izin. Anda dapat langsung mengabari orang tua/wali murid dengan 1 klik:</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 pt-2 border-t border-amber-200/80">
+                @foreach(session('wa_alerts') as $waAlert)
+                    <div class="bg-white p-3 rounded-2xl border border-amber-200/70 shadow-2xs flex items-center justify-between gap-2">
+                        <div class="min-w-0">
+                            <span class="block text-xs font-bold text-slate-900 truncate">{{ $waAlert['student_name'] }}</span>
+                            <span class="block text-[10px] uppercase font-bold {{ $waAlert['status'] === 'alpa' ? 'text-rose-600' : 'text-amber-600' }}">
+                                Status: {{ $waAlert['status'] }}
+                            </span>
+                        </div>
+                        @if($waAlert['is_sent'])
+                            <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-[10px] font-bold">Otomatis Terkirim</span>
+                        @elseif($waAlert['wa_url'])
+                            <a href="{{ $waAlert['wa_url'] }}" target="_blank"
+                               class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] shadow transition shrink-0">
+                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                                <span>Kirim WA</span>
+                            </a>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
     @if(!$classroom)
         <div class="bg-amber-50 border border-amber-200 rounded-3xl p-8 text-amber-900 text-xs text-center">
             <p class="font-bold text-base mb-1">Jadwal Mengajar Belum Ditemukan</p>
@@ -183,6 +222,7 @@
                                 <th class="py-3 px-6">NISN / Nama Siswa</th>
                                 <th class="py-3 px-6 text-center">Status Kehadiran</th>
                                 <th class="py-3 px-6">Catatan Sesi</th>
+                                <th class="py-3 px-4 text-center">WA Wali</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
@@ -191,6 +231,8 @@
                                     $existing = $existingAttendances->get($st->id);
                                     $currentStatus = old("attendances.{$index}.status", $existing?->status->value ?? 'hadir');
                                     $notes = old("attendances.{$index}.notes", $existing?->notes ?? '');
+                                    $waMsg = app(\App\Services\WhatsAppNotificationService::class)->buildAttendanceAlert($st, $currentStatus, $date, $subject?->name, $notes);
+                                    $directWaUrl = $st->parent?->phone_number ? app(\App\Services\WhatsAppNotificationService::class)->generateClickToChatUrl($st->parent->phone_number, $waMsg) : null;
                                 @endphp
                                 <tr class="hover:bg-slate-50/80 transition"
                                     x-show="!filterQuery || '{{ strtolower($st->full_name) }}'.includes(filterQuery.toLowerCase())">
@@ -246,6 +288,18 @@
                                                value="{{ $notes }}"
                                                placeholder="Catatan / keterangan (opsional)..."
                                                class="w-full px-3 py-1.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-800">
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                                        @if($directWaUrl)
+                                            <a href="{{ $directWaUrl }}" target="_blank"
+                                               class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-[11px] border border-emerald-200 transition"
+                                               title="Kirim Catatan Presensi ke WhatsApp Wali: {{ $st->parent?->name }} ({{ $st->parent?->phone_number }})">
+                                                <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                                                <span>WA Wali</span>
+                                            </a>
+                                        @else
+                                            <span class="text-[10px] text-slate-300 font-mono">-</span>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

@@ -9,6 +9,7 @@ use App\Models\CharacterRule;
 use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\StudentConductRecord;
+use App\Services\WhatsAppNotificationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -68,8 +69,20 @@ class TeacherConductController extends Controller
 
         $validated['recorded_by'] = $teacher->id;
 
-        StudentConductRecord::create($validated);
+        $record = StudentConductRecord::create($validated);
 
-        return back()->with('success', 'Catatan pembiasaan karakter siswa berhasil disimpan.');
+        $student = Student::with(['parent', 'classroom'])->find($validated['student_id']);
+        $waService = app(WhatsAppNotificationService::class);
+        $waRes = $student ? $waService->sendConductAlert($student, $record, $teacher->id) : null;
+
+        $redirect = back()->with('success', 'Catatan pembiasaan karakter siswa berhasil disimpan.');
+
+        if ($waRes) {
+            $redirect->with('wa_direct_url', $waRes['wa_url'])
+                     ->with('wa_student_name', $student?->full_name)
+                     ->with('wa_auto_sent', $waRes['status'] === 'sent');
+        }
+
+        return $redirect;
     }
 }
