@@ -60,7 +60,7 @@ class PublicController extends Controller
             ->where('is_active', true)
             ->withCount('enrollments')
             ->orderByDesc('enrollments_count')
-            ->limit(3)
+            ->limit(4)
             ->get();
 
         return view('public.home', compact(

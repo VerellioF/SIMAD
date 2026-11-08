@@ -1009,7 +1009,7 @@ class DatabaseSeeder extends Seeder
                 'description' => 'Mempelajari kaidah penulisan khat Naskhi dan Riq\'ah dengan media kuas, tinta, dan kanvas.',
             ],
             [
-                'name' => 'Bulu Tangkis & Futsal Santri',
+                'name' => 'Bulu Tangkis & Futsal Ceria',
                 'category' => 'olahraga',
                 'instructor_name' => 'Coach Bayu Setiawan',
                 'schedule_day' => 'Sabtu',
