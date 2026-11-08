@@ -114,13 +114,60 @@
                 </a>
 
                 <!-- Desktop Menu -->
-                <nav class="hidden lg:flex items-center space-x-7 text-sm font-semibold text-slate-700">
+                <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-700">
                     <a href="/" class="hover:text-emerald-900 transition">Beranda</a>
-                    <a href="{{ route('public.curriculum') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.curriculum') ? 'text-emerald-900 font-bold' : '' }}">Kurikulum</a>
-                    <a href="{{ route('public.teachers') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.teachers') ? 'text-emerald-900 font-bold' : '' }}">Dewan Asatidz</a>
-                    <a href="{{ route('public.calendar') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.calendar') ? 'text-emerald-900 font-bold' : '' }}">Kalender</a>
+
+                    <!-- Dropdown: Profil & Akademik (Kurikulum, Dewan Guru, Kalender) -->
+                    <div class="relative" x-data="{ openAkademik: false }" @mouseleave="openAkademik = false">
+                        <button @click="openAkademik = !openAkademik" @mouseenter="openAkademik = true"
+                                class="inline-flex items-center gap-1 hover:text-emerald-900 transition {{ request()->routeIs('public.curriculum', 'public.teachers', 'public.calendar') ? 'text-emerald-900 font-bold' : '' }}">
+                            <span>Akademik & Profil</span>
+                            <svg class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" :class="{'rotate-180': openAkademik}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+
+                        <div x-show="openAkademik" x-cloak
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="opacity-0 translate-y-1"
+                             x-transition:enter-end="opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-100"
+                             x-transition:leave-start="opacity-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 translate-y-1"
+                             class="absolute left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-100 py-2.5 z-50">
+                            <a href="{{ route('public.curriculum') }}" class="flex items-start gap-3 px-4 py-2.5 hover:bg-emerald-50 text-slate-700 hover:text-emerald-950 transition">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-xs text-slate-900">Kurikulum Terpadu</span>
+                                    <span class="block text-[11px] text-slate-500">Integrasi Kemenag, Merdeka & Tahfidz</span>
+                                </div>
+                            </a>
+
+                            <a href="{{ route('public.teachers') }}" class="flex items-start gap-3 px-4 py-2.5 hover:bg-emerald-50 text-slate-700 hover:text-emerald-950 transition">
+                                <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center shrink-0 mt-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-xs text-slate-900">Dewan Asatidz & Pimpinan</span>
+                                    <span class="block text-[11px] text-slate-500">Profil Kepala Madrasah & Ustadz Pengampu</span>
+                                </div>
+                            </a>
+
+                            <a href="{{ route('public.calendar') }}" class="flex items-start gap-3 px-4 py-2.5 hover:bg-emerald-50 text-slate-700 hover:text-emerald-950 transition">
+                                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-xs text-slate-900">Kalender Akademik</span>
+                                    <span class="block text-[11px] text-slate-500">Agenda Ujian, Libur & Kegiatan PHBI</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
                     <a href="{{ route('public.ekskul') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.ekskul') ? 'text-emerald-900 font-bold' : '' }}">Ekstrakurikuler</a>
                     <a href="/#galeri" class="hover:text-emerald-900 transition">Galeri</a>
+                    <a href="{{ route('public.contact') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.contact') ? 'text-emerald-900 font-bold' : '' }}">Kontak & Lokasi</a>
                     <a href="/ppdb/cek-status" class="hover:text-emerald-900 transition">Cek Status PPDB</a>
                 </nav>
 
@@ -141,14 +188,33 @@
 
             <!-- Mobile Navigation Drawer -->
             <div x-show="mobileMenu" x-cloak @click.away="mobileMenu = false" class="lg:hidden mt-4 pt-4 pb-6 border-t border-slate-100 space-y-3">
-                <nav class="flex flex-col space-y-2 text-sm font-semibold text-slate-700">
-                    <a href="/" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Beranda</a>
-                    <a href="{{ route('public.curriculum') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Kurikulum Terpadu</a>
-                    <a href="{{ route('public.teachers') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Dewan Asatidz & Pimpinan</a>
-                    <a href="{{ route('public.calendar') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Kalender Akademik</a>
-                    <a href="{{ route('public.ekskul') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Ekstrakurikuler</a>
-                    <a href="/#galeri" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Galeri & Warta</a>
-                    <a href="/ppdb/cek-status" @click="mobileMenu = false" class="px-3 py-2 rounded-lg hover:bg-emerald-50 hover:text-emerald-900">Cek Status PPDB</a>
+                <nav class="flex flex-col space-y-1 text-sm font-semibold text-slate-700" x-data="{ mobileAkademikOpen: false }">
+                    <a href="/" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Beranda</a>
+
+                    <!-- Mobile Submenu: Akademik & Profil -->
+                    <div class="space-y-1">
+                        <button type="button" @click="mobileAkademikOpen = !mobileAkademikOpen"
+                                class="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900 transition text-left">
+                            <span>Akademik & Profil</span>
+                            <svg class="w-4 h-4 text-slate-400 transition-transform" :class="{'rotate-180': mobileAkademikOpen}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div x-show="mobileAkademikOpen" x-cloak class="pl-4 space-y-1 border-l-2 border-emerald-100 ml-3">
+                            <a href="{{ route('public.curriculum') }}" @click="mobileMenu = false" class="block px-3 py-1.5 rounded-lg text-xs hover:bg-emerald-50 hover:text-emerald-900">
+                                ↳ Kurikulum Terpadu
+                            </a>
+                            <a href="{{ route('public.teachers') }}" @click="mobileMenu = false" class="block px-3 py-1.5 rounded-lg text-xs hover:bg-emerald-50 hover:text-emerald-900">
+                                ↳ Dewan Asatidz & Pimpinan
+                            </a>
+                            <a href="{{ route('public.calendar') }}" @click="mobileMenu = false" class="block px-3 py-1.5 rounded-lg text-xs hover:bg-emerald-50 hover:text-emerald-900">
+                                ↳ Kalender Akademik
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="{{ route('public.ekskul') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Ekstrakurikuler</a>
+                    <a href="/#galeri" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Galeri & Warta</a>
+                    <a href="{{ route('public.contact') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Kontak & Lokasi</a>
+                    <a href="/ppdb/cek-status" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Cek Status PPDB</a>
                 </nav>
 
                 <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
@@ -199,6 +265,7 @@
                 <div>
                     <h5 class="text-sm font-bold text-gold-400 uppercase tracking-wider mb-4">Navigasi Cepat</h5>
                     <ul class="space-y-2 text-sm text-emerald-200/80">
+                        <li><a href="{{ route('public.contact') }}" class="hover:text-white transition">Kontak & Lokasi Madrasah</a></li>
                         <li><a href="/ppdb/daftar" class="hover:text-white transition">Pendaftaran PPDB Online</a></li>
                         <li><a href="/ppdb/cek-status" class="hover:text-white transition">Cek Status Seleksi Santri</a></li>
                         <li><a href="/wali/login" class="hover:text-white transition">Portal Wali Murid</a></li>

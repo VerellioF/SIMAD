@@ -31,6 +31,7 @@ use App\Http\Controllers\Parent\ParentTuitionController;
 use App\Http\Controllers\Parent\ParentWorshipController;
 use App\Http\Controllers\PpdbController;
 use App\Http\Controllers\PublicCalendarController;
+use App\Http\Controllers\PublicContactController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\PublicCurriculumController;
 use App\Http\Controllers\PublicExtracurricularController;
@@ -53,6 +54,8 @@ Route::get('/tentang/guru', [PublicTeacherController::class, 'index'])->name('pu
 Route::get('/kalender', [PublicCalendarController::class, 'index'])->name('public.calendar');
 Route::get('/ekstrakurikuler', [PublicExtracurricularController::class, 'index'])->name('public.ekskul');
 Route::get('/kurikulum', [PublicCurriculumController::class, 'index'])->name('public.curriculum');
+Route::get('/kontak', [PublicContactController::class, 'index'])->name('public.contact');
+Route::post('/kontak', [PublicContactController::class, 'send'])->name('public.contact.send');
 
 // 2. Modul PPDB Online (Publik)
 Route::prefix('ppdb')->name('ppdb.')->group(function () {

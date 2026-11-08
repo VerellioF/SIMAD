@@ -418,6 +418,101 @@
         </div>
     </section>
 
+    <!-- SECTION KONTAK & LOKASI SEKOLAH -->
+    <section id="kontak" class="bg-slate-100/70 py-24 border-t border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-850 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">
+                    Kunjungi Kampus Kami
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                    Kontak & Lokasi Madrasah
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-500">
+                    Informasi resmi pendaftaran, konsultasi program madrasah, dan alamat kampus MI Plus Raudlatul Muta'allimin Kalipucung Blitar.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Info Kontak Cepat (5 cols) -->
+                <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm flex flex-col justify-between space-y-6">
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-850 flex items-center justify-center shrink-0 font-bold">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase text-slate-400">Alamat Kampus</h4>
+                                <p class="text-sm font-semibold text-slate-800 mt-0.5">
+                                    Jl. KH. Muta'allim No. 09, Desa Kalipucung, Kec. Sanankulon, Kab. Blitar, Jawa Timur 66173
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-2xl bg-teal-100 text-teal-850 flex items-center justify-center shrink-0 font-bold">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase text-slate-400">Hotline & WhatsApp</h4>
+                                <p class="text-sm font-semibold text-slate-800 font-mono mt-0.5">
+                                    {{ config('simad.contact_phone') }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-850 flex items-center justify-center shrink-0 font-bold">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase text-slate-400">Email Resmi</h4>
+                                <p class="text-sm font-semibold text-slate-800 font-mono mt-0.5">
+                                    {{ config('simad.contact_email') }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-2xl bg-blue-100 text-blue-850 flex items-center justify-center shrink-0 font-bold">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase text-slate-400">Jam Operasional Tata Usaha</h4>
+                                <p class="text-xs text-slate-700 mt-0.5">Senin - Kamis: 07.00 - 14.30 WIB • Jum'at: 07.00 - 11.00 WIB • Sabtu: 07.00 - 13.00 WIB</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-2">
+                        <a href="{{ route('public.contact') }}" class="px-5 py-2.5 rounded-xl bg-emerald-950 text-white font-bold text-xs text-center hover:bg-emerald-900 transition flex-1">
+                            Halaman Kontak Lengkap
+                        </a>
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', config('simad.contact_phone')) }}" target="_blank"
+                           class="px-5 py-2.5 rounded-xl bg-teal-800 text-white font-bold text-xs text-center hover:bg-teal-700 transition flex items-center justify-center gap-1.5">
+                            <span>Chat WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Google Maps Embed (7 cols) -->
+                <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden flex flex-col">
+                    <div class="w-full h-80 sm:h-full min-h-[300px] relative">
+                        <iframe
+                            src="https://maps.google.com/maps?q=-8.0983,112.1681&hl=id&z=15&output=embed"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            title="Peta Lokasi MI Plus Raudlatul Muta'allimin">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CALL TO ACTION BANNER PPDB -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-24">
         <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 rounded-3xl p-8 sm:p-14 text-white relative overflow-hidden shadow-2xl border border-gold-500/40">
