@@ -11,7 +11,8 @@
         "filament/filament": ">=3.2 <4.0",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
-        "maatwebsite/excel": "^4.0"
+        "maatwebsite/excel": "^4.0",
+        "symfony/polyfill-intl-icu": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -23,6 +24,9 @@
         "phpunit/phpunit": "^12.5.12"
     },
     "autoload": {
+        "files": [
+            "app/Support/intl_polyfill.php"
+        ],
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
