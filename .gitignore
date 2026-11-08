@@ -14,7 +14,11 @@
 /.zed
 /auth.json
 /node_modules
-/public/build
+# /public/build (uncommented for shared hosting zero-node deployment)
+database/*.sqlite
+database/*.sqlite-journal
+database/*.sqlite-shm
+database/*.sqlite-wal
 /public/fonts-manifest.dev.json
 /public/hot
 /public/storage
