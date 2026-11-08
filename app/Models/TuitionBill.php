@@ -50,4 +50,9 @@ class TuitionBill extends Model
     {
         return $this->hasMany(TuitionPayment::class);
     }
+
+    public function payment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(TuitionPayment::class)->latestOfMany();
+    }
 }

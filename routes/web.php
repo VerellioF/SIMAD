@@ -5,10 +5,20 @@ declare(strict_types=1);
 use App\Exports\PpdbEmisExport;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminPpdbController;
+use App\Http\Controllers\Admin\AdminTuitionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Parent\ParentAttendanceController;
 use App\Http\Controllers\Parent\ParentDashboardController;
+use App\Http\Controllers\Parent\ParentGradeController;
+use App\Http\Controllers\Parent\ParentLeaveRequestController;
+use App\Http\Controllers\Parent\ParentTahfidzController;
+use App\Http\Controllers\Parent\ParentTuitionController;
 use App\Http\Controllers\PpdbController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\Teacher\AttendanceController;
+use App\Http\Controllers\Teacher\GradeController;
+use App\Http\Controllers\Teacher\LeaveRequestController;
+use App\Http\Controllers\Teacher\TahfidzController;
 use App\Http\Controllers\Teacher\TeacherDashboardController;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -42,14 +52,44 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::get('/ppdb/{registration}', [AdminPpdbController::class, 'show'])->name('ppdb.show');
     Route::post('/ppdb/{registration}/status', [AdminPpdbController::class, 'updateStatus'])->name('ppdb.update_status');
     Route::get('/export/ppdb-emis', fn () => Excel::download(new PpdbEmisExport, 'data-ppdb-emis.xlsx'))->name('ppdb.export_emis');
+
+    // Keuangan & SPP (Fase 3)
+    Route::get('/spp', [AdminTuitionController::class, 'index'])->name('tuition.index');
+    Route::post('/spp/generate', [AdminTuitionController::class, 'generateMonthlyBills'])->name('tuition.generate');
+    Route::post('/spp/{bill}/verify', [AdminTuitionController::class, 'verifyPayment'])->name('tuition.verify');
+    Route::post('/spp/{bill}/cash', [AdminTuitionController::class, 'recordCashPayment'])->name('tuition.cash');
 });
 
 // 5. Custom Portal Guru & Wali Kelas
 Route::prefix('guru')->middleware(['auth', 'role:teacher'])->name('teacher.')->group(function () {
     Route::get('/', [TeacherDashboardController::class, 'index'])->name('dashboard');
+
+    // Presensi & Izin (Fase 2)
+    Route::get('/presensi', [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::post('/presensi', [AttendanceController::class, 'store'])->name('attendance.store');
+    Route::get('/izin', [LeaveRequestController::class, 'index'])->name('leave.index');
+    Route::match(['POST', 'PUT'], '/izin/{leaveRequest}', [LeaveRequestController::class, 'update'])->name('leave.update');
+
+    // Tahfidz & Nilai (Fase 3)
+    Route::get('/tahfidz', [TahfidzController::class, 'index'])->name('tahfidz.index');
+    Route::post('/tahfidz', [TahfidzController::class, 'store'])->name('tahfidz.store');
+    Route::get('/nilai', [GradeController::class, 'index'])->name('grades.index');
+    Route::post('/nilai', [GradeController::class, 'store'])->name('grades.store');
 });
 
 // 6. Custom Portal Wali Murid
 Route::prefix('wali')->middleware(['auth', 'role:parent'])->name('parent.')->group(function () {
     Route::get('/', [ParentDashboardController::class, 'index'])->name('dashboard');
+
+    // Presensi & Izin (Fase 2)
+    Route::get('/presensi', [ParentAttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/izin', [ParentLeaveRequestController::class, 'index'])->name('leave.index');
+    Route::post('/izin', [ParentLeaveRequestController::class, 'store'])->name('leave.store');
+
+    // Tahfidz, Nilai & SPP (Fase 3)
+    Route::get('/tahfidz', [ParentTahfidzController::class, 'index'])->name('tahfidz.index');
+    Route::get('/nilai', [ParentGradeController::class, 'index'])->name('grades.index');
+    Route::get('/spp', [ParentTuitionController::class, 'index'])->name('tuition.index');
+    Route::post('/spp/{bill}/konfirmasi', [ParentTuitionController::class, 'confirmPayment'])->name('tuition.confirm');
+    Route::get('/spp/{bill}/kwitansi', [ParentTuitionController::class, 'receipt'])->name('tuition.receipt');
 });
