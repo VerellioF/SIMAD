@@ -3,8 +3,14 @@
 declare(strict_types=1);
 
 use App\Exports\PpdbEmisExport;
+use App\Http\Controllers\Admin\AdminAnnouncementController;
+use App\Http\Controllers\Admin\AdminArticleController;
+use App\Http\Controllers\Admin\AdminClassroomController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminGalleryController;
 use App\Http\Controllers\Admin\AdminPpdbController;
+use App\Http\Controllers\Admin\AdminStudentController;
+use App\Http\Controllers\Admin\AdminTeacherController;
 use App\Http\Controllers\Admin\AdminTuitionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Parent\ParentAttendanceController;
@@ -58,6 +64,37 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::post('/spp/generate', [AdminTuitionController::class, 'generateMonthlyBills'])->name('tuition.generate');
     Route::post('/spp/{bill}/verify', [AdminTuitionController::class, 'verifyPayment'])->name('tuition.verify');
     Route::post('/spp/{bill}/cash', [AdminTuitionController::class, 'recordCashPayment'])->name('tuition.cash');
+
+    // Master Data (Fase 4)
+    Route::get('/santri', [AdminStudentController::class, 'index'])->name('students.index');
+    Route::post('/santri', [AdminStudentController::class, 'store'])->name('students.store');
+    Route::put('/santri/{student}', [AdminStudentController::class, 'update'])->name('students.update');
+    Route::delete('/santri/{student}', [AdminStudentController::class, 'destroy'])->name('students.destroy');
+
+    Route::get('/guru', [AdminTeacherController::class, 'index'])->name('teachers.index');
+    Route::post('/guru', [AdminTeacherController::class, 'store'])->name('teachers.store');
+    Route::put('/guru/{teacher}', [AdminTeacherController::class, 'update'])->name('teachers.update');
+    Route::delete('/guru/{teacher}', [AdminTeacherController::class, 'destroy'])->name('teachers.destroy');
+
+    Route::get('/kelas', [AdminClassroomController::class, 'index'])->name('classrooms.index');
+    Route::post('/kelas', [AdminClassroomController::class, 'store'])->name('classrooms.store');
+    Route::put('/kelas/{classroom}', [AdminClassroomController::class, 'update'])->name('classrooms.update');
+    Route::delete('/kelas/{classroom}', [AdminClassroomController::class, 'destroy'])->name('classrooms.destroy');
+
+    // Mini CMS & Publikasi (Fase 4)
+    Route::get('/berita', [AdminArticleController::class, 'index'])->name('articles.index');
+    Route::post('/berita', [AdminArticleController::class, 'store'])->name('articles.store');
+    Route::put('/berita/{article}', [AdminArticleController::class, 'update'])->name('articles.update');
+    Route::delete('/berita/{article}', [AdminArticleController::class, 'destroy'])->name('articles.destroy');
+
+    Route::get('/pengumuman', [AdminAnnouncementController::class, 'index'])->name('announcements.index');
+    Route::post('/pengumuman', [AdminAnnouncementController::class, 'store'])->name('announcements.store');
+    Route::put('/pengumuman/{announcement}', [AdminAnnouncementController::class, 'update'])->name('announcements.update');
+    Route::delete('/pengumuman/{announcement}', [AdminAnnouncementController::class, 'destroy'])->name('announcements.destroy');
+
+    Route::get('/galeri', [AdminGalleryController::class, 'index'])->name('galleries.index');
+    Route::post('/galeri', [AdminGalleryController::class, 'store'])->name('galleries.store');
+    Route::delete('/galeri/{gallery}', [AdminGalleryController::class, 'destroy'])->name('galleries.destroy');
 });
 
 // 5. Custom Portal Guru & Wali Kelas
