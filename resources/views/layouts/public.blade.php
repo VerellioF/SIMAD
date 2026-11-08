@@ -136,14 +136,16 @@
                     </div>
                 </a>
 
-                <!-- Desktop Menu -->
-                <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-700">
-                    <a href="/" class="hover:text-emerald-900 transition">Beranda</a>
+                <!-- Desktop Menu (Spacious & Clean) -->
+                <nav class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-slate-700">
+                    <a href="/" class="hover:text-emerald-900 transition {{ request()->is('/') ? 'text-emerald-900 font-bold' : '' }}">
+                        Beranda
+                    </a>
 
-                    <!-- Dropdown: Profil & Akademik (Kurikulum, Dewan Guru, Kalender) -->
+                    <!-- Dropdown: Akademik & Profil (Kurikulum, Dewan Guru, Kalender, Ekskul) -->
                     <div class="relative" x-data="{ openAkademik: false }" @mouseleave="openAkademik = false">
                         <button @click="openAkademik = !openAkademik" @mouseenter="openAkademik = true"
-                                class="inline-flex items-center gap-1 hover:text-emerald-900 transition {{ request()->routeIs('public.curriculum', 'public.teachers', 'public.calendar') ? 'text-emerald-900 font-bold' : '' }}">
+                                class="inline-flex items-center gap-1.5 hover:text-emerald-900 transition py-1 {{ request()->routeIs('public.curriculum', 'public.teachers', 'public.calendar', 'public.ekskul') ? 'text-emerald-900 font-bold' : '' }}">
                             <span>Akademik & Profil</span>
                             <svg class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" :class="{'rotate-180': openAkademik}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
@@ -155,7 +157,8 @@
                              x-transition:leave="transition ease-in duration-100"
                              x-transition:leave-start="opacity-100 translate-y-0"
                              x-transition:leave-end="opacity-0 translate-y-1"
-                             class="absolute left-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-100 py-2.5 z-50">
+                             class="absolute left-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-100 py-2.5 z-50">
+                            
                             <a href="{{ route('public.curriculum') }}" class="flex items-start gap-3 px-4 py-2.5 hover:bg-emerald-50 text-slate-700 hover:text-emerald-950 transition">
                                 <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
@@ -185,21 +188,71 @@
                                     <span class="block text-[11px] text-slate-500">Agenda Ujian, Libur & Kegiatan PHBI</span>
                                 </div>
                             </a>
+
+                            <a href="{{ route('public.ekskul') }}" class="flex items-start gap-3 px-4 py-2.5 hover:bg-emerald-50 text-slate-700 hover:text-emerald-950 transition border-t border-slate-100">
+                                <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-800 flex items-center justify-center shrink-0 mt-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-xs text-slate-900">Ekstrakurikuler Siswa</span>
+                                    <span class="block text-[11px] text-slate-500">Minat, Bakat, Olahraga & Seni Rebana</span>
+                                </div>
+                            </a>
                         </div>
                     </div>
 
-                    <a href="{{ route('public.ekskul') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.ekskul') ? 'text-emerald-900 font-bold' : '' }}">Ekstrakurikuler</a>
-                    <a href="{{ route('public.news') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.news*') ? 'text-emerald-900 font-bold' : '' }}">Kabar & Galeri</a>
-                    <a href="{{ route('public.contact') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.contact') ? 'text-emerald-900 font-bold' : '' }}">Kontak & Lokasi</a>
-                    <a href="/ppdb/cek-status" class="hover:text-emerald-900 transition">Cek Status PPDB</a>
+                    <a href="{{ route('public.news') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.news*') ? 'text-emerald-900 font-bold' : '' }}">
+                        Kabar & Galeri
+                    </a>
+                    
+                    <a href="{{ route('public.contact') }}" class="hover:text-emerald-900 transition {{ request()->routeIs('public.contact') ? 'text-emerald-900 font-bold' : '' }}">
+                        Kontak & Lokasi
+                    </a>
                 </nav>
 
-                <!-- Actions: Desktop & Mobile Hamburger -->
+                <!-- Actions: PPDB Dropdown Button & Mobile Hamburger -->
                 <div class="flex items-center gap-3">
-                    <a href="/ppdb/daftar" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all border border-emerald-700">
-                        <span>PPDB Online</span>
-                        <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    </a>
+                    
+                    <!-- PPDB Dropdown Action Widget -->
+                    <div class="relative hidden sm:block" x-data="{ openPpdb: false }" @mouseleave="openPpdb = false">
+                        <div class="inline-flex rounded-xl shadow-sm">
+                            <a href="/ppdb/daftar" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-l-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm transition border-y border-l border-emerald-700">
+                                <span>PPDB Online</span>
+                            </a>
+                            <button @click="openPpdb = !openPpdb" @mouseenter="openPpdb = true"
+                                    class="px-2.5 py-2.5 rounded-r-xl bg-emerald-950 hover:bg-emerald-800 text-gold-400 transition border border-emerald-700 border-l-emerald-800"
+                                    title="Pilihan Layanan PPDB">
+                                <svg class="w-3.5 h-3.5 transition-transform duration-200" :class="{'rotate-180': openPpdb}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                        </div>
+
+                        <!-- Dropdown PPDB Items -->
+                        <div x-show="openPpdb" x-cloak
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="opacity-0 translate-y-1"
+                             x-transition:enter-end="opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-100"
+                             x-transition:leave-start="opacity-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 translate-y-1"
+                             class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 z-50">
+                            
+                            <a href="/ppdb/daftar" class="flex items-start gap-2.5 px-4 py-2.5 hover:bg-emerald-50 text-slate-800 hover:text-emerald-950 transition text-xs font-semibold">
+                                <span class="w-2 h-2 rounded-full bg-gold-500 mt-1.5 shrink-0"></span>
+                                <div>
+                                    <span class="font-bold text-slate-900 block">Daftar Siswa Baru</span>
+                                    <span class="text-[10px] text-slate-400 block font-normal">Formulir Pendaftaran Online</span>
+                                </div>
+                            </a>
+
+                            <a href="/ppdb/cek-status" class="flex items-start gap-2.5 px-4 py-2.5 hover:bg-emerald-50 text-slate-800 hover:text-emerald-950 transition text-xs font-semibold border-t border-slate-100">
+                                <span class="w-2 h-2 rounded-full bg-emerald-600 mt-1.5 shrink-0"></span>
+                                <div>
+                                    <span class="font-bold text-slate-900 block">Cek Status Seleksi</span>
+                                    <span class="text-[10px] text-slate-400 block font-normal">Pantau verifikasi & hasil seleksi</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 
                     <!-- Hamburger Mobile Button -->
                     <button @click="mobileMenu = !mobileMenu" class="lg:hidden p-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100 transition" aria-label="Menu Navigasi">
@@ -231,25 +284,31 @@
                             <a href="{{ route('public.calendar') }}" @click="mobileMenu = false" class="block px-3 py-1.5 rounded-lg text-xs hover:bg-emerald-50 hover:text-emerald-900">
                                 ↳ Kalender Akademik
                             </a>
+                            <a href="{{ route('public.ekskul') }}" @click="mobileMenu = false" class="block px-3 py-1.5 rounded-lg text-xs hover:bg-emerald-50 hover:text-emerald-900">
+                                ↳ Ekstrakurikuler Siswa
+                            </a>
                         </div>
                     </div>
 
-                    <a href="{{ route('public.ekskul') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Ekstrakurikuler</a>
                     <a href="{{ route('public.news') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900 {{ request()->routeIs('public.news*') ? 'text-emerald-900 font-bold' : '' }}">Kabar & Galeri</a>
                     <a href="{{ route('public.contact') }}" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Kontak & Lokasi</a>
-                    <a href="/ppdb/cek-status" @click="mobileMenu = false" class="px-3 py-2 rounded-xl hover:bg-emerald-50 hover:text-emerald-900">Cek Status PPDB</a>
                 </nav>
 
-                <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
-                    <a href="/ppdb/daftar" class="col-span-2 text-center py-2.5 rounded-xl bg-gold-500 text-emerald-950 font-bold text-sm shadow">
+                <div class="pt-3 border-t border-slate-100 space-y-2">
+                    <a href="/ppdb/daftar" class="block w-full text-center py-2.5 rounded-xl bg-gold-500 text-emerald-950 font-bold text-sm shadow">
                         Daftar PPDB Online
                     </a>
-                    <a href="/wali/login" class="text-center py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700">
-                        Portal Wali
+                    <a href="/ppdb/cek-status" class="block w-full text-center py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs">
+                        Cek Status Seleksi PPDB
                     </a>
-                    <a href="/guru/login" class="text-center py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700">
-                        Portal Guru
-                    </a>
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <a href="/wali/login" class="text-center py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700">
+                            Portal Wali
+                        </a>
+                        <a href="/guru/login" class="text-center py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700">
+                            Portal Guru
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
