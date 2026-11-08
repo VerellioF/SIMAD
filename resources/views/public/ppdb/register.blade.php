@@ -155,8 +155,6 @@
                             placeholder="Contoh: RA Perwanida Kalipucung / TK Dharma Wanita"
                             class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:border-transparent text-sm">
                     </div>
-                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-emerald-600 focus:border-transparent text-sm">
-                    </div>
 
                     <div class="pt-4 flex justify-end">
                         <button type="button" @click="step = 2"
