@@ -6,9 +6,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePpdbRegistrationRequest;
 use App\Models\PpdbRegistration;
+use App\Services\PpdbPdfService;
 use App\Services\PpdbService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PpdbController extends Controller
 {
@@ -34,5 +37,30 @@ class PpdbController extends Controller
         $registration = PpdbRegistration::where('registration_number', $registration_number)->firstOrFail();
 
         return view('public.ppdb.success', compact('registration'));
+    }
+
+    public function downloadProof(string $registration_number, PpdbPdfService $pdfService): Response
+    {
+        $registration = PpdbRegistration::where('registration_number', $registration_number)->firstOrFail();
+        $pdf = $pdfService->generateProofPdf($registration);
+
+        return $pdf->stream("Bukti_PPDB_{$registration->registration_number}.pdf");
+    }
+
+    public function checkStatus(Request $request): View
+    {
+        $query = trim((string) $request->input('q', ''));
+        $result = null;
+        $searched = false;
+
+        if ($query !== '') {
+            $searched = true;
+            $result = PpdbRegistration::query()
+                ->where('registration_number', $query)
+                ->orWhere('nik', $query)
+                ->first();
+        }
+
+        return view('public.ppdb.check-status', compact('query', 'result', 'searched'));
     }
 }
