@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <defs>
+    <style>
+      .pat { fill: none; stroke: #d4af37; stroke-width: 0.8; stroke-opacity: 0.18; stroke-linecap: round; stroke-linejoin: round; }
+      .star-fill { fill: #d4af37; fill-opacity: 0.03; }
+    </style>
+  </defs>
+  <!-- Background 8-point star center -->
+  <polygon class="star-fill" points="40,24 44.7,35.3 56,40 44.7,44.7 40,56 35.3,44.7 24,40 35.3,35.3"/>
+  <polygon class="star-fill" points="40,28.7 51.3,40 40,51.3 28.7,40" transform="rotate(45 40 40)"/>
+  
+  <!-- Central 8-Point Star Outline -->
+  <polygon class="pat" points="40,24 44.7,35.3 56,40 44.7,44.7 40,56 35.3,44.7 24,40 35.3,35.3"/>
+  <polygon class="pat" points="40,24 44.7,35.3 56,40 44.7,44.7 40,56 35.3,44.7 24,40 35.3,35.3" transform="rotate(45 40 40)"/>
+  
+  <!-- Corner 8-Point Stars for seamless tiling -->
+  <!-- Top Left (0,0) -->
+  <polygon class="pat" points="0,-16 4.7,-4.7 16,0 4.7,4.7 0,16 -4.7,4.7 -16,0 -4.7,-4.7"/>
+  <polygon class="pat" points="0,-16 4.7,-4.7 16,0 4.7,4.7 0,16 -4.7,4.7 -16,0 -4.7,-4.7" transform="rotate(45 0 0)"/>
+  
+  <!-- Top Right (80,0) -->
+  <polygon class="pat" points="80,-16 84.7,-4.7 96,0 84.7,4.7 80,16 75.3,4.7 64,0 75.3,-4.7"/>
+  <polygon class="pat" points="80,-16 84.7,-4.7 96,0 84.7,4.7 80,16 75.3,4.7 64,0 75.3,-4.7" transform="rotate(45 80 0)"/>
+  
+  <!-- Bottom Left (0,80) -->
+  <polygon class="pat" points="0,64 4.7,75.3 16,80 4.7,84.7 0,96 -4.7,84.7 -16,80 -4.7,75.3"/>
+  <polygon class="pat" points="0,64 4.7,75.3 16,80 4.7,84.7 0,96 -4.7,84.7 -16,80 -4.7,75.3" transform="rotate(45 0 80)"/>
+  
+  <!-- Bottom Right (80,80) -->
+  <polygon class="pat" points="80,64 84.7,75.3 96,80 84.7,84.7 80,96 75.3,84.7 64,80 75.3,75.3"/>
+  <polygon class="pat" points="80,64 84.7,75.3 96,80 84.7,84.7 80,96 75.3,84.7 64,80 75.3,75.3" transform="rotate(45 80 80)"/>
+  
+  <!-- Interlacing diagonal connector bands -->
+  <line class="pat" x1="16" y1="0" x2="24" y2="40"/>
+  <line class="pat" x1="64" y1="0" x2="56" y2="40"/>
+  <line class="pat" x1="16" y1="80" x2="24" y2="40"/>
+  <line class="pat" x1="64" y1="80" x2="56" y2="40"/>
+  
+  <line class="pat" x1="0" y1="16" x2="40" y2="24"/>
+  <line class="pat" x1="80" y1="16" x2="40" y2="24"/>
+  <line class="pat" x1="0" y1="64" x2="40" y2="56"/>
+  <line class="pat" x1="80" y1="64" x2="40" y2="56"/>
+
+  <!-- Tiny central rosette dot -->
+  <circle cx="40" cy="40" r="1.5" fill="#d4af37" fill-opacity="0.25"/>
+</svg>

@@ -5,23 +5,38 @@
 @section('content')
 
     <!-- HERO SECTION (Islamic Arch Aesthetic) -->
-    <section class="relative bg-emerald-900 text-white overflow-hidden pt-12 pb-24 pattern-overlay">
-        <!-- Subtle Decorative Arch Lights -->
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-800/60 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute top-1/2 -right-24 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <section class="relative bg-gradient-to-b from-[#02241b] via-[#043c2e] to-[#021f17] text-white overflow-hidden pt-12 pb-28 pattern-islamic-dark">
+        <!-- Hanging Lantern Left -->
+        <div class="absolute top-0 left-4 sm:left-10 w-16 sm:w-20 pointer-events-none z-20 opacity-85">
+            <img src="{{ asset('images/ornaments/hanging-lantern.svg') }}" class="w-full h-auto drop-shadow-[0_12px_24px_rgba(251,191,36,0.3)]" alt="Lentera Islami">
+        </div>
+
+        <!-- Hanging Lantern Right -->
+        <div class="hidden lg:block absolute top-0 right-14 w-16 pointer-events-none z-20 opacity-75">
+            <img src="{{ asset('images/ornaments/hanging-lantern.svg') }}" class="w-full h-auto drop-shadow-[0_12px_24px_rgba(251,191,36,0.25)]" alt="Lentera Islami">
+        </div>
+
+        <!-- Subtle Decorative Arch Ambient Lights -->
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-700/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 -right-24 w-96 h-96 bg-gold-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <!-- Text Intro -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-800/80 border border-gold-500/40 text-xs font-semibold text-gold-400">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-800/80 border border-gold-500/40 text-xs font-semibold text-gold-400 backdrop-blur-sm">
                         <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
                         <span>Penerimaan Peserta Didik Baru (PPDB) 2026/2027 Telah Dibuka</span>
                     </div>
 
-                    <p class="font-arabic text-2xl lg:text-3xl text-gold-400 font-bold tracking-wide">
-                        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-                    </p>
+                    <div class="space-y-2">
+                        <p class="font-arabic text-2xl lg:text-3xl text-gold-400 font-bold tracking-wide">
+                            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                        </p>
+                        <div class="flex justify-center lg:justify-start">
+                            <img src="{{ asset('images/ornaments/islamic-divider.svg') }}" class="h-4 opacity-80" alt="Pembatas Islami">
+                        </div>
+                    </div>
 
                     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
                         Membina Generasi <span class="text-gold-400 underline decoration-gold-500/60 decoration-wavy underline-offset-8">Qur'ani</span>, Berakhlak Mulia & Berprestasi
@@ -32,11 +47,11 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                        <a href="/ppdb/daftar" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2">
+                        <a href="/ppdb/daftar" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 border-2 border-gold-300">
                             <span>Daftar PPDB Online</span>
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                         </a>
-                        <a href="/ppdb/cek-status" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-emerald-800/80 hover:bg-emerald-700/80 text-white font-semibold text-base border border-emerald-600/80 transition-all flex items-center justify-center gap-2">
+                        <a href="/ppdb/cek-status" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-emerald-800/80 hover:bg-emerald-700/80 text-white font-semibold text-base border border-emerald-600/80 transition-all flex items-center justify-center gap-2 backdrop-blur-sm">
                             <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                             <span>Cek Status Pendaftaran</span>
                         </a>
@@ -47,7 +62,7 @@
                 <div class="lg:col-span-5 flex justify-center">
                     <div class="relative w-full max-w-md">
                         <div class="absolute inset-0 bg-gold-500/20 islamic-arch transform rotate-3 scale-95 -z-10"></div>
-                        <div class="bg-gradient-to-b from-emerald-800 to-emerald-950 p-3 islamic-arch border-2 border-gold-500/50 shadow-2xl">
+                        <div class="bg-gradient-to-b from-emerald-800 to-emerald-950 p-3 islamic-arch border-2 border-gold-500/60 shadow-2xl">
                             <div class="islamic-arch overflow-hidden bg-emerald-950 aspect-[4/5] flex flex-col justify-end p-6 text-white relative">
                                 <img src="{{ asset('images/hero-santri.svg') }}" alt="Santri MI Plus Raudlatul Muta'allimin" class="absolute inset-0 w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/30 to-transparent"></div>
@@ -62,6 +77,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- Mosque Skyline Silhouette Divider at Bottom of Hero -->
+        <div class="absolute bottom-0 inset-x-0 overflow-hidden leading-none z-10 pointer-events-none opacity-40">
+            <img src="{{ asset('images/ornaments/mosque-skyline.svg') }}" class="w-full h-16 sm:h-20 object-cover object-bottom" alt="">
+        </div>
     </section>
 
     <!-- PRAYER TIMES WIDGET RIBBON -->
@@ -70,44 +90,47 @@
     </section>
 
     <!-- STATS COUNTER -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-100">
-            <div class="p-4">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 relative">
+        <div class="bg-gradient-to-r from-white via-[#fbf8ef] to-white rounded-3xl shadow-lg border-2 border-gold-500/30 p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-y md:divide-y-0 md:divide-x divide-slate-200/80 relative overflow-hidden pattern-islamic-light">
+            <div class="p-4 relative z-10">
                 <span class="block text-3xl lg:text-4xl font-extrabold text-emerald-900 font-mono">350+</span>
-                <span class="block text-xs sm:text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wider">Santri Aktif</span>
+                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Santri Aktif</span>
             </div>
-            <div class="p-4">
+            <div class="p-4 relative z-10">
                 <span class="block text-3xl lg:text-4xl font-extrabold text-emerald-900 font-mono">100%</span>
-                <span class="block text-xs sm:text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wider">Lulus Ujian Kemenag</span>
+                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Lulus Ujian Kemenag</span>
             </div>
-            <div class="p-4">
+            <div class="p-4 relative z-10">
                 <span class="block text-3xl lg:text-4xl font-extrabold text-emerald-900 font-mono">25+</span>
-                <span class="block text-xs sm:text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wider">Guru & Asatidz</span>
+                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Guru & Asatidz</span>
             </div>
-            <div class="p-4">
-                <span class="block text-3xl lg:text-4xl font-extrabold text-emerald-900 font-mono">Juz 30</span>
-                <span class="block text-xs sm:text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wider">Target Tahfidz Lulus</span>
+            <div class="p-4 relative z-10">
+                <span class="block text-3xl lg:text-4xl font-extrabold text-gold-600 font-mono">Juz 30</span>
+                <span class="block text-xs sm:text-sm font-semibold text-slate-600 mt-1 uppercase tracking-wider">Target Tahfidz Lulus</span>
             </div>
         </div>
     </section>
 
     <!-- PROFIL MADRASAH & VISI MISI -->
     <section id="profil" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24" x-data="{ tab: 'visi' }">
-        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-8 sm:p-12 overflow-hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="bg-white rounded-3xl border-2 border-gold-500/20 shadow-md p-8 sm:p-12 overflow-hidden relative pattern-islamic-light">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
                 <div class="lg:col-span-5 space-y-4">
-                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-850 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">
                         Profil Lembaga
                     </span>
                     <h2 class="text-3xl font-extrabold text-emerald-950 leading-tight">
                         Mengenal Lebih Dekat MI Plus Raudlatul Muta'allimin
                     </h2>
+                    <div>
+                        <img src="{{ asset('images/ornaments/islamic-divider.svg') }}" class="h-4 opacity-75" alt="">
+                    </div>
                     <p class="text-slate-600 text-sm leading-relaxed">
                         Terletak di Dusun Kalipucung, Sanankulon, Blitar, kami hadir sebagai wadah pendidikan dasar Islam yang mengedepankan pembiasaan ibadah praktis, adab keseharian, serta pencapaian akademik berstandar nasional.
                     </p>
                     
                     <!-- Tab Buttons -->
-                    <div class="flex gap-2 pt-2 border-b border-slate-100">
+                    <div class="flex gap-2 pt-2 border-b border-slate-200">
                         <button @click="tab = 'visi'" :class="tab === 'visi' ? 'border-emerald-800 text-emerald-900 font-bold border-b-2' : 'text-slate-500 hover:text-slate-800'" class="pb-2 text-sm transition">
                             Visi & Misi
                         </button>
@@ -120,9 +143,14 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-7 bg-emerald-950 text-white rounded-2xl p-6 sm:p-8 border border-gold-500/30">
+                <div class="lg:col-span-7 bg-gradient-to-br from-emerald-950 via-[#032f23] to-emerald-950 text-white rounded-3xl p-6 sm:p-8 border-2 border-gold-500/40 pattern-islamic-dark relative overflow-hidden shadow-xl">
+                    <!-- Corner Flourish -->
+                    <div class="absolute -top-2 -right-2 w-16 h-16 pointer-events-none opacity-40">
+                        <img src="{{ asset('images/ornaments/corner-arabesque.svg') }}" class="w-full h-full transform rotate-90" alt="">
+                    </div>
+
                     <!-- Tab Visi -->
-                    <div x-show="tab === 'visi'" class="space-y-4">
+                    <div x-show="tab === 'visi'" class="space-y-4 relative z-10">
                         <h4 class="text-lg font-bold text-gold-400 flex items-center gap-2">
                             <span>Visi Madrasah</span>
                         </h4>
@@ -147,7 +175,7 @@
                     </div>
 
                     <!-- Tab Tujuan -->
-                    <div x-show="tab === 'tujuan'" x-cloak class="space-y-4">
+                    <div x-show="tab === 'tujuan'" x-cloak class="space-y-4 relative z-10">
                         <h4 class="text-lg font-bold text-gold-400">Tujuan Pendidikan Madrasah</h4>
                         <ul class="space-y-2 text-xs sm:text-sm text-emerald-200">
                             <li class="flex items-start gap-2">
@@ -166,22 +194,22 @@
                     </div>
 
                     <!-- Tab Budaya -->
-                    <div x-show="tab === 'budaya'" x-cloak class="space-y-4">
+                    <div x-show="tab === 'budaya'" x-cloak class="space-y-4 relative z-10">
                         <h4 class="text-lg font-bold text-gold-400">5 Budaya Santri Raudlatul Muta'allimin</h4>
                         <div class="grid grid-cols-2 gap-3 text-xs text-emerald-200">
-                            <div class="p-2.5 rounded-lg bg-emerald-900/60 border border-emerald-800">
+                            <div class="p-2.5 rounded-xl bg-emerald-900/80 border border-emerald-800">
                                 <span class="font-bold text-gold-400 block mb-0.5">1. 5S</span>
                                 Senyum, Sapa, Salam, Sopan, Santun kepada guru dan orang tua.
                             </div>
-                            <div class="p-2.5 rounded-lg bg-emerald-900/60 border border-emerald-800">
+                            <div class="p-2.5 rounded-xl bg-emerald-900/80 border border-emerald-800">
                                 <span class="font-bold text-gold-400 block mb-0.5">2. Dhuha Berjamaah</span>
                                 Mengetuk pintu rezeki berkah setiap pagi sebelum mulai pelajaran.
                             </div>
-                            <div class="p-2.5 rounded-lg bg-emerald-900/60 border border-emerald-800">
+                            <div class="p-2.5 rounded-xl bg-emerald-900/80 border border-emerald-800">
                                 <span class="font-bold text-gold-400 block mb-0.5">3. Bersih & Rapi</span>
                                 Menjaga kebersihan madrasah sebagai cerminan sebagian dari iman.
                             </div>
-                            <div class="p-2.5 rounded-lg bg-emerald-900/60 border border-emerald-800">
+                            <div class="p-2.5 rounded-xl bg-emerald-900/80 border border-emerald-800">
                                 <span class="font-bold text-gold-400 block mb-0.5">4. Gemar Berinfaq</span>
                                 Melatih empati dan kedermawanan melalui kotak amal harian.
                             </div>
@@ -197,60 +225,66 @@
         <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
             <span class="text-xs font-bold uppercase tracking-widest text-gold-600 bg-gold-500/10 px-3 py-1 rounded-full border border-gold-500/20">Kurikulum Unggulan</span>
             <h2 class="text-3xl font-extrabold text-emerald-950">Empat Pilar Pendidikan MI Plus</h2>
+            <div>
+                <img src="{{ asset('images/ornaments/islamic-divider.svg') }}" class="h-4 mx-auto opacity-75" alt="">
+            </div>
             <p class="text-slate-600 text-sm sm:text-base">Perpaduan seimbang antara kurikulum standar Kemenag dengan pembiasaan adab dan tradisi pesantren.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <!-- Card 1 -->
-            <div class="bg-white rounded-2xl p-7 shadow-sm border border-slate-200/80 hover:shadow-md hover:border-gold-500/50 transition-all group">
-                <div class="w-14 h-14 rounded-xl bg-emerald-50 text-emerald-900 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-gold-400 transition-colors">
+            <div class="bg-white rounded-3xl p-7 shadow-sm border-2 border-slate-200/80 hover:shadow-xl hover:border-gold-500/60 transition-all group relative overflow-hidden border-t-4 hover:border-t-gold-500">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-900 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-gold-400 transition-colors shadow-sm">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                 </div>
-                <h4 class="text-lg font-bold text-slate-800 mb-2">Tahfidz & Tartil Qur'an</h4>
+                <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-900 transition-colors">Tahfidz & Tartil Qur'an</h4>
                 <p class="text-slate-600 text-sm leading-relaxed">Bimbingan hafalan Juz 30 berjenjang dengan mutaba'ah harian, hukum tajwid, makharijul huruf, dan wisuda tahfidz.</p>
             </div>
 
             <!-- Card 2 -->
-            <div class="bg-white rounded-2xl p-7 shadow-sm border border-slate-200/80 hover:shadow-md hover:border-gold-500/50 transition-all group">
-                <div class="w-14 h-14 rounded-xl bg-emerald-50 text-emerald-900 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-gold-400 transition-colors">
+            <div class="bg-white rounded-3xl p-7 shadow-sm border-2 border-slate-200/80 hover:shadow-xl hover:border-gold-500/60 transition-all group relative overflow-hidden border-t-4 hover:border-t-gold-500">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-900 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-gold-400 transition-colors shadow-sm">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
-                <h4 class="text-lg font-bold text-slate-800 mb-2">Pembiasaan Ibadah Fardhu & Dhuha</h4>
+                <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-900 transition-colors">Pembiasaan Ibadah Fardhu & Dhuha</h4>
                 <p class="text-slate-600 text-sm leading-relaxed">Sholat dhuha berjamaah setiap pagi, pembacaan Asmaul Husna, sholat dzuhur berjamaah, serta doa harian terstruktur.</p>
             </div>
 
             <!-- Card 3 -->
-            <div class="bg-white rounded-2xl p-7 shadow-sm border border-slate-200/80 hover:shadow-md hover:border-gold-500/50 transition-all group">
-                <div class="w-14 h-14 rounded-xl bg-emerald-50 text-emerald-900 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-gold-400 transition-colors">
+            <div class="bg-white rounded-3xl p-7 shadow-sm border-2 border-slate-200/80 hover:shadow-xl hover:border-gold-500/60 transition-all group relative overflow-hidden border-t-4 hover:border-t-gold-500">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-900 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-gold-400 transition-colors shadow-sm">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
                 </div>
-                <h4 class="text-lg font-bold text-slate-800 mb-2">Hadrah & Sholawat Rebana</h4>
+                <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-900 transition-colors">Hadrah & Sholawat Rebana</h4>
                 <p class="text-slate-600 text-sm leading-relaxed">Pengembangan bakat seni hadrah rebana, seni suara islami, dan pentas kreasi santri di berbagai event Kemenag dan umum.</p>
             </div>
 
             <!-- Card 4 -->
-            <div class="bg-white rounded-2xl p-7 shadow-sm border border-slate-200/80 hover:shadow-md hover:border-gold-500/50 transition-all group">
-                <div class="w-14 h-14 rounded-xl bg-emerald-50 text-emerald-900 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-gold-400 transition-colors">
+            <div class="bg-white rounded-3xl p-7 shadow-sm border-2 border-slate-200/80 hover:shadow-xl hover:border-gold-500/60 transition-all group relative overflow-hidden border-t-4 hover:border-t-gold-500">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-900 flex items-center justify-center mb-6 group-hover:bg-emerald-900 group-hover:text-gold-400 transition-colors shadow-sm">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
                 </div>
-                <h4 class="text-lg font-bold text-slate-800 mb-2">Sains & Kepramukaan</h4>
+                <h4 class="text-lg font-bold text-slate-800 mb-2 group-hover:text-emerald-900 transition-colors">Sains & Kepramukaan</h4>
                 <p class="text-slate-600 text-sm leading-relaxed">Eksplorasi matematika & sains madrasah, kegiatan kepramukaan, outbound santri, dan kemandirian sejak dini.</p>
             </div>
         </div>
     </section>
 
     <!-- GALERI KEGIATAN & BERITA -->
-    <section id="galeri" class="bg-slate-100/70 py-20 border-y border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="galeri" class="bg-parchment pattern-islamic-light py-24 border-y-2 border-gold-500/30 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
                 <div>
-                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full">Dokumentasi & Kabar</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-850 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">Dokumentasi & Kabar</span>
                     <h2 class="text-3xl font-extrabold text-emerald-950 mt-2">Kilas Kegiatan Madrasah</h2>
+                    <div class="mt-2">
+                        <img src="{{ asset('images/ornaments/islamic-divider.svg') }}" class="h-4 opacity-75" alt="">
+                    </div>
                 </div>
                 <div>
-                    <a href="{{ route('public.news') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-slate-200 text-emerald-900 font-bold text-xs shadow-sm hover:shadow hover:bg-slate-50 transition">
+                    <a href="{{ route('public.news') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs shadow-md transition border border-gold-500/40">
                         <span>Pusat Kabar & Galeri Lengkap</span>
-                        <svg class="w-4 h-4 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </a>
                 </div>
             </div>
@@ -258,7 +292,7 @@
             <!-- Galleries Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 @forelse($galleries as $gallery)
-                    <a href="{{ route('public.news', ['tab' => 'galeri']) }}" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-md transition group block">
+                    <a href="{{ route('public.news', ['tab' => 'galeri']) }}" class="bg-white rounded-3xl overflow-hidden shadow-sm border-2 border-slate-200/80 hover:shadow-xl hover:border-gold-500/60 transition-all group block">
                         <div class="h-48 bg-emerald-950 overflow-hidden relative">
                             <img src="{{ asset($gallery->image_path) }}" alt="{{ $gallery->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                         </div>
@@ -280,7 +314,10 @@
             @if($articles->isNotEmpty())
                 <div class="border-t border-slate-200/80 pt-12">
                     <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-2xl font-bold text-slate-900">Warta & Berita Terkini</h3>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900">Warta & Berita Terkini</h3>
+                            <p class="text-xs text-slate-500 mt-0.5">Liputan agenda santri, prestasi, dan kegiatan madrasah</p>
+                        </div>
                         <a href="{{ route('public.news', ['tab' => 'berita']) }}" class="text-xs font-bold text-emerald-800 hover:underline">
                             Lihat Semua Berita →
                         </a>
@@ -288,7 +325,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         @foreach($articles as $article)
-                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between group hover:shadow-md transition">
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border-2 border-slate-200/80 flex flex-col justify-between group hover:shadow-lg hover:border-gold-500/50 transition">
                                 <div class="space-y-3">
                                     <span class="text-xs text-slate-400 font-mono">{{ $article->published_at ? $article->published_at->translatedFormat('d M Y') : $article->created_at->translatedFormat('d M Y') }}</span>
                                     <h4 class="text-base font-bold text-emerald-950 group-hover:text-emerald-700 transition line-clamp-2 leading-snug">
@@ -316,7 +353,7 @@
     </section>
 
     <!-- KALENDER AGENDA & EKSTRAKURIKULER SHOWCASE -->
-    <section class="py-20 bg-ivory">
+    <section class="py-24 bg-gradient-to-b from-[#fbf8ee] via-white to-[#fbf8ee] pattern-islamic-light relative border-b border-slate-200/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
             
             <!-- Grid: Agenda & Ekskul -->
@@ -442,8 +479,8 @@
     </section>
 
     <!-- SECTION KONTAK & LOKASI SEKOLAH -->
-    <section id="kontak" class="bg-slate-100/70 py-24 border-t border-slate-200/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="kontak" class="bg-parchment pattern-islamic-light py-24 border-t-2 border-gold-500/30 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
             <div class="text-center max-w-2xl mx-auto space-y-2">
                 <span class="text-xs font-bold uppercase tracking-wider text-emerald-850 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-200">
                     Kunjungi Kampus Kami
@@ -451,6 +488,9 @@
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                     Kontak & Lokasi Madrasah
                 </h2>
+                <div>
+                    <img src="{{ asset('images/ornaments/islamic-divider.svg') }}" class="h-4 mx-auto opacity-75" alt="">
+                </div>
                 <p class="text-xs sm:text-sm text-slate-500">
                     Informasi resmi pendaftaran, konsultasi program madrasah, dan alamat kampus MI Plus Raudlatul Muta'allimin Kalipucung Blitar.
                 </p>

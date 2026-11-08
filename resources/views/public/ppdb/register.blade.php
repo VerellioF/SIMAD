@@ -16,8 +16,11 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Header Banner -->
-        <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 rounded-3xl p-8 text-white shadow-xl mb-8 relative overflow-hidden border border-gold-500/30">
-            <div class="relative z-10 space-y-2">
+        <div class="bg-gradient-to-r from-emerald-950 via-[#043327] to-emerald-950 rounded-3xl p-8 text-white shadow-xl mb-8 relative overflow-hidden border-2 border-gold-500/40 pattern-islamic-dark">
+            <div class="hidden sm:block absolute top-0 right-10 w-16 pointer-events-none opacity-80">
+                <img src="{{ asset('images/ornaments/hanging-lantern.svg') }}" class="w-full h-auto drop-shadow-[0_8px_16px_rgba(251,191,36,0.3)]" alt="">
+            </div>
+            <div class="relative z-10 space-y-2 max-w-2xl">
                 <span class="inline-block px-3 py-1 rounded-full bg-gold-500 text-emerald-950 text-xs font-bold uppercase tracking-wider">
                     PPDB Online {{ date('Y') }}/{{ date('Y') + 1 }}
                 </span>

@@ -20,9 +20,14 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
         <!-- Header Hero Banner -->
-        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 p-8 sm:p-12 text-white shadow-xl border border-gold-500/30">
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-950 via-[#043327] to-emerald-950 p-8 sm:p-12 text-white shadow-xl border-2 border-gold-500/40 pattern-islamic-dark">
+            <!-- Hanging Lantern Accent -->
+            <div class="hidden sm:block absolute top-0 right-10 w-16 pointer-events-none opacity-80">
+                <img src="{{ asset('images/ornaments/hanging-lantern.svg') }}" class="w-full h-auto drop-shadow-[0_8px_16px_rgba(251,191,36,0.3)]" alt="">
+            </div>
+
             <div class="relative z-10 max-w-3xl space-y-3">
-                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/30 text-xs font-bold uppercase tracking-wider">
+                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/30 text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
                     <span>Pusat Informasi & Dokumentasi</span>
                 </span>

@@ -42,12 +42,26 @@
     <style>
         [x-cloak] { display: none !important; }
         .islamic-arch {
-            border-top-left-radius: 4rem;
-            border-top-right-radius: 4rem;
+            border-top-left-radius: 4.5rem;
+            border-top-right-radius: 4.5rem;
         }
         .pattern-overlay {
-            background-image: radial-gradient(#d4af37 0.75px, transparent 0.75px);
-            background-size: 16px 16px;
+            background-image: url('{{ asset('images/ornaments/islamic-star-pattern-dark.svg') }}');
+            background-size: 80px 80px;
+            background-repeat: repeat;
+        }
+        .pattern-islamic-light {
+            background-image: url('{{ asset('images/ornaments/islamic-star-pattern.svg') }}');
+            background-size: 80px 80px;
+            background-repeat: repeat;
+        }
+        .pattern-islamic-dark {
+            background-image: url('{{ asset('images/ornaments/islamic-star-pattern-dark.svg') }}');
+            background-size: 80px 80px;
+            background-repeat: repeat;
+        }
+        .bg-parchment {
+            background-color: #faf7ee;
         }
     </style>
 </head>
@@ -245,8 +259,12 @@
     </a>
 
     <!-- Footer -->
-    <footer class="bg-emerald-950 text-white pt-16 pb-8 border-t-4 border-gold-500">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer class="bg-gradient-to-b from-emerald-950 via-[#032a20] to-emerald-950 text-white pt-8 pb-8 border-t-4 border-gold-500 relative pattern-islamic-dark overflow-hidden">
+        <!-- Mosque Silhouette Header Ribbon -->
+        <div class="w-full overflow-hidden leading-none mb-6 opacity-30 pointer-events-none">
+            <img src="{{ asset('images/ornaments/mosque-skyline.svg') }}" class="w-full h-12 sm:h-16 object-cover object-bottom" alt="">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-emerald-900">
                 <div class="md:col-span-2 space-y-4">
                     <div class="flex items-center gap-3">

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180" fill="none" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#064e3b" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="goldSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#d4af37" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Distant Background Domes (Soft Green) -->
+  <g fill="url(#skyGrad)">
+    <!-- Dome Left -->
+    <path d="M120 180 V100 C120 70 160 50 180 35 C200 50 240 70 240 100 V180 Z"/>
+    <!-- Minaret Far Left -->
+    <path d="M60 180 V40 H80 V180 Z M65 40 L70 20 L75 40 Z"/>
+    
+    <!-- Central Grand Dome -->
+    <path d="M620 180 V95 C620 55 680 30 720 10 C760 30 820 55 820 95 V180 Z"/>
+    <!-- Flanking Domes Central -->
+    <path d="M530 180 V110 C530 85 565 65 585 50 C605 65 640 85 640 110 V180 Z"/>
+    <path d="M800 180 V110 C800 85 835 65 855 50 C875 65 910 85 910 110 V180 Z"/>
+
+    <!-- Minarets Far Right -->
+    <path d="M1360 180 V40 H1380 V180 Z M1365 40 L1370 20 L1375 40 Z"/>
+    <!-- Dome Right -->
+    <path d="M1200 180 V100 C1200 70 1240 50 1260 35 C1280 50 1320 70 1320 100 V180 Z"/>
+  </g>
+
+  <!-- Foreground Detailed Silhouettes with Gold Highlights -->
+  <!-- Left Minaret -->
+  <g fill="#022c22" opacity="0.95">
+    <path d="M280 180 V60 H300 V180 Z"/>
+    <path d="M275 60 H305 V50 H275 Z"/>
+    <path d="M282 50 V30 H298 V50 Z"/>
+    <path d="M278 30 H302 V24 H278 Z"/>
+    <!-- Minaret Spire & Crescent -->
+    <path d="M290 5 L295 24 H285 Z"/>
+    <circle cx="290" cy="4" r="2.5" fill="#d4af37"/>
+  </g>
+
+  <!-- Right Minaret -->
+  <g fill="#022c22" opacity="0.95">
+    <path d="M1140 180 V60 H1160 V180 Z"/>
+    <path d="M1135 60 H1165 V50 H1135 Z"/>
+    <path d="M1142 50 V30 H1158 V50 Z"/>
+    <path d="M1138 30 H1162 V24 H1138 Z"/>
+    <!-- Minaret Spire & Crescent -->
+    <path d="M1150 5 L1155 24 H1145 Z"/>
+    <circle cx="1150" cy="4" r="2.5" fill="#d4af37"/>
+  </g>
+
+  <!-- Center Main Dome Silhouette with Mihrab Lines -->
+  <g fill="#022c22" opacity="0.95">
+    <path d="M650 180 V115 C650 75 700 45 720 22 C740 45 790 75 790 115 V180 Z"/>
+    <!-- Spire on Center Dome -->
+    <line x1="720" y1="22" x2="720" y2="6" stroke="#d4af37" stroke-width="2"/>
+    <circle cx="720" cy="5" r="3" fill="#d4af37"/>
+    <!-- Crescent Moon -->
+    <path d="M720 0 A3.5 3.5 0 0 1 723 5 A3 3 0 0 0 720 2 Z" fill="#d4af37"/>
+  </g>
+
+  <!-- Decorative Scalloped Arch Cresting Baseline -->
+  <path d="M0 180 C30 174 60 174 90 180 C120 174 150 174 180 180 C210 174 240 174 270 180 C300 174 330 174 360 180 C390 174 420 174 450 180 C480 174 510 174 540 180 C570 174 600 174 630 180 C660 174 690 174 720 180 C750 174 780 174 810 180 C840 174 870 174 900 180 C930 174 960 174 990 180 C1020 174 1050 174 1080 180 C1110 174 1140 174 1170 180 C1200 174 1230 174 1260 180 C1290 174 1320 174 1350 180 C1380 174 1410 174 1440 180" stroke="#d4af37" stroke-width="1.5" stroke-opacity="0.4"/>
+</svg>

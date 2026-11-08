@@ -1,7 +1,15 @@
 @props(['schedule'])
 
-<div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 text-white rounded-2xl shadow-xl border border-gold-500/30 p-6 -mt-12 relative z-30 max-w-6xl mx-auto backdrop-blur">
-    <div class="flex flex-col md:flex-row items-center justify-between pb-4 mb-4 border-b border-emerald-800/80 gap-3">
+<div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 text-white rounded-3xl shadow-2xl border-2 border-gold-500/40 p-6 sm:p-7 -mt-14 relative z-30 max-w-6xl mx-auto backdrop-blur pattern-islamic-dark overflow-hidden">
+    <!-- Corner Decorative Accents -->
+    <div class="absolute -top-3 -right-3 w-16 h-16 pointer-events-none opacity-40">
+        <img src="{{ asset('images/ornaments/corner-arabesque.svg') }}" class="w-full h-full transform rotate-90" alt="">
+    </div>
+    <div class="absolute -bottom-3 -left-3 w-16 h-16 pointer-events-none opacity-40">
+        <img src="{{ asset('images/ornaments/corner-arabesque.svg') }}" class="w-full h-full transform -rotate-90" alt="">
+    </div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between pb-4 mb-4 border-b border-emerald-800/80 gap-3 relative z-10">
         <div class="flex items-center gap-3">
             <div class="p-2.5 rounded-xl bg-emerald-800/80 text-gold-400 border border-gold-500/30">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
