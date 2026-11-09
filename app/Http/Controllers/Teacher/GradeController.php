@@ -12,9 +12,11 @@ use App\Models\Classroom;
 use App\Models\ClassSchedule;
 use App\Models\Student;
 use App\Models\Subject;
+use App\Services\ReportCardPdfService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class GradeController extends Controller
@@ -163,5 +165,11 @@ class GradeController extends Controller
             'subject_id' => $validated['subject_id'],
             'grade_type' => $validated['grade_type'],
         ])->with('success', "Penilaian {$typeLabel} mapel {$subjectName} berhasil disimpan untuk {$savedCount} siswa.");
+    }
+
+    public function downloadReportCard(Student $student, ReportCardPdfService $service): Response
+    {
+        $pdf = $service->generate($student);
+        return $pdf->stream("Rapor_{$student->nis}_{$student->full_name}.pdf");
     }
 }

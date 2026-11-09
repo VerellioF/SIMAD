@@ -105,12 +105,18 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::post('/spp/generate', [AdminTuitionController::class, 'generateMonthlyBills'])->name('tuition.generate');
     Route::post('/spp/{bill}/verify', [AdminTuitionController::class, 'verifyPayment'])->name('tuition.verify');
     Route::post('/spp/{bill}/cash', [AdminTuitionController::class, 'recordCashPayment'])->name('tuition.cash');
+    Route::post('/spp/{bill}/ingatkan-wa', [AdminTuitionController::class, 'sendReminder'])->name('tuition.reminder');
+    Route::post('/spp/broadcast-wa', [AdminTuitionController::class, 'broadcastReminders'])->name('tuition.broadcast_reminders');
 
     // Master Data (Fase 4)
     Route::get('/santri', [AdminStudentController::class, 'index'])->name('students.index');
     Route::post('/santri', [AdminStudentController::class, 'store'])->name('students.store');
     Route::put('/santri/{student}', [AdminStudentController::class, 'update'])->name('students.update');
     Route::delete('/santri/{student}', [AdminStudentController::class, 'destroy'])->name('students.destroy');
+    Route::get('/santri/{student}/rapor', [AdminStudentController::class, 'downloadReportCard'])->name('students.report_card');
+    Route::get('/santri/{student}/kartu-pelajar', [AdminStudentController::class, 'downloadStudentCard'])->name('students.card');
+    Route::get('/santri/{student}/kartu-ujian', [AdminStudentController::class, 'downloadExamCard'])->name('students.exam_card');
+    Route::get('/kelas/{classroom}/kartu-ujian', [AdminStudentController::class, 'downloadClassExamCards'])->name('classrooms.exam_cards');
 
     Route::get('/guru', [AdminTeacherController::class, 'index'])->name('teachers.index');
     Route::post('/guru', [AdminTeacherController::class, 'store'])->name('teachers.store');
@@ -193,6 +199,7 @@ Route::prefix('guru')->middleware(['auth', 'role:teacher'])->name('teacher.')->g
     Route::post('/tahfidz', [TahfidzController::class, 'store'])->name('tahfidz.store');
     Route::get('/nilai', [GradeController::class, 'index'])->name('grades.index');
     Route::post('/nilai', [GradeController::class, 'store'])->name('grades.store');
+    Route::get('/nilai/rapor/{student}', [GradeController::class, 'downloadReportCard'])->name('grades.report_card');
 
     // Jadwal Mengajar & Mutaba'ah Ibadah Santri
     Route::get('/jadwal', [TeacherScheduleController::class, 'index'])->name('schedules.index');
@@ -220,6 +227,8 @@ Route::prefix('wali')->middleware(['auth', 'role:parent'])->name('parent.')->gro
     // Tahfidz, Nilai & SPP (Fase 3)
     Route::get('/tahfidz', [ParentTahfidzController::class, 'index'])->name('tahfidz.index');
     Route::get('/nilai', [ParentGradeController::class, 'index'])->name('grades.index');
+    Route::get('/nilai/rapor/{student}', [ParentGradeController::class, 'downloadReportCard'])->name('grades.report_card');
+    Route::get('/kartu-pelajar/{student}', [ParentGradeController::class, 'downloadStudentCard'])->name('students.card');
     Route::get('/spp', [ParentTuitionController::class, 'index'])->name('tuition.index');
     Route::get('/spp/{bill}/bayar-online', [PaymentCheckoutController::class, 'payTuition'])->name('tuition.pay_online');
     Route::post('/spp/{bill}/konfirmasi', [ParentTuitionController::class, 'confirmPayment'])->name('tuition.confirm');

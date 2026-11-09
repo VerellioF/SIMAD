@@ -12,10 +12,21 @@
             <p class="text-xs text-slate-500 mt-0.5">Kelola data induk seluruh siswa aktif MI Plus Raudlatul Muta'allimin</p>
         </div>
 
-        <button @click="addModal = true" class="px-5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow flex items-center justify-center gap-2 transition">
-            <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            <span>+ Tambah Siswa Baru</span>
-        </button>
+        <div class="flex items-center gap-2 flex-wrap">
+            @if($classroomId)
+                @php $currentClass = $classrooms->firstWhere('id', (int) $classroomId); @endphp
+                @if($currentClass)
+                    <a href="{{ route('admin.classrooms.exam_cards', $currentClass) }}" target="_blank"
+                       class="px-4 py-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-200 font-bold text-xs shadow-sm flex items-center gap-2 transition">
+                        <span>🎟️ Cetak Kartu Ujian Rombel</span>
+                    </a>
+                @endif
+            @endif
+            <button @click="addModal = true" class="px-5 py-2.5 rounded-xl bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow flex items-center justify-center gap-2 transition">
+                <svg class="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                <span>+ Tambah Siswa Baru</span>
+            </button>
+        </div>
     </div>
 
     <!-- Filter & Search Bar -->
@@ -95,18 +106,32 @@
                                     {{ $st->status->value }}
                                 </span>
                             </td>
-                            <td class="py-4 px-6 text-right space-x-1">
-                                <button type="button" @click="activeStudent = {{ json_encode($st) }}; editModal = true"
-                                        class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] transition">
-                                    Edit
-                                </button>
-                                <form action="{{ route('admin.students.destroy', $st) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus siswa ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 font-bold text-[11px] transition">
-                                        Hapus
+                            <td class="py-4 px-6 text-right">
+                                <div class="flex items-center justify-end gap-1.5 flex-wrap">
+                                    <a href="{{ route('admin.students.report_card', $st) }}" target="_blank"
+                                       class="px-2 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-[10px] transition border border-emerald-200" title="Cetak Rapor Digital Siswa">
+                                        📄 Rapor
+                                    </a>
+                                    <a href="{{ route('admin.students.card', $st) }}" target="_blank"
+                                       class="px-2 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-800 font-bold text-[10px] transition border border-blue-200" title="Cetak Kartu Tanda Siswa (KTS)">
+                                        🪪 KTS
+                                    </a>
+                                    <a href="{{ route('admin.students.exam_card', $st) }}" target="_blank"
+                                       class="px-2 py-1 rounded-lg bg-purple-50 hover:bg-purple-100 text-purple-800 font-bold text-[10px] transition border border-purple-200" title="Cetak Kartu Peserta Ujian">
+                                        🎟️ Ujian
+                                    </a>
+                                    <button type="button" @click="activeStudent = {{ json_encode($st) }}; editModal = true"
+                                            class="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[10px] transition">
+                                        Edit
                                     </button>
-                                </form>
+                                    <form action="{{ route('admin.students.destroy', $st) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus siswa ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="px-2 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 font-bold text-[10px] transition">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty

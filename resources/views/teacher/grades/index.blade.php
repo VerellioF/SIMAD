@@ -213,7 +213,13 @@
                                     </td>
                                     <td class="py-3.5 px-6">
                                         <input type="hidden" name="grades[{{ $idx }}][student_id]" value="{{ $st->id }}">
-                                        <span class="font-bold text-slate-900 block">{{ $st->full_name }}</span>
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-bold text-slate-900">{{ $st->full_name }}</span>
+                                            <a href="{{ route('teacher.grades.report_card', $st) }}" target="_blank"
+                                               class="text-[10px] font-bold text-teal-800 hover:text-teal-950 bg-teal-50 hover:bg-teal-100 px-2 py-0.5 rounded border border-teal-200 transition" title="Cetak Rapor Siswa">
+                                                📄 Rapor
+                                            </a>
+                                        </div>
                                         <span class="text-[10px] text-slate-400 font-mono">{{ $st->nisn ?? $st->nis }}</span>
                                     </td>
                                     <td class="py-3.5 px-6">

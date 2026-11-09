@@ -10,9 +10,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\User;
+use App\Services\ReportCardPdfService;
+use App\Services\StudentCardPdfService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 
 class AdminStudentController extends Controller
@@ -102,5 +105,29 @@ class AdminStudentController extends Controller
 
         return redirect()->route('admin.students.index')
             ->with('success', "Data siswa {$name} berhasil dihapus dari sistem.");
+    }
+
+    public function downloadReportCard(Student $student, ReportCardPdfService $service): Response
+    {
+        $pdf = $service->generate($student);
+        return $pdf->stream("Rapor_{$student->nis}_{$student->full_name}.pdf");
+    }
+
+    public function downloadStudentCard(Student $student, StudentCardPdfService $service): Response
+    {
+        $pdf = $service->generateStudentCard($student);
+        return $pdf->stream("KTS_{$student->nis}_{$student->full_name}.pdf");
+    }
+
+    public function downloadExamCard(Student $student, StudentCardPdfService $service): Response
+    {
+        $pdf = $service->generateExamCard($student);
+        return $pdf->stream("Kartu_Ujian_{$student->nis}_{$student->full_name}.pdf");
+    }
+
+    public function downloadClassExamCards(Classroom $classroom, StudentCardPdfService $service): Response
+    {
+        $pdf = $service->generateClassExamCards($classroom);
+        return $pdf->stream("Kartu_Ujian_Kelas_{$classroom->name}.pdf");
     }
 }

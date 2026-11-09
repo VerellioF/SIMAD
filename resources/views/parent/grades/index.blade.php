@@ -39,8 +39,16 @@
                 <h2 class="text-xl font-extrabold text-slate-900">{{ $selectedStudent->full_name }}</h2>
                 <p class="text-xs text-slate-500">NISN: {{ $selectedStudent->nisn }} • Kelas: {{ $selectedStudent->classroom->name ?? '-' }}</p>
             </div>
-            <div class="bg-amber-50 px-4 py-2.5 rounded-2xl border border-amber-200 text-xs text-amber-900 font-semibold">
-                Tahun Ajaran 2026/2027 Ganjil
+            <div class="flex items-center gap-2 flex-wrap">
+                <a href="{{ route('parent.grades.report_card', $selectedStudent) }}" target="_blank"
+                   class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    <span>Unduh Rapor Semester (PDF)</span>
+                </a>
+                <a href="{{ route('parent.students.card', $selectedStudent) }}" target="_blank"
+                   class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition">
+                    <span>🪪 Kartu Siswa (KTS)</span>
+                </a>
             </div>
         </div>
 

@@ -456,4 +456,55 @@ class WhatsAppNotificationService
 
         return $this->sendMessage($phone, $message, null, 'ppdb_payment', $senderId);
     }
+
+    /**
+     * Build SPP payment reminder alert with direct QRIS link.
+     */
+    public function buildTuitionReminderMessage(\App\Models\TuitionBill $bill, ?string $qrisLink = null): string
+    {
+        $student = $bill->student;
+        $parentName = $student?->parent?->name ?? 'Bapak/Ibu Wali Murid';
+        $nominal = 'Rp ' . number_format((float) $bill->amount, 0, ',', '.');
+        $dueDate = date('d/m/Y', strtotime($bill->due_date->toDateString() ?? date('Y-m-d')));
+
+        $msg = "Assalamu'alaikum Wr. Wb.\n";
+        $msg .= "Yth. {$parentName},\n\n";
+        $msg .= "Semoga Bapak/Ibu sekeluarga senantiasa dalam limpahan rahmat dan kesehatan dari Allah SWT.\n\n";
+        $msg .= "Kami dari bagian Tata Usaha madrasah ingin memberitahukan tagihan pendidikan ananda:\n\n";
+        $msg .= "👤 *Nama Siswa:* *{$student->full_name}*\n";
+        $msg .= "🏫 *Kelas:* " . ($student->classroom?->name ?? '-') . "\n";
+        $msg .= "📋 *Uraian Tagihan:* {$bill->bill_title}\n";
+        $msg .= "💰 *Nominal:* *{$nominal}*\n";
+        $msg .= "📅 *Jatuh Tempo:* {$dueDate}\n\n";
+
+        if ($qrisLink) {
+            $msg .= "📱 *Bayar Cepat via Scan QRIS (Otomatis & Tanpa Antre):*\n";
+            $msg .= "{$qrisLink}\n\n";
+        }
+
+        $msg .= "Atau dapat melakukan transfer manual ke:\n";
+        $msg .= "Bank Syariah Indonesia (BSI): *7123456789*\n";
+        $msg .= "a.n. YAYASAN RAUDLATUL MUTA'ALLIMIN\n\n";
+        $msg .= "Jika Bapak/Ibu telah melakukan pembayaran, mohon abaikan pesan pengingat ini.\n\n";
+        $msg .= "Jazakumullahu khairan katsiran.\nWassalamu'alaikum Wr. Wb.\n";
+        $msg .= "_Tata Usaha MI Plus Raudlatul Muta'allimin_";
+
+        return $msg;
+    }
+
+    /**
+     * Send SPP payment reminder alert to parent.
+     */
+    public function sendTuitionReminder(\App\Models\TuitionBill $bill, ?string $qrisLink = null, ?int $senderId = null): ?array
+    {
+        $phone = $bill->student?->parent?->phone_number;
+
+        if (! $phone) {
+            return null;
+        }
+
+        $message = $this->buildTuitionReminderMessage($bill, $qrisLink);
+
+        return $this->sendMessage($phone, $message, $bill->student, 'tuition_reminder', $senderId);
+    }
 }

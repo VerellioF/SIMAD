@@ -9,6 +9,8 @@ use App\Models\AcademicYear;
 use App\Models\Student;
 use App\Models\TuitionBill;
 use App\Models\TuitionPayment;
+use App\Services\PaymentGatewayService;
+use App\Services\WhatsAppNotificationService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -129,5 +131,53 @@ class AdminTuitionController extends Controller
         ]);
 
         return back()->with('success', "Pembayaran tunai sebesar Rp " . number_format((float) $bill->amount, 0, ',', '.') . " berhasil dicatat.");
+    }
+
+    public function sendReminder(TuitionBill $bill, WhatsAppNotificationService $waService, PaymentGatewayService $paymentService): RedirectResponse
+    {
+        $admin = Auth::user();
+
+        // Ensure online transaction exists so direct QRIS link is available
+        $transaction = $paymentService->createForTuitionBill($bill);
+        $qrisLink = route('payment.checkout', $transaction->reference);
+
+        $result = $waService->sendTuitionReminder($bill, $qrisLink, $admin->id);
+
+        if (! $result) {
+            return back()->with('error', "Gagal mengirim pengingat: Nomor WhatsApp wali murid {$bill->student->full_name} tidak ditemukan.");
+        }
+
+        return back()->with('success', "Pesan pengingat SPP {$bill->bill_title} untuk wali murid {$bill->student->full_name} berhasil dikirim.");
+    }
+
+    public function broadcastReminders(Request $request, WhatsAppNotificationService $waService, PaymentGatewayService $paymentService): RedirectResponse
+    {
+        $admin = Auth::user();
+        $month = $request->input('month');
+        $year = $request->input('year');
+
+        $query = TuitionBill::where('status', 'unpaid')->with(['student.parent', 'student.classroom']);
+
+        if ($month) {
+            $query->where('month', (int) $month);
+        }
+        if ($year) {
+            $query->where('year', (int) $year);
+        }
+
+        $unpaidBills = $query->get();
+
+        $count = 0;
+        foreach ($unpaidBills as $bill) {
+            if ($bill->student?->parent?->phone_number) {
+                $transaction = $paymentService->createForTuitionBill($bill);
+                $qrisLink = route('payment.checkout', $transaction->reference);
+
+                $waService->sendTuitionReminder($bill, $qrisLink, $admin->id);
+                $count++;
+            }
+        }
+
+        return back()->with('success', "Berhasil mengirim pengingat SPP massal ke {$count} wali murid via WhatsApp.");
     }
 }
