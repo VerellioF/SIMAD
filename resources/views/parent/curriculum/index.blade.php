@@ -59,7 +59,7 @@
         <div class="bg-white border border-emerald-200 rounded-2xl p-5 shadow-sm">
             <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider">Model Pembelajaran</span>
             <span class="block text-base font-extrabold text-emerald-900 mt-1">Integrasi 3 Pilar</span>
-            <p class="text-[11px] text-slate-500 mt-2">Kemenag + Merdeka + Karakter Pesantren Salaf Modern.</p>
+            <p class="text-[11px] text-slate-500 mt-2">Kemenag, Kurikulum Merdeka, dan Karakter Madrasah Berakhlak Mulia.</p>
         </div>
 
         <!-- Target Capaian -->

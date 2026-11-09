@@ -93,7 +93,7 @@
                         <h3 class="text-base font-extrabold text-slate-900">{{ $selectedEkskul->name }}</h3>
                     </div>
                     <button @click="enrollModal = true" class="px-3 py-1.5 rounded-xl bg-gold-500 hover:bg-gold-600 text-emerald-950 font-bold text-xs shadow-sm transition">
-                        + Daftarkan
+                        Daftarkan Siswa
                     </button>
                 </div>
 

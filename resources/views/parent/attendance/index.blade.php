@@ -66,7 +66,7 @@
             <div class="p-6 border-b border-slate-100 flex items-center justify-between">
                 <h3 class="text-base font-bold text-slate-900">Riwayat Kehadiran: {{ $selectedStudent->full_name }}</h3>
                 <a href="{{ route('parent.leave.index') }}" class="px-3.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-xs border border-amber-200 transition">
-                    + Ajukan Izin / Sakit
+                    Ajukan Izin / Sakit
                 </a>
             </div>
 
