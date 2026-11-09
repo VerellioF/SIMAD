@@ -117,7 +117,7 @@
                             <span>Lihat Kwitansi SPP →</span>
                         </a>
                     @elseif($transaction->payable instanceof \App\Models\PpdbRegistration)
-                        <a href="{{ route('ppdb.check-status', ['q' => $transaction->payable->registration_number]) }}" class="px-6 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow transition inline-flex items-center gap-2">
+                        <a href="{{ route('ppdb.check_status', ['q' => $transaction->payable->registration_number]) }}" class="px-6 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow transition inline-flex items-center gap-2">
                             <span>Cek Status PPDB →</span>
                         </a>
                     @endif

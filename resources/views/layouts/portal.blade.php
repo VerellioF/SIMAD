@@ -316,6 +316,9 @@
                     <p class="font-bold text-slate-700">SIMAD MI Plus Kalipucung</p>
                     <p>Versi Custom MVC v1.0</p>
                     <p class="text-[10px] text-emerald-800 font-semibold">T.A. 2026/2027 Ganjil</p>
+                    <p class="pt-1.5 border-t border-slate-200 text-[10px] text-slate-400">
+                        <a href="https://verellio.com/id" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-700 transition font-medium">Developed by Verellio</a>
+                    </p>
                 </div>
             </div>
         </aside>
@@ -352,6 +355,14 @@
                 @endif
 
                 @yield('content')
+
+                <!-- Portal Bottom Watermark -->
+                <div class="mt-12 pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2">
+                    <p>© {{ date('Y') }} {{ config('simad.school_name') }}. All rights reserved.</p>
+                    <p>
+                        <a href="https://verellio.com/id" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-emerald-800 font-semibold underline underline-offset-2 transition">Developed by Verellio</a>
+                    </p>
+                </div>
             </div>
         </main>
 

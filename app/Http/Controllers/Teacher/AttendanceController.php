@@ -150,6 +150,11 @@ class AttendanceController extends Controller
             return back()->with('error', 'Kelas tidak valid.');
         }
 
+        // Security / Authorization check: Verify teacher is homeroom or assigned to teach in this classroom
+        $isHomeroom = Classroom::where('id', $classroomId)->where('homeroom_teacher_id', $teacher->id)->exists();
+        $teachesInClass = ClassSchedule::where('classroom_id', $classroomId)->where('teacher_id', $teacher->id)->exists();
+        abort_unless($isHomeroom || $teachesInClass || $teacher->isAdmin(), 403, 'Anda tidak memiliki hak akses mencatat presensi untuk kelas ini.');
+
         $subjectId = $validated['subject_id'] ?? null;
         $scheduleId = $validated['class_schedule_id'] ?? null;
         $subjectName = $subjectId ? Subject::find($subjectId)?->name : 'Wali Kelas / Harian';

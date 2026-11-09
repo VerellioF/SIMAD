@@ -91,7 +91,7 @@
                     <tr class="bg-emerald-950 text-white text-center">
                         <th class="p-2 border border-emerald-900 w-8">No</th>
                         <th class="p-2 border border-emerald-900 w-20">NIS / NISN</th>
-                        <th class="p-2 border border-emerald-900 text-left min-w-[140px]">Nama Lengkap Siswa</th>
+                        <th class="p-2 border border-emerald-900 text-left min-w-[140px] sticky left-0 bg-emerald-950 z-20 shadow-xs">Nama Lengkap Siswa</th>
                         <th class="p-2 border border-emerald-900 w-10">L/P</th>
                         @foreach($subjects as $sub)
                             <th class="p-2 border border-emerald-900 min-w-[65px]" title="{{ $sub->name }}">
@@ -113,7 +113,7 @@
                                 <span class="block font-bold text-slate-800">{{ $st->nis ?? '-' }}</span>
                                 <span class="block text-slate-400 text-[9px]">{{ $st->nisn }}</span>
                             </td>
-                            <td class="p-2 border border-slate-200 font-bold text-slate-900">
+                            <td class="p-2 border border-slate-200 font-bold text-slate-900 sticky left-0 bg-white z-10 shadow-xs">
                                 {{ $st->full_name }}
                             </td>
                             <td class="p-2 border border-slate-200 text-center font-bold {{ $st->gender === 'L' ? 'text-blue-700' : 'text-pink-700' }}">

@@ -35,8 +35,12 @@ class ReportCardPdfService
             $pts = $subjGrades->where('grade_type.value', 'pts')->avg('score');
             $pas = $subjGrades->where('grade_type.value', 'pas')->avg('score');
 
-            // Calculate final grade
-            $scores = array_filter([(float)$harian, (float)$pts, (float)$pas]);
+            // Calculate final grade safely preserving genuine zero scores
+            $rawScores = array_filter(
+                [$harian, $pts, $pas],
+                fn ($val) => $val !== null && $val !== ''
+            );
+            $scores = array_map('floatval', $rawScores);
             $finalScore = ! empty($scores) ? array_sum($scores) / count($scores) : null;
 
             $predicate = match (true) {

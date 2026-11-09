@@ -40,9 +40,32 @@ class AuthController extends Controller
         // Determine if login input is email or phone number
         $field = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_number';
 
-        if (! Auth::attempt([$field => $loginInput, 'password' => $password], $remember)) {
-            return back()->withInput($request->only('login', 'remember'))
-                ->withErrors(['login' => 'Email / Nomor WhatsApp atau Password salah.']);
+        if ($field === 'phone_number') {
+            $cleaned = preg_replace('/[^0-9]/', '', $loginInput);
+            $variants = array_unique(array_filter([
+                $loginInput,
+                $cleaned,
+                str_starts_with($cleaned, '08') ? ('628' . substr($cleaned, 2)) : null,
+                str_starts_with($cleaned, '628') ? ('08' . substr($cleaned, 3)) : null,
+            ]));
+
+            $authenticated = false;
+            foreach ($variants as $phone) {
+                if (Auth::attempt(['phone_number' => $phone, 'password' => $password], $remember)) {
+                    $authenticated = true;
+                    break;
+                }
+            }
+
+            if (! $authenticated) {
+                return back()->withInput($request->only('login', 'remember'))
+                    ->withErrors(['login' => 'Email / Nomor WhatsApp atau Password salah.']);
+            }
+        } else {
+            if (! Auth::attempt(['email' => $loginInput, 'password' => $password], $remember)) {
+                return back()->withInput($request->only('login', 'remember'))
+                    ->withErrors(['login' => 'Email / Nomor WhatsApp atau Password salah.']);
+            }
         }
 
         $user = Auth::user();

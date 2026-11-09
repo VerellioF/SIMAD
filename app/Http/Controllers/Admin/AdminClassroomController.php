@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AdminClassroomController extends Controller
 {
@@ -36,7 +37,12 @@ class AdminClassroomController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:50'],
             'grade_level' => ['required', 'integer', 'between:1,6'],
-            'homeroom_teacher_id' => ['nullable', 'exists:users,id'],
+            'homeroom_teacher_id' => [
+                'nullable',
+                Rule::exists('users', 'id')->where('role', UserRole::Teacher->value),
+            ],
+        ], [
+            'homeroom_teacher_id.exists' => 'Akun yang dipilih harus berstatus sebagai Guru.',
         ]);
 
         Classroom::create([
@@ -55,7 +61,12 @@ class AdminClassroomController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:50'],
             'grade_level' => ['required', 'integer', 'between:1,6'],
-            'homeroom_teacher_id' => ['nullable', 'exists:users,id'],
+            'homeroom_teacher_id' => [
+                'nullable',
+                Rule::exists('users', 'id')->where('role', UserRole::Teacher->value),
+            ],
+        ], [
+            'homeroom_teacher_id.exists' => 'Akun yang dipilih harus berstatus sebagai Guru.',
         ]);
 
         $classroom->update($validated);

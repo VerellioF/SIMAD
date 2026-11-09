@@ -46,7 +46,7 @@ class AdminWhatsAppController extends Controller
     {
         $validated = $request->validate([
             'target_type' => ['required', 'in:single,broadcast'],
-            'student_id' => ['nullable', 'required_if:target_type,single', 'exists:students,id'],
+            'student_id' => ['nullable', 'exists:students,id'],
             'classroom_id' => ['nullable', 'required_if:target_type,broadcast', 'exists:classrooms,id'],
             'custom_phone' => ['nullable', 'string', 'max:20'],
             'message' => ['required', 'string', 'max:1500'],
@@ -55,11 +55,11 @@ class AdminWhatsAppController extends Controller
         $admin = $request->user();
 
         if ($validated['target_type'] === 'single') {
-            $student = $validated['student_id'] ? Student::with('parent')->find($validated['student_id']) : null;
+            $student = !empty($validated['student_id']) ? Student::with('parent')->find($validated['student_id']) : null;
             $phone = ($validated['custom_phone'] ?? null) ?: $student?->parent?->phone_number;
 
             if (! $phone) {
-                return back()->with('error', 'Nomor telepon tujuan tidak ditemukan.');
+                return back()->withInput()->with('error', 'Nomor telepon tujuan tidak ditemukan. Silakan pilih siswa atau isi nomor telepon.');
             }
 
             $res = $waService->sendMessage(

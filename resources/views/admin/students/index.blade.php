@@ -222,13 +222,29 @@
                             @endforeach
                         </select>
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 mb-1">Akun Wali Murid *</label>
-                        <select name="parent_id" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-white">
-                            @foreach($parents as $p)
-                                <option value="{{ $p->id }}">{{ $p->name }} ({{ $p->email }})</option>
-                            @endforeach
-                        </select>
+                    <div x-data="{ isNewParent: false }">
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="block text-xs font-bold text-slate-700">Wali Murid *</label>
+                            <button type="button" @click="isNewParent = !isNewParent" class="text-[11px] text-emerald-800 font-bold hover:underline">
+                                <span x-show="!isNewParent">+ Buat Akun Baru</span>
+                                <span x-show="isNewParent">← Pilih Akun Terdaftar</span>
+                            </button>
+                        </div>
+                        <template x-if="!isNewParent">
+                            <select name="parent_id" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-white">
+                                <option value="">-- Pilih Akun Wali Murid --</option>
+                                @foreach($parents as $p)
+                                    <option value="{{ $p->id }}">{{ $p->name }} ({{ $p->phone_number ?? $p->email }})</option>
+                                @endforeach
+                            </select>
+                        </template>
+                        <template x-if="isNewParent">
+                            <div class="space-y-2 p-2.5 bg-emerald-50/60 rounded-xl border border-emerald-100">
+                                <input type="text" name="new_parent_name" placeholder="Nama Lengkap Orang Tua / Wali..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white">
+                                <input type="text" name="new_parent_phone" placeholder="No. WhatsApp (contoh: 08123456789)..." class="w-full px-3 py-1.5 rounded-lg border border-slate-200 text-xs bg-white">
+                                <span class="text-[10px] text-slate-500 block">Akun portal wali murid akan otomatis dibuatkan dengan password awal: <code>password123</code></span>
+                            </div>
+                        </template>
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 mb-1">Status Siswa *</label>

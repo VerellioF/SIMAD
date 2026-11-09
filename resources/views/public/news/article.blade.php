@@ -75,7 +75,7 @@
 
                 <!-- Article Content -->
                 <div class="prose prose-slate prose-emerald max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
-                    {!! $article->content !!}
+                    {!! nl2br(e($article->content)) !!}
                 </div>
 
                 <!-- Share Box Bottom -->

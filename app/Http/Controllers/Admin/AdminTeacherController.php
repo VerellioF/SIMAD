@@ -43,9 +43,12 @@ class AdminTeacherController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'phone_number' => ['required', 'string', 'max:20'],
+            'phone_number' => ['required', 'string', 'max:20', 'unique:users,phone_number'],
             'password' => ['required', 'string', 'min:6'],
             'homeroom_classroom_id' => ['nullable', 'exists:classrooms,id'],
+        ], [
+            'email.unique' => 'Email ini sudah digunakan oleh akun lain.',
+            'phone_number.unique' => 'Nomor WhatsApp/telepon ini sudah digunakan oleh akun lain.',
         ]);
 
         $teacher = User::create([
@@ -74,10 +77,13 @@ class AdminTeacherController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($teacher->id)],
-            'phone_number' => ['required', 'string', 'max:20'],
+            'phone_number' => ['required', 'string', 'max:20', Rule::unique('users', 'phone_number')->ignore($teacher->id)],
             'password' => ['nullable', 'string', 'min:6'],
             'is_active' => ['required', 'boolean'],
             'homeroom_classroom_id' => ['nullable', 'exists:classrooms,id'],
+        ], [
+            'email.unique' => 'Email ini sudah digunakan oleh akun lain.',
+            'phone_number.unique' => 'Nomor WhatsApp/telepon ini sudah digunakan oleh akun lain.',
         ]);
 
         $updateData = [

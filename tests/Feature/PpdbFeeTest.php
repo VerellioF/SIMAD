@@ -160,8 +160,8 @@ class PpdbFeeTest extends TestCase
         $statusResponse->assertSeeText('Rp 50.000');
         $statusResponse->assertSeeText('Bayar Tunai di Loket TU');
 
-        // Cetak Bukti PDF Endpoint
-        $pdfResponse = $this->get("/ppdb/cetak/{$registration->registration_number}");
+        // Cetak Bukti PDF Endpoint with DOB verification
+        $pdfResponse = $this->get("/ppdb/cetak/{$registration->registration_number}?dob={$registration->birth_date->format('Y-m-d')}");
         $pdfResponse->assertOk();
         $pdfResponse->assertHeader('content-type', 'application/pdf');
 

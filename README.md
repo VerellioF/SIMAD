@@ -1,58 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Informasi Madrasah Terpadu (SIMAD)
+### MI Plus Raudlatul Muta'allimin Kalipucung, Sanankulon, Blitar
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+SIMAD adalah platform sistem informasi manajemen madrasah berbasis web modern yang dirancang untuk mengintegrasikan seluruh operasional madrasah ibtidaiyah/dasar: portal publik, PPDB online, pembayaran SPP terintegrasi payment gateway (QRIS & VA), buku nilai akademik (raport & leger), presensi harian, kartu pelajar digital (KTS), mutaba'ah ibadah, dan notifikasi WhatsApp terotomatisasi.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Portal Web Publik & PPDB Online:** Pendaftaran santri baru mandiri, unduh bukti pendaftaran PDF berproteksi DOB (UU PDP), dan pelacakan status seleksi.
+- **Payment Gateway Terpadu (QRIS & Virtual Account):** Checkout pembayaran SPP dan pendaftaran PPDB dengan verifikasi otomatis dan simulasi sandbox.
+- **Notifikasi WhatsApp Otomatis:** Pengiriman kwitansi SPP, notifikasi ketidakhadiran siswa, dan pengumuman madrasah via gateway API.
+- **Portal Guru & Wali Kelas:** Presensi siswa berbasis jadwal, input nilai mode spreadsheet pintar, cetak rapor PDF, dan leger nilai (HTML/CSV).
+- **Portal Wali Murid:** Dashboard pemantauan kehadiran anak, jurnal mutaba'ah ibadah harian, surat izin sakit/izin, riwayat tahfidz, dan pembayaran SPP online.
+- **Portal Tata Usaha (TU) & Admin:** Manajemen master data guru/siswa, cetak kartu pelajar (KTS), cetak kartu ujian asesmen, broadcast tagihan SPP, dan export data format EMIS Kemenag.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Lisensi & Ketentuan Penggunaan (License)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Proyek ini dilindungi oleh hak cipta dan didistribusikan di bawah skema **Dual-Licensing (Lisensi Ganda)**:
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Penggunaan Non-Komersial (Gratis)
+Diizinkan secara gratis untuk:
+- Pembelajaran, riset akademik, dan eksplorasi kode sumber personal.
+- Implementasi internal mandiri oleh sekolah/madrasah nirlaba tanpa pihak ketiga berbayar.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 2. Penggunaan Komersial (Berbayar)
+Setiap entitas bisnis, agensi perangkat lunak, penyedia jasa IT, atau individu yang:
+- Menjual, mendistribusikan ulang (*reselling*), atau mengemas sistem ini sebagai produk berbayar.
+- Menyediakan layanan *SaaS* atau *Managed Hosting* berbayar kepada sekolah/klien pihak ketiga.
+- Melakukan *white-labeling* atau rebranding komersial.
 
-## Agentic Development
+**WAJIB membeli Lisensi Komersial resmi.** Rincian lengkap ketentuan lisensi dapat dibaca pada file [LICENSE.md](LICENSE.md).
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
+
+## Pembelian Lisensi Komersial & Kerjasama
+
+Untuk konsultasi implementasi resmi, kustomisasi fitur, atau pembelian Lisensi Komersial:
+- **Email:** `license@miplus-kalipucung.sch.id`
+- **WhatsApp Kemitraan:** +62 812-3456-7890
+- **Pengembang:** Tim SIMAD & Yayasan Raudlatul Muta'allimin
+
+---
+
+## Persyaratan Sistem
+
+- PHP `>= 8.3` (Disarankan PHP `>= 8.4.1`)
+- Composer `>= 2.7`
+- Database: SQLite / MySQL `>= 8.0` / MariaDB `>= 10.5`
+- Ekstensi PHP: `pdo`, `mbstring`, `intl`, `gd`, `zip`, `xml`
+
+---
+
+## Panduan Instalasi Lokal
 
 ```bash
-composer require laravel/boost --dev
+# 1. Clone repository
+git clone https://github.com/username/repository-name.git
+cd repository-name
 
-php artisan boost:install
+# 2. Install dependensi
+composer install
+npm install && npm run build
+
+# 3. Salin environment & generate app key
+cp .env.example .env
+php artisan key:generate
+
+# 4. Migrasi & seed basis data
+php artisan migrate --seed
+
+# 5. Jalankan server lokal
+php artisan serve
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+<p align="center">
+  Developed by <a href="https://verellio.com/id"><strong>Verellio</strong></a>
+</p>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

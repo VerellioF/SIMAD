@@ -57,6 +57,7 @@ class AdminTuitionController extends Controller
         $count = 0;
         foreach ($students as $student) {
             $exists = TuitionBill::where('student_id', $student->id)
+                ->where('bill_title', $validated['bill_title'])
                 ->where('month', $validated['month'])
                 ->where('year', $validated['year'])
                 ->exists();
@@ -120,15 +121,17 @@ class AdminTuitionController extends Controller
 
         $bill->update(['status' => 'paid']);
 
-        TuitionPayment::create([
-            'tuition_bill_id' => $bill->id,
-            'verified_by' => $admin->id,
-            'receipt_number' => $receiptNum,
-            'amount_paid' => $bill->amount,
-            'payment_method' => 'tunai_madrasah',
-            'payment_date' => now()->toDateString(),
-            'verified_at' => now(),
-        ]);
+        TuitionPayment::updateOrCreate(
+            ['tuition_bill_id' => $bill->id],
+            [
+                'verified_by' => $admin->id,
+                'receipt_number' => $receiptNum,
+                'amount_paid' => $bill->amount,
+                'payment_method' => 'tunai_madrasah',
+                'payment_date' => now()->toDateString(),
+                'verified_at' => now(),
+            ]
+        );
 
         return back()->with('success', "Pembayaran tunai sebesar Rp " . number_format((float) $bill->amount, 0, ',', '.') . " berhasil dicatat.");
     }

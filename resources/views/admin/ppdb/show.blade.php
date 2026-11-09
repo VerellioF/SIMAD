@@ -228,6 +228,41 @@
                 </div>
             </div>
 
+            <!-- Enrollment Card for Accepted Students -->
+            @if($registration->status->value === 'accepted')
+                <div class="bg-gradient-to-br from-emerald-900 to-emerald-950 text-white rounded-3xl shadow-lg p-6 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-gold-400 animate-ping"></span>
+                        <h4 class="text-sm font-extrabold uppercase tracking-wider text-gold-300">Pendaftaran Ulang Siswa</h4>
+                    </div>
+                    <p class="text-xs text-emerald-100">
+                        Calon siswa telah <strong>Diterima</strong>. Daftarkan langsung ke rombel dan aktifkan akun portal wali murid secara otomatis.
+                    </p>
+
+                    @if($isAlreadyEnrolled)
+                        <div class="p-3 bg-white/10 rounded-xl text-center text-xs font-bold text-gold-300 border border-gold-400/30">
+                            ✓ Siswa ini telah terdaftar aktif di sistem.
+                        </div>
+                    @else
+                        <form action="{{ route('admin.ppdb.enroll', $registration) }}" method="POST" class="space-y-3">
+                            @csrf
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase tracking-wider text-emerald-200 mb-1">Pilih Kelas / Rombel *</label>
+                                <select name="classroom_id" required class="w-full px-3 py-2 rounded-xl border border-white/20 text-xs font-semibold bg-white text-slate-900">
+                                    <option value="">-- Pilih Kelas --</option>
+                                    @foreach($classrooms as $c)
+                                        <option value="{{ $c->id }}">{{ $c->name }} (Tingkat {{ $c->grade_level }})</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-emerald-950 font-bold text-xs shadow-md transition flex items-center justify-center gap-2">
+                                <span>Daftarkan sebagai Siswa Aktif →</span>
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            @endif
+
         </div>
 
     </div>

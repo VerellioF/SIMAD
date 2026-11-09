@@ -14,6 +14,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AdminScheduleController extends Controller
 {
@@ -54,12 +55,17 @@ class AdminScheduleController extends Controller
         $validated = $request->validate([
             'classroom_id' => ['required', 'exists:classrooms,id'],
             'subject_id' => ['required', 'exists:subjects,id'],
-            'teacher_id' => ['required', 'exists:users,id'],
+            'teacher_id' => [
+                'required',
+                Rule::exists('users', 'id')->where('role', UserRole::Teacher->value),
+            ],
             'academic_year_id' => ['required', 'exists:academic_years,id'],
             'day_of_week' => ['required', 'in:senin,selasa,rabu,kamis,jumat,sabtu'],
             'start_time' => ['required', 'string', 'max:10'],
             'end_time' => ['required', 'string', 'max:10'],
             'period_order' => ['required', 'integer', 'min:1', 'max:12'],
+        ], [
+            'teacher_id.exists' => 'Akun pengajar harus terdaftar sebagai Guru.',
         ]);
 
         ClassSchedule::create($validated);
@@ -73,12 +79,17 @@ class AdminScheduleController extends Controller
         $validated = $request->validate([
             'classroom_id' => ['required', 'exists:classrooms,id'],
             'subject_id' => ['required', 'exists:subjects,id'],
-            'teacher_id' => ['required', 'exists:users,id'],
+            'teacher_id' => [
+                'required',
+                Rule::exists('users', 'id')->where('role', UserRole::Teacher->value),
+            ],
             'academic_year_id' => ['required', 'exists:academic_years,id'],
             'day_of_week' => ['required', 'in:senin,selasa,rabu,kamis,jumat,sabtu'],
             'start_time' => ['required', 'string', 'max:10'],
             'end_time' => ['required', 'string', 'max:10'],
             'period_order' => ['required', 'integer', 'min:1', 'max:12'],
+        ], [
+            'teacher_id.exists' => 'Akun pengajar harus terdaftar sebagai Guru.',
         ]);
 
         $schedule->update($validated);

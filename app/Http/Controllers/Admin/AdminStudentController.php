@@ -63,7 +63,10 @@ class AdminStudentController extends Controller
             'birth_place' => ['required', 'string', 'max:100'],
             'birth_date' => ['required', 'date'],
             'classroom_id' => ['required', 'exists:classrooms,id'],
-            'parent_id' => ['required', 'exists:users,id'],
+            'parent_id' => ['nullable'],
+            'new_parent_name' => ['nullable', 'string', 'max:255'],
+            'new_parent_phone' => ['nullable', 'string', 'max:30'],
+            'new_parent_email' => ['nullable', 'email', 'max:255'],
             'address' => ['required', 'string', 'max:500'],
             'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'status' => ['required', 'in:active,graduated,transferred,inactive'],
@@ -73,6 +76,25 @@ class AdminStudentController extends Controller
             'photo.image' => 'File pasfoto harus berupa format gambar (JPG/PNG).',
             'photo.max' => 'Ukuran file pasfoto maksimal 2MB.',
         ]);
+
+        // Auto-create new parent user if requested or parent_id not selected
+        if (! empty($validated['new_parent_name']) && ! empty($validated['new_parent_phone'])) {
+            $parentUser = User::firstOrCreate(
+                ['phone_number' => $validated['new_parent_phone']],
+                [
+                    'name' => $validated['new_parent_name'],
+                    'email' => $validated['new_parent_email'] ?? ('wali.' . preg_replace('/[^0-9]/', '', $validated['new_parent_phone']) . '@miplus.sch.id'),
+                    'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+                    'role' => UserRole::Parent,
+                    'is_active' => true,
+                ]
+            );
+            $validated['parent_id'] = $parentUser->id;
+        } elseif (empty($validated['parent_id']) || ! User::where('id', $validated['parent_id'])->exists()) {
+            return back()->withInput()->withErrors(['parent_id' => 'Pilih akun wali murid atau isi data wali murid baru.']);
+        }
+
+        unset($validated['new_parent_name'], $validated['new_parent_phone'], $validated['new_parent_email']);
 
         if ($request->hasFile('photo')) {
             $validated['photo_path'] = $request->file('photo')->store('students', 'public');

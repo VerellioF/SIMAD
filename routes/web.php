@@ -64,15 +64,16 @@ Route::get('/berita/{slug}', [PublicNewsController::class, 'showArticle'])->name
 Route::get('/pengumuman/{announcement}', [PublicNewsController::class, 'showAnnouncement'])->name('public.news.announcement');
 Route::get('/galeri', fn () => redirect()->route('public.news', ['tab' => 'galeri']));
 Route::get('/kontak', [PublicContactController::class, 'index'])->name('public.contact');
-Route::post('/kontak', [PublicContactController::class, 'send'])->name('public.contact.send');
+Route::post('/kontak', [PublicContactController::class, 'send'])->middleware('throttle:10,1')->name('public.contact.send');
 
 // 2. Modul PPDB Online (Publik)
 Route::prefix('ppdb')->name('ppdb.')->group(function () {
     Route::get('/daftar', [PpdbController::class, 'create'])->name('register');
-    Route::post('/daftar', [PpdbController::class, 'store'])->name('store');
+    Route::post('/daftar', [PpdbController::class, 'store'])->middleware('throttle:15,1')->name('store');
     Route::get('/sukses/{registration_number}', [PpdbController::class, 'success'])->name('success');
-    Route::get('/cek-status', [PpdbController::class, 'checkStatus'])->name('check_status');
-    Route::get('/cetak/{registration_number}', [PpdbController::class, 'downloadProof'])->name('print_proof');
+    Route::get('/cek-status', [PpdbController::class, 'checkStatus'])->middleware('throttle:30,1')->name('check_status');
+    Route::get('/check-status', fn () => redirect()->route('ppdb.check_status'))->name('check_status_alt');
+    Route::get('/cetak/{registration_number}', [PpdbController::class, 'downloadProof'])->middleware('throttle:30,1')->name('print_proof');
     Route::get('/bayar/{registration_number}', [PaymentCheckoutController::class, 'payPpdb'])->name('pay');
 });
 
@@ -84,7 +85,7 @@ Route::post('/payment/webhook', [PaymentWebhookController::class, 'handle'])->na
 
 // 3. Autentikasi Sistem Terpadu
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1')->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Shortcut URL Login Portal
@@ -98,6 +99,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::get('/ppdb', [AdminPpdbController::class, 'index'])->name('ppdb.index');
     Route::get('/ppdb/{registration}', [AdminPpdbController::class, 'show'])->name('ppdb.show');
     Route::post('/ppdb/{registration}/status', [AdminPpdbController::class, 'updateStatus'])->name('ppdb.update_status');
+    Route::post('/ppdb/{registration}/daftarkan', [AdminPpdbController::class, 'enroll'])->name('ppdb.enroll');
     Route::get('/export/ppdb-emis', fn () => Excel::download(new PpdbEmisExport, 'data-ppdb-emis.xlsx'))->name('ppdb.export_emis');
 
     // Keuangan & SPP (Fase 3)

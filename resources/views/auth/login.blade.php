@@ -195,11 +195,14 @@
 
         </div>
 
-        <div class="text-center mt-6">
+        <div class="text-center mt-6 space-y-2">
             <a href="/" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-emerald-900 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                 <span>Kembali ke Website Utama</span>
             </a>
+            <p class="text-[11px] text-slate-400">
+                <a href="https://verellio.com/id" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-800 transition font-medium">Developed by Verellio</a>
+            </p>
         </div>
     </div>
 

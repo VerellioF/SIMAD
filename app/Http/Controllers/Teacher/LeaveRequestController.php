@@ -36,6 +36,14 @@ class LeaveRequestController extends Controller
     {
         $teacher = Auth::user();
 
+        // Authorization check: verify teacher is the homeroom teacher of this student's class
+        $studentClassroomId = $leaveRequest->student?->classroom_id;
+        $isHomeroom = $studentClassroomId && Classroom::where('id', $studentClassroomId)
+            ->where('homeroom_teacher_id', $teacher->id)
+            ->exists();
+
+        abort_unless($isHomeroom || $teacher->isAdmin(), 403, 'Akses ditolak. Anda bukan wali kelas dari santri ini.');
+
         $validated = $request->validate([
             'status' => ['required', 'in:approved,rejected'],
             'review_notes' => ['nullable', 'string', 'max:255'],

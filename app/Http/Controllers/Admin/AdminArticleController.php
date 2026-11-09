@@ -31,7 +31,7 @@ class AdminArticleController extends Controller
             'content' => ['required', 'string'],
             'is_published' => ['required', 'boolean'],
             'published_at' => ['nullable', 'date'],
-            'thumbnail' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,svg', 'max:2048'],
+            'thumbnail' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
         $thumbnailPath = null;
@@ -60,7 +60,7 @@ class AdminArticleController extends Controller
             'content' => ['required', 'string'],
             'is_published' => ['required', 'boolean'],
             'published_at' => ['nullable', 'date'],
-            'thumbnail' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,svg', 'max:2048'],
+            'thumbnail' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
         $updateData = [

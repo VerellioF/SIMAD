@@ -349,16 +349,57 @@
                 </div>
 
                 <div>
-                    <h5 class="text-sm font-bold text-gold-400 uppercase tracking-wider mb-4">Navigasi Cepat</h5>
-                    <ul class="space-y-2 text-sm text-emerald-200/80">
-                        <li><a href="{{ route('public.news') }}" class="hover:text-white transition">Kabar, Pengumuman & Galeri</a></li>
-                        <li><a href="{{ route('public.contact') }}" class="hover:text-white transition">Kontak & Lokasi Madrasah</a></li>
-                        <li><a href="/ppdb/daftar" class="hover:text-white transition">Pendaftaran Siswa Baru (PPDB Online)</a></li>
-                        <li><a href="/ppdb/cek-status" class="hover:text-white transition">Cek Status Pendaftaran Siswa</a></li>
-                        <li><a href="/wali/login" class="hover:text-white transition">Portal Orang Tua / Wali Murid</a></li>
-                        <li><a href="/guru/login" class="hover:text-white transition">Portal Guru & Wali Kelas</a></li>
-                        <li><a href="/admin/login" class="hover:text-white transition">Backoffice Staf TU</a></li>
+                    <h5 class="text-sm font-bold text-gold-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-gold-400"></span>
+                        <span>Navigasi Cepat</span>
+                    </h5>
+                    
+                    <!-- Informasi & Layanan Publik -->
+                    <ul class="space-y-2.5 text-xs text-slate-200/90 mb-5">
+                        <li>
+                            <a href="{{ route('public.news') }}" class="hover:text-gold-300 transition flex items-center gap-2 group">
+                                <span class="text-gold-400/60 group-hover:text-gold-400 group-hover:translate-x-0.5 transition-transform">›</span>
+                                <span>Kabar, Agenda & Galeri</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('public.contact') }}" class="hover:text-gold-300 transition flex items-center gap-2 group">
+                                <span class="text-gold-400/60 group-hover:text-gold-400 group-hover:translate-x-0.5 transition-transform">›</span>
+                                <span>Kontak & Lokasi Madrasah</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('ppdb.register') }}" class="hover:text-gold-300 transition flex items-center gap-2 group">
+                                <span class="text-gold-400/60 group-hover:text-gold-400 group-hover:translate-x-0.5 transition-transform">›</span>
+                                <span>Pendaftaran PPDB Online</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('ppdb.check_status') }}" class="hover:text-gold-300 transition flex items-center gap-2 group">
+                                <span class="text-gold-400/60 group-hover:text-gold-400 group-hover:translate-x-0.5 transition-transform">›</span>
+                                <span>Cek Status Pendaftaran</span>
+                            </a>
+                        </li>
                     </ul>
+
+                    <!-- Akses Portal Terpadu Madrasah -->
+                    <div class="pt-3 border-t border-emerald-900/80">
+                        <span class="block text-[10px] uppercase font-bold tracking-wider text-emerald-400/70 mb-2">Portal Masuk Madrasah</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            <a href="{{ route('login', ['portal' => 'parent']) }}" class="px-2.5 py-1 rounded-lg bg-emerald-900/80 hover:bg-emerald-800 text-[11px] font-semibold text-emerald-100 hover:text-white border border-emerald-800/80 transition inline-flex items-center gap-1.5" title="Portal Orang Tua / Wali Murid">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                <span>Wali Murid</span>
+                            </a>
+                            <a href="{{ route('login', ['portal' => 'teacher']) }}" class="px-2.5 py-1 rounded-lg bg-emerald-900/80 hover:bg-emerald-800 text-[11px] font-semibold text-emerald-100 hover:text-white border border-emerald-800/80 transition inline-flex items-center gap-1.5" title="Portal Guru & Wali Kelas">
+                                <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                                <span>Guru</span>
+                            </a>
+                            <a href="{{ route('login', ['portal' => 'admin']) }}" class="px-2.5 py-1 rounded-lg bg-emerald-900/80 hover:bg-emerald-800 text-[11px] font-semibold text-emerald-100 hover:text-white border border-emerald-800/80 transition inline-flex items-center gap-1.5" title="Backoffice Staf Tata Usaha">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                <span>Staf TU</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <div>
@@ -373,7 +414,7 @@
 
             <div class="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-emerald-300/70 gap-4">
                 <p>© {{ date('Y') }} MI Plus Raudlatul Muta'allimin Kalipucung Blitar. Hak Cipta Dilindungi.</p>
-                <p>Sistem Informasi Madrasah Terpadu (SIMAD) v1.0</p>
+                <p>Sistem Informasi Madrasah Terpadu (SIMAD) v1.0 • <a href="https://verellio.com/id" target="_blank" rel="noopener noreferrer" class="text-gold-400 hover:text-gold-300 font-medium underline underline-offset-2 transition">Developed by Verellio</a></p>
             </div>
         </div>
     </footer>

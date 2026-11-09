@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactMessage;
 use App\Services\PrayerTimeService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -57,6 +58,14 @@ class PublicContactController extends Controller
             'administrasi' => 'Administrasi / Mutasi Siswa',
             default => 'Pertanyaan Umum',
         };
+
+        ContactMessage::create([
+            'name' => $validated['name'],
+            'phone' => $validated['phone'],
+            'category' => $validated['category'],
+            'message' => $validated['message'],
+            'status' => 'unread',
+        ]);
 
         return back()->with('success', "Alhamdulillah, terima kasih {$validated['name']}. Pesan terkait {$categoryLabel} telah kami terima. Tim Tata Usaha akan segera menghubungi Anda melalui nomor WhatsApp yang terdaftar.");
     }

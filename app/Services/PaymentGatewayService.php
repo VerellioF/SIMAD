@@ -419,7 +419,8 @@ class PaymentGatewayService
         $provider = $this->getProvider();
 
         if ($provider === 'simulator') {
-            return true;
+            // Strictly disallow simulator webhook when running in production
+            return $this->isSandbox() && ! (bool) config('simad.payment.is_production', false);
         }
 
         if ($provider === 'tripay') {
@@ -449,7 +450,7 @@ class PaymentGatewayService
             return hash_equals($computed, $signatureKey);
         }
 
-        return true;
+        return false;
     }
 
     /**

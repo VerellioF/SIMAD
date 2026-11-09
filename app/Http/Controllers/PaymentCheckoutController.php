@@ -50,7 +50,7 @@ class PaymentCheckoutController extends Controller
         $registration = PpdbRegistration::where('registration_number', $registration_number)->firstOrFail();
 
         if ($registration->isPaid()) {
-            return redirect()->route('ppdb.check-status', ['q' => $registration->registration_number])
+            return redirect()->route('ppdb.check_status', ['q' => $registration->registration_number])
                 ->with('info', 'Biaya pendaftaran untuk calon siswa ini sudah lunas.');
         }
 
@@ -85,7 +85,7 @@ class PaymentCheckoutController extends Controller
             if ($transaction->payable instanceof TuitionBill) {
                 $redirectUrl = route('parent.tuition.receipt', $transaction->payable_id);
             } elseif ($transaction->payable instanceof PpdbRegistration) {
-                $redirectUrl = route('ppdb.check-status', ['q' => $transaction->payable->registration_number]);
+                $redirectUrl = route('ppdb.check_status', ['q' => $transaction->payable->registration_number]);
             }
         }
 

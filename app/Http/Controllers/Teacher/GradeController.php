@@ -180,6 +180,14 @@ class GradeController extends Controller
         $classroomId = $validated['classroom_id'] ?? $homeroomClassroom?->id ?? Classroom::first()?->id;
         $activeYear = AcademicYear::where('is_active', true)->firstOrFail();
 
+        // Security / Authorization check: Verify teacher is homeroom or assigned to teach this classroom/subject
+        $isHomeroom = Classroom::where('id', $classroomId)->where('homeroom_teacher_id', $teacher->id)->exists();
+        $teachesSubject = ClassSchedule::where('classroom_id', $classroomId)
+            ->where('subject_id', $validated['subject_id'])
+            ->where('teacher_id', $teacher->id)
+            ->exists();
+        abort_unless($isHomeroom || $teachesSubject || $teacher->isAdmin(), 403, 'Anda tidak memiliki hak akses mencatat nilai untuk kelas atau mapel ini.');
+
         $savedCount = 0;
         $mode = $validated['mode'] ?? ($request->has('grade_type') && in_array($request->input('grade_type'), ['harian', 'tugas', 'pts', 'pas']) && !isset($validated['grades'][0]['harian']) ? 'single' : 'spreadsheet');
 
@@ -241,12 +249,28 @@ class GradeController extends Controller
 
     public function downloadReportCard(Student $student, ReportCardPdfService $service): Response
     {
+        $teacher = Auth::user();
+        $isHomeroom = $student->classroom?->homeroom_teacher_id === $teacher->id;
+        $teachesStudent = ClassSchedule::where('teacher_id', $teacher->id)
+            ->where('classroom_id', $student->classroom_id)
+            ->exists();
+
+        abort_unless($isHomeroom || $teachesStudent || $teacher->isAdmin(), 403, 'Anda tidak memiliki hak akses mengunduh rapor santri ini.');
+
         $pdf = $service->generate($student);
         return $pdf->stream("Rapor_{$student->nis}_{$student->full_name}.pdf");
     }
 
     public function downloadLeger(Classroom $classroom, Request $request)
     {
+        $teacher = Auth::user();
+        $isHomeroom = $classroom->homeroom_teacher_id === $teacher->id;
+        $teachesClass = ClassSchedule::where('teacher_id', $teacher->id)
+            ->where('classroom_id', $classroom->id)
+            ->exists();
+
+        abort_unless($isHomeroom || $teachesClass || $teacher->isAdmin(), 403, 'Anda tidak memiliki hak akses mengunduh leger nilai kelas ini.');
+
         $activeYear = AcademicYear::where('is_active', true)->first()
             ?? AcademicYear::latest()->first();
 

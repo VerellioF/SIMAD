@@ -26,7 +26,7 @@ class AdminGalleryController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:200'],
             'category' => ['required', 'in:seni_pentas,hadrah_rebana,pramuka,fasilitas,prestasi'],
-            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,webp,svg', 'max:3072'],
+            'image' => ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:3072'],
         ]);
 
         $path = $request->file('image')->store('gallery', 'public');

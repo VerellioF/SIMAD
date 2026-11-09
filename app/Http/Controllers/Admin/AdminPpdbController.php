@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\PpdbStatus;
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
+use App\Models\Classroom;
 use App\Models\PpdbRegistration;
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class AdminPpdbController extends Controller
@@ -49,7 +54,58 @@ class AdminPpdbController extends Controller
 
     public function show(PpdbRegistration $registration): View
     {
-        return view('admin.ppdb.show', compact('registration'));
+        $classrooms = Classroom::orderBy('name')->get();
+        $isAlreadyEnrolled = Student::where('nisn', $registration->nik)->exists();
+
+        return view('admin.ppdb.show', compact('registration', 'classrooms', 'isAlreadyEnrolled'));
+    }
+
+    public function enroll(Request $request, PpdbRegistration $registration): RedirectResponse
+    {
+        abort_unless($registration->status === PpdbStatus::Accepted, 400, 'Hanya calon siswa berstatus Diterima yang dapat didaftarkan.');
+
+        $validated = $request->validate([
+            'classroom_id' => ['required', 'exists:classrooms,id'],
+            'nis' => ['nullable', 'string', 'max:30', 'unique:students,nis'],
+            'nisn' => ['nullable', 'string', 'max:30', 'unique:students,nisn'],
+        ]);
+
+        // 1. Ensure Parent user exists or create one
+        $parent = User::firstOrCreate(
+            ['phone_number' => $registration->parent_whatsapp],
+            [
+                'name' => $registration->parent_name,
+                'email' => 'wali.' . preg_replace('/[^0-9]/', '', $registration->parent_whatsapp) . '@miplus.sch.id',
+                'password' => Hash::make('password123'),
+                'role' => UserRole::Parent,
+                'is_active' => true,
+            ]
+        );
+
+        // 2. Generate NIS if not given
+        $year = date('y');
+        $nis = $validated['nis'] ?? ($year . date('m') . str_pad((string) $registration->id, 4, '0', STR_PAD_LEFT));
+        $nisn = $validated['nisn'] ?? $registration->nik;
+
+        // 3. Create or update Student
+        $student = Student::firstOrCreate(
+            ['nisn' => $nisn],
+            [
+                'full_name' => $registration->child_name,
+                'gender' => $registration->gender,
+                'nis' => $nis,
+                'birth_place' => $registration->birth_place,
+                'birth_date' => $registration->birth_date,
+                'classroom_id' => $validated['classroom_id'],
+                'parent_id' => $parent->id,
+                'address' => $registration->address,
+                'photo_path' => $registration->file_photo,
+                'status' => 'active',
+            ]
+        );
+
+        return redirect()->route('admin.students.index', ['classroom_id' => $student->classroom_id])
+            ->with('success', "Alhamdulillah! Calon santri {$student->full_name} berhasil didaftarkan aktif di kelas. Akun portal wali murid telah dibuat.");
     }
 
     public function updateStatus(Request $request, PpdbRegistration $registration): RedirectResponse

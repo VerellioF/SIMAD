@@ -44,9 +44,19 @@ class PpdbController extends Controller
         return view('public.ppdb.success', compact('registration'));
     }
 
-    public function downloadProof(string $registration_number, PpdbPdfService $pdfService): Response
+    public function downloadProof(Request $request, string $registration_number, PpdbPdfService $pdfService): Response
     {
         $registration = PpdbRegistration::where('registration_number', $registration_number)->firstOrFail();
+
+        // Security / UU PDP: For unauthenticated public requests, DOB verification is strictly required
+        if (! auth()->check()) {
+            abort_unless(
+                $request->filled('dob') && $registration->birth_date?->format('Y-m-d') === $request->input('dob'),
+                403,
+                'Verifikasi tanggal lahir (dob) diperlukan untuk mengunduh bukti pendaftaran.'
+            );
+        }
+
         $pdf = $pdfService->generateProofPdf($registration);
 
         return $pdf->stream("Bukti_PPDB_{$registration->registration_number}.pdf");
