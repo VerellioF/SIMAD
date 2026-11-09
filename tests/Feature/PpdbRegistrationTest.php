@@ -19,8 +19,8 @@ class PpdbRegistrationTest extends TestCase
         $response = $this->get('/ppdb/daftar');
 
         $response->assertOk();
-        $response->assertSeeText('Formulir Pendaftaran Santri Baru');
-        $response->assertSeeText('Data Calon Santri');
+        $response->assertSeeText('Formulir Pendaftaran Siswa Baru');
+        $response->assertSeeText('Data Calon Siswa');
         $response->assertSeeText('Unggah Berkas');
     }
 

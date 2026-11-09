@@ -66,8 +66,15 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="py-12 text-center text-slate-400">
-                                Belum ada pengumuman aktif.
+                            <td colspan="5" class="py-12 text-center">
+                                <div class="max-w-xs mx-auto space-y-2">
+                                    <span class="text-3xl block">📢</span>
+                                    <h4 class="text-xs font-extrabold text-slate-800">Belum Ada Pengumuman</h4>
+                                    <p class="text-[11px] text-slate-400">Siarkan pengumuman atau surat edaran resmi madrasah untuk orang tua atau publik.</p>
+                                    <button type="button" @click="addModal = true" class="mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-900 text-white font-bold text-xs shadow-sm hover:bg-emerald-800 transition">
+                                        <span>Buat Pengumuman Baru</span>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     @endforelse

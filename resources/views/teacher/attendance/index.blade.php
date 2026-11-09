@@ -22,7 +22,7 @@
                 </span>
                 <span class="text-xs text-slate-400 capitalize">Hari {{ $dayName }}</span>
             </div>
-            <h1 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">Presensi Harian Siswa & Jadwal Mengajar <span class="sr-only">Presensi Harian Santri</span></h1>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">Presensi Harian Siswa & Jadwal Mengajar</h1>
             <p class="text-xs text-slate-500 mt-0.5">
                 Pencatatan presensi spesifik per mata pelajaran, rombel kelas, dan jam tatap muka sesuai jadwal mengajar Anda.
             </p>

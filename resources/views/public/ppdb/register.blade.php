@@ -25,7 +25,7 @@
                     PPDB Online {{ date('Y') }}/{{ date('Y') + 1 }}
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-white">
-                    Formulir Pendaftaran Siswa Baru (PPDB Online) <span class="sr-only">Formulir Pendaftaran Santri Baru Data Calon Santri</span>
+                    Formulir Pendaftaran Siswa Baru (PPDB Online)
                 </h1>
                 <p class="text-xs text-gold-400 font-semibold tracking-wide">
                     Formulir Pendaftaran Siswa Baru Jenjang Sekolah Dasar / Madrasah Ibtidaiyah (SD/MI)
@@ -69,7 +69,6 @@
                 <button type="button" @click="step = 1" class="text-left py-2.5 px-3 rounded-2xl transition border" :class="step === 1 ? 'bg-emerald-50 text-emerald-950 font-bold border-emerald-300 ring-2 ring-emerald-500/20' : 'border-slate-100 text-slate-400 hover:text-slate-600'">
                     <span class="block text-[11px] uppercase tracking-wider font-bold" :class="step === 1 ? 'text-emerald-700' : 'text-slate-400'">Langkah 1</span>
                     <span class="text-xs sm:text-sm font-semibold truncate block">Data Calon Siswa</span>
-                    <span class="sr-only">Data Calon Santri</span>
                 </button>
                 <button type="button" @click="step = 2" class="text-left py-2.5 px-3 rounded-2xl transition border" :class="step === 2 ? 'bg-emerald-50 text-emerald-950 font-bold border-emerald-300 ring-2 ring-emerald-500/20' : 'border-slate-100 text-slate-400 hover:text-slate-600'">
                     <span class="block text-[11px] uppercase tracking-wider font-bold" :class="step === 2 ? 'text-emerald-700' : 'text-slate-400'">Langkah 2</span>

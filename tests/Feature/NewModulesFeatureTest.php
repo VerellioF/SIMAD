@@ -110,7 +110,7 @@ class NewModulesFeatureTest extends TestCase
         // 1. Profil Guru & Asatidz
         $resGuru = $this->get('/tentang/guru');
         $resGuru->assertOk();
-        $resGuru->assertSeeText('Dewan Asatidz & Pimpinan');
+        $resGuru->assertSeeText('Dewan Guru & Pimpinan');
         $resGuru->assertSeeText($this->teacher->name);
 
         // 2. Kalender Akademik
@@ -275,7 +275,7 @@ class NewModulesFeatureTest extends TestCase
 
         $resSch = $this->get(route('teacher.schedules.index'));
         $resSch->assertOk();
-        $resSch->assertSeeText('Jadwal Mengajar Asatidz');
+        $resSch->assertSeeText('Jadwal Mengajar Guru');
         $resSch->assertSeeText('Pendidikan Agama Islam');
 
         // 2. Teacher worship page & adding affirmation notes

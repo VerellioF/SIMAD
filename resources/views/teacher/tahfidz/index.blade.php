@@ -70,8 +70,59 @@
                         Nama Surat <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="surah_name" value="{{ old('surah_name') }}" required
-                           placeholder="Contoh: An-Naba', Al-Fajr, An-Naas"
+                           list="juz-amma-surahs"
+                           placeholder="Ketik nama surat (misal: An-Naba', Al-Fajr)..."
                            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                    
+                    <datalist id="juz-amma-surahs">
+                        <option value="An-Naba' (40 ayat)">
+                        <option value="An-Nazi'at (46 ayat)">
+                        <option value="'Abasa (42 ayat)">
+                        <option value="At-Takwir (29 ayat)">
+                        <option value="Al-Infitar (19 ayat)">
+                        <option value="Al-Muthaffifin (36 ayat)">
+                        <option value="Al-Insyiqaq (25 ayat)">
+                        <option value="Al-Buruj (22 ayat)">
+                        <option value="At-Tariq (17 ayat)">
+                        <option value="Al-A'la (19 ayat)">
+                        <option value="Al-Ghasyiyah (26 ayat)">
+                        <option value="Al-Fajr (30 ayat)">
+                        <option value="Al-Balad (20 ayat)">
+                        <option value="Asy-Syams (15 ayat)">
+                        <option value="Al-Lail (21 ayat)">
+                        <option value="Ad-Duha (11 ayat)">
+                        <option value="Asy-Syarh (8 ayat)">
+                        <option value="At-Tin (8 ayat)">
+                        <option value="Al-'Alaq (19 ayat)">
+                        <option value="Al-Qadr (5 ayat)">
+                        <option value="Al-Bayyinah (8 ayat)">
+                        <option value="Az-Zalzalah (8 ayat)">
+                        <option value="Al-'Adiyat (11 ayat)">
+                        <option value="Al-Qari'ah (11 ayat)">
+                        <option value="At-Takatsur (8 ayat)">
+                        <option value="Al-'Asr (3 ayat)">
+                        <option value="Al-Humazah (9 ayat)">
+                        <option value="Al-Fil (5 ayat)">
+                        <option value="Quraisy (4 ayat)">
+                        <option value="Al-Ma'un (7 ayat)">
+                        <option value="Al-Kautsar (3 ayat)">
+                        <option value="Al-Kafirun (6 ayat)">
+                        <option value="An-Nasr (3 ayat)">
+                        <option value="Al-Lahab (5 ayat)">
+                        <option value="Al-Ikhlas (4 ayat)">
+                        <option value="Al-Falaq (5 ayat)">
+                        <option value="An-Nas (6 ayat)">
+                    </datalist>
+
+                    <!-- Quick Surah Suggestion Pills -->
+                    <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                        <span class="text-[10px] text-slate-400 font-bold uppercase">Surat Cepat:</span>
+                        <button type="button" onclick="document.querySelector('[name=surah_name]').value='An-Nas (6 ayat)'" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-teal-50 text-[10px] font-bold text-slate-700">An-Nas</button>
+                        <button type="button" onclick="document.querySelector('[name=surah_name]').value='Al-Falaq (5 ayat)'" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-teal-50 text-[10px] font-bold text-slate-700">Al-Falaq</button>
+                        <button type="button" onclick="document.querySelector('[name=surah_name]').value='Al-Ikhlas (4 ayat)'" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-teal-50 text-[10px] font-bold text-slate-700">Al-Ikhlas</button>
+                        <button type="button" onclick="document.querySelector('[name=surah_name]').value='Al-Kautsar (3 ayat)'" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-teal-50 text-[10px] font-bold text-slate-700">Al-Kautsar</button>
+                        <button type="button" onclick="document.querySelector('[name=surah_name]').value='An-Naba\' (40 ayat)'" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-teal-50 text-[10px] font-bold text-slate-700">An-Naba'</button>
+                    </div>
                 </div>
 
                 <div>
@@ -79,8 +130,16 @@
                         Rentang Ayat <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="verse_range" value="{{ old('verse_range') }}" required
-                           placeholder="Contoh: Ayat 1-20 atau 1 Surat Penuh"
+                           placeholder="Contoh: 1 Surat Penuh atau Ayat 1-20"
                            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+
+                    <!-- Quick Verse Presets -->
+                    <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                        <span class="text-[10px] text-slate-400 font-bold uppercase">Pilihan Cepat:</span>
+                        <button type="button" onclick="document.querySelector('[name=verse_range]').value='1 Surat Penuh'" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-teal-50 text-[10px] font-bold text-slate-700">1 Surat Penuh</button>
+                        <button type="button" onclick="document.querySelector('[name=verse_range]').value='Ayat 1 - 10'" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-teal-50 text-[10px] font-bold text-slate-700">Ayat 1-10</button>
+                        <button type="button" onclick="document.querySelector('[name=verse_range]').value='Ayat 11 - 20'" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-teal-50 text-[10px] font-bold text-slate-700">Ayat 11-20</button>
+                    </div>
                 </div>
             </div>
 

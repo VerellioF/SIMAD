@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Jadwal Mengajar Guru <span class="sr-only">Jadwal Mengajar Asatidz</span></h1>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Jadwal Mengajar Guru</h1>
             <p class="text-xs sm:text-sm text-slate-500 mt-1">Roster jadwal tatap muka Anda di kelas untuk Tahun Ajaran {{ $activeYear->name ?? '2026/2027' }}.</p>
         </div>
         <div class="px-4 py-2 rounded-xl bg-teal-50 border border-teal-200 text-teal-800 font-bold text-xs">

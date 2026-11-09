@@ -85,7 +85,7 @@ class Phase2AttendanceAndLeaveTest extends TestCase
         $response = $this->actingAs($this->teacher)->get(route('teacher.attendance.index'));
 
         $response->assertOk();
-        $response->assertSee('Presensi Harian Santri');
+        $response->assertSee('Presensi Harian Siswa');
         $response->assertSee('Kelas 1-A (Abu Bakar)');
         $response->assertSee('Muhammad Bilal Al-Ghifari');
     }
@@ -131,7 +131,7 @@ class Phase2AttendanceAndLeaveTest extends TestCase
         $response = $this->actingAs($this->parent)->get(route('parent.attendance.index'));
 
         $response->assertOk();
-        $response->assertSeeText('Presensi & Kehadiran Santri');
+        $response->assertSeeText('Presensi & Kehadiran Siswa');
         $response->assertSee('Muhammad Bilal Al-Ghifari');
         $response->assertSee('Hadir');
     }

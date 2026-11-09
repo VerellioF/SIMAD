@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Disiplin & Karakter Siswa <span class="sr-only">Disiplin & Karakter Santri</span></h1>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Disiplin & Karakter Siswa</h1>
             <p class="text-xs sm:text-sm text-slate-500 mt-1">Berikan apresiasi poin karakter terpuji atau catat pembinaan kedisiplinan siswa secara edukatif.</p>
         </div>
         

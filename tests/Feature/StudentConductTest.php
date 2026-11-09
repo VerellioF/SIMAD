@@ -94,7 +94,7 @@ class StudentConductTest extends TestCase
         // 1. View Index
         $res = $this->get(route('admin.conduct.index'));
         $res->assertOk();
-        $res->assertSeeText('Buku Disiplin & Karakter Santri');
+        $res->assertSeeText('Buku Disiplin & Karakter Siswa');
 
         // 2. Add New Character Rule
         $resStoreRule = $this->post(route('admin.conduct.store_rule'), [
@@ -152,7 +152,7 @@ class StudentConductTest extends TestCase
         // 1. View Teacher Conduct Page
         $res = $this->get(route('teacher.conduct.index', ['classroom_id' => $this->classroom->id]));
         $res->assertOk();
-        $res->assertSeeText('Disiplin & Karakter Santri');
+        $res->assertSeeText('Disiplin & Karakter Siswa');
         $res->assertSeeText($this->student->full_name);
 
         // 2. Teacher Awards Positive Points

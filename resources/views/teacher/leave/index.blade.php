@@ -114,8 +114,12 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-12 text-center text-slate-400">
-                                Belum ada pengajuan surat izin dari wali murid.
+                            <td colspan="6" class="py-12 text-center">
+                                <div class="max-w-xs mx-auto space-y-1.5">
+                                    <span class="text-3xl block">📋</span>
+                                    <h4 class="text-xs font-extrabold text-slate-800">Tidak Ada Pengajuan Izin</h4>
+                                    <p class="text-[11px] text-slate-400">Seluruh siswa di rombel aktif dan tidak ada permohonan izin/sakit yang menunggu validasi.</p>
+                                </div>
                             </td>
                         </tr>
                     @endforelse

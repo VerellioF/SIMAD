@@ -43,23 +43,29 @@
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
                         Pilih Ananda <span class="text-red-500">*</span>
                     </label>
-                    <select name="student_id" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-white">
+                    <select name="student_id" required class="w-full px-3.5 py-2.5 rounded-xl border {{ $errors->has('student_id') ? 'border-rose-400 bg-rose-50/20' : 'border-slate-200' }} text-xs font-semibold bg-white">
                         @foreach($students as $st)
                             <option value="{{ $st->id }}" {{ old('student_id') == $st->id ? 'selected' : '' }}>
                                 {{ $st->full_name }} ({{ $st->classroom->name ?? 'Kelas Belum Ditentukan' }})
                             </option>
                         @endforeach
                     </select>
+                    @error('student_id')
+                        <p class="text-rose-600 text-[11px] font-semibold mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
                         Jenis Izin <span class="text-red-500">*</span>
                     </label>
-                    <select name="reason_type" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-white">
+                    <select name="reason_type" required class="w-full px-3.5 py-2.5 rounded-xl border {{ $errors->has('reason_type') ? 'border-rose-400 bg-rose-50/20' : 'border-slate-200' }} text-xs font-semibold bg-white">
                         <option value="sakit" {{ old('reason_type') === 'sakit' ? 'selected' : '' }}>Sakit</option>
                         <option value="izin" {{ old('reason_type') === 'izin' ? 'selected' : '' }}>Izin Keperluan Keluarga / Mendesak</option>
                     </select>
+                    @error('reason_type')
+                        <p class="text-rose-600 text-[11px] font-semibold mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
@@ -69,7 +75,10 @@
                         Tanggal Mulai <span class="text-red-500">*</span>
                     </label>
                     <input type="date" name="start_date" value="{{ old('start_date', now()->toDateString()) }}" required
-                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                           class="w-full px-3.5 py-2.5 rounded-xl border {{ $errors->has('start_date') ? 'border-rose-400 bg-rose-50/20' : 'border-slate-200' }} text-xs">
+                    @error('start_date')
+                        <p class="text-rose-600 text-[11px] font-semibold mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
@@ -77,7 +86,10 @@
                         Tanggal Berakhir <span class="text-red-500">*</span>
                     </label>
                     <input type="date" name="end_date" value="{{ old('end_date', now()->toDateString()) }}" required
-                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">
+                           class="w-full px-3.5 py-2.5 rounded-xl border {{ $errors->has('end_date') ? 'border-rose-400 bg-rose-50/20' : 'border-slate-200' }} text-xs">
+                    @error('end_date')
+                        <p class="text-rose-600 text-[11px] font-semibold mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
@@ -87,7 +99,10 @@
                 </label>
                 <textarea name="description" rows="3" required
                           placeholder="Jelaskan kondisi sakit / urusan keluarga secara singkat dan jelas..."
-                          class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs">{{ old('description') }}</textarea>
+                          class="w-full px-3.5 py-2.5 rounded-xl border {{ $errors->has('description') ? 'border-rose-400 bg-rose-50/20' : 'border-slate-200' }} text-xs">{{ old('description') }}</textarea>
+                @error('description')
+                    <p class="text-rose-600 text-[11px] font-semibold mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div>
@@ -97,6 +112,9 @@
                 <input type="file" name="attachment" accept=".jpg,.jpeg,.png,.pdf"
                        class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200">
                 <span class="text-[10px] text-slate-400 block mt-1">Format: JPG, PNG, atau PDF (maksimal 2MB).</span>
+                @error('attachment')
+                    <p class="text-rose-600 text-[11px] font-semibold mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="pt-2 flex justify-end gap-2">

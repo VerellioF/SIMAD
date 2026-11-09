@@ -163,7 +163,7 @@ class ImprovedTeacherInputWorkflowsTest extends TestCase
         ]));
 
         $response->assertOk();
-        $response->assertSee('Presensi Harian Santri');
+        $response->assertSee('Presensi Harian Siswa');
         $response->assertSee('Kelas 1-A (Abu Bakar)');
         $response->assertSee('Fikih Ibadah');
         $response->assertSee('Zaidan Al-Farisi');

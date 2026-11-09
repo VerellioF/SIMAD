@@ -8,7 +8,7 @@
     <!-- Header & Student Switcher -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Presensi & Kehadiran Siswa <span class="sr-only">Presensi & Kehadiran Santri</span></h1>
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Presensi & Kehadiran Siswa</h1>
             <p class="text-xs text-slate-500 mt-0.5">Pantau rekaman presensi harian ananda di kelas</p>
         </div>
 

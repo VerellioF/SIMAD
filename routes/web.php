@@ -108,14 +108,23 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::post('/spp/{bill}/ingatkan-wa', [AdminTuitionController::class, 'sendReminder'])->name('tuition.reminder');
     Route::post('/spp/broadcast-wa', [AdminTuitionController::class, 'broadcastReminders'])->name('tuition.broadcast_reminders');
 
-    // Master Data (Fase 4)
-    Route::get('/santri', [AdminStudentController::class, 'index'])->name('students.index');
-    Route::post('/santri', [AdminStudentController::class, 'store'])->name('students.store');
-    Route::put('/santri/{student}', [AdminStudentController::class, 'update'])->name('students.update');
-    Route::delete('/santri/{student}', [AdminStudentController::class, 'destroy'])->name('students.destroy');
-    Route::get('/santri/{student}/rapor', [AdminStudentController::class, 'downloadReportCard'])->name('students.report_card');
-    Route::get('/santri/{student}/kartu-pelajar', [AdminStudentController::class, 'downloadStudentCard'])->name('students.card');
-    Route::get('/santri/{student}/kartu-ujian', [AdminStudentController::class, 'downloadExamCard'])->name('students.exam_card');
+    // Master Data (Fase 4 - Siswa & Guru)
+    Route::get('/siswa', [AdminStudentController::class, 'index'])->name('students.index');
+    Route::post('/siswa', [AdminStudentController::class, 'store'])->name('students.store');
+    Route::put('/siswa/{student}', [AdminStudentController::class, 'update'])->name('students.update');
+    Route::delete('/siswa/{student}', [AdminStudentController::class, 'destroy'])->name('students.destroy');
+    Route::get('/siswa/{student}/rapor', [AdminStudentController::class, 'downloadReportCard'])->name('students.report_card');
+    Route::get('/siswa/{student}/kartu-pelajar', [AdminStudentController::class, 'downloadStudentCard'])->name('students.card');
+    Route::get('/siswa/{student}/kartu-ujian', [AdminStudentController::class, 'downloadExamCard'])->name('students.exam_card');
+
+    // Backward-compatibility alias routes for legacy santri paths
+    Route::get('/santri', fn() => redirect()->route('admin.students.index'));
+    Route::post('/santri', [AdminStudentController::class, 'store']);
+    Route::put('/santri/{student}', [AdminStudentController::class, 'update']);
+    Route::delete('/santri/{student}', [AdminStudentController::class, 'destroy']);
+    Route::get('/santri/{student}/rapor', [AdminStudentController::class, 'downloadReportCard']);
+    Route::get('/santri/{student}/kartu-pelajar', [AdminStudentController::class, 'downloadStudentCard']);
+    Route::get('/santri/{student}/kartu-ujian', [AdminStudentController::class, 'downloadExamCard']);
     Route::get('/kelas/{classroom}/kartu-ujian', [AdminStudentController::class, 'downloadClassExamCards'])->name('classrooms.exam_cards');
 
     Route::get('/guru', [AdminTeacherController::class, 'index'])->name('teachers.index');

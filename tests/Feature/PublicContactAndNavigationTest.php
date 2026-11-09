@@ -18,7 +18,7 @@ class PublicContactAndNavigationTest extends TestCase
         $response->assertOk();
         $response->assertSeeText('Akademik & Profil');
         $response->assertSeeText('Kurikulum Terpadu');
-        $response->assertSeeText('Dewan Asatidz');
+        $response->assertSeeText('Dewan Guru');
         $response->assertSeeText('Kalender Akademik');
         $response->assertSeeText('Kontak & Lokasi');
     }

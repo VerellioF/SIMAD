@@ -10,7 +10,7 @@
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/30 text-xs font-semibold uppercase tracking-wider mb-3">
             Keluarga Besar Tenaga Pendidik
         </span>
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Dewan Guru & Pimpinan Sekolah <span class="sr-only">Dewan Asatidz & Pimpinan</span></h1>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Dewan Guru & Pimpinan Sekolah</h1>
         <p class="text-xs text-gold-400 font-semibold tracking-wider uppercase mt-2">Dewan Guru & Pimpinan MI Plus Raudlatul Muta'allimin</p>
         <p class="mt-4 text-emerald-200 text-sm sm:text-base max-w-2xl mx-auto font-light">
             Mengenal bapak dan ibu guru pendidik yang berdedikasi tinggi, ramah, telaten, berakhlak mulia, dan berkompetensi di bidang ilmu umum serta keagamaan Islam.

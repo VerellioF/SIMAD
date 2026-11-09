@@ -8,7 +8,7 @@
     <!-- Header & Action -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Data Dewan Guru & Tenaga Pendidik<span class="sr-only">Data Dewan Guru & Asatidz</span></h1>
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Data Dewan Guru & Tenaga Pendidik</h1>
             <p class="text-xs text-slate-500 mt-0.5">Kelola akun bapak/ibu guru pengajar dan penugasan wali kelas</p>
         </div>
 

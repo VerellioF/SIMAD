@@ -42,7 +42,28 @@
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col" x-data="{ sidebarOpen: false }">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col"
+      x-data="{
+          sidebarOpen: false,
+          confirmModal: {
+              open: false,
+              title: 'Konfirmasi Tindakan',
+              message: 'Apakah Anda yakin ingin melanjutkan tindakan ini?',
+              actionCallback: null
+          },
+          openConfirm(title, message, callback) {
+              this.confirmModal.title = title;
+              this.confirmModal.message = message;
+              this.confirmModal.actionCallback = callback;
+              this.confirmModal.open = true;
+          },
+          executeConfirm() {
+              if (typeof this.confirmModal.actionCallback === 'function') {
+                  this.confirmModal.actionCallback();
+              }
+              this.confirmModal.open = false;
+          }
+      }">
 
     <!-- Top Navigation Bar -->
     <header class="bg-emerald-950 text-white sticky top-0 z-40 border-b border-emerald-900 shadow-sm">
@@ -169,12 +190,10 @@
                             <a href="{{ route('admin.students.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold {{ request()->routeIs('admin.students.*') ? 'bg-emerald-50 text-emerald-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-4 h-4 {{ request()->routeIs('admin.students.*') ? 'text-emerald-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                                 <span>Data Siswa (30)</span>
-                                <span class="sr-only">Data Santri</span>
                             </a>
                             <a href="{{ route('admin.teachers.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold {{ request()->routeIs('admin.teachers.*') ? 'bg-emerald-50 text-emerald-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-4 h-4 {{ request()->routeIs('admin.teachers.*') ? 'text-emerald-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
                                 <span>Guru & Tenaga Pendidik</span>
-                                <span class="sr-only">Guru & Asatidz</span>
                             </a>
                             <a href="{{ route('admin.classrooms.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold {{ request()->routeIs('admin.classrooms.*') ? 'bg-emerald-50 text-emerald-900 font-bold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
                                 <svg class="w-4 h-4 {{ request()->routeIs('admin.classrooms.*') ? 'text-emerald-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
@@ -365,6 +384,34 @@
             @endif
         </nav>
     @endif
+
+    <!-- Global Confirmation Modal Dialog (Custom Replacement for window.confirm) -->
+    <div x-show="confirmModal.open" x-cloak
+         class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div @click.away="confirmModal.open = false"
+             class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-150">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-900 flex items-center justify-center font-black text-lg shrink-0">
+                    ⚠️
+                </div>
+                <div>
+                    <h3 class="text-sm font-extrabold text-slate-900" x-text="confirmModal.title"></h3>
+                    <p class="text-xs text-slate-500 mt-0.5 leading-relaxed" x-text="confirmModal.message"></p>
+                </div>
+            </div>
+
+            <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
+                <button type="button" @click="confirmModal.open = false"
+                        class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+                    Batal
+                </button>
+                <button type="button" @click="executeConfirm()"
+                        class="px-5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow transition">
+                    Ya, Lanjutkan
+                </button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

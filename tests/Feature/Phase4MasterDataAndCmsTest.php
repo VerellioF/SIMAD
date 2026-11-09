@@ -83,7 +83,7 @@ class Phase4MasterDataAndCmsTest extends TestCase
         // 1. View Index
         $response = $this->actingAs($this->admin)->get(route('admin.students.index'));
         $response->assertOk();
-        $response->assertSeeText('Master Data Santri');
+        $response->assertSeeText('Master Data Siswa');
 
         // 2. Store Student
         $payload = [
@@ -136,7 +136,7 @@ class Phase4MasterDataAndCmsTest extends TestCase
         // 1. View Index
         $response = $this->actingAs($this->admin)->get(route('admin.teachers.index'));
         $response->assertOk();
-        $response->assertSeeText('Data Dewan Guru & Asatidz');
+        $response->assertSeeText('Data Dewan Guru & Tenaga Pendidik');
 
         // 2. Store Teacher
         $payload = [

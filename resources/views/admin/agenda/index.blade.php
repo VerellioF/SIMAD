@@ -94,7 +94,16 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="px-5 py-8 text-center text-slate-400 text-xs">Belum ada agenda madrasah yang tercatat.</td>
+                        <td colspan="5" class="px-5 py-12 text-center">
+                            <div class="max-w-xs mx-auto space-y-2">
+                                <span class="text-3xl block">📅</span>
+                                <h4 class="text-xs font-extrabold text-slate-800">Belum Ada Agenda Terdaftar</h4>
+                                <p class="text-[11px] text-slate-400">Jadwal kegiatan semester, libur sekolah, atau ujian belum dibuat.</p>
+                                <button type="button" @click="addModal = true" class="mt-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-900 text-white font-bold text-xs shadow-sm hover:bg-emerald-800 transition">
+                                    <span>Tambah Agenda Sekarang</span>
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                     @endforelse
                 </tbody>

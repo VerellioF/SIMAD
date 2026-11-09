@@ -8,7 +8,7 @@
     <!-- Header & Action -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Master Data Siswa<span class="sr-only">Master Data Santri</span></h1>
+            <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Master Data Siswa</h1>
             <p class="text-xs text-slate-500 mt-0.5">Kelola data induk seluruh siswa aktif MI Plus Raudlatul Muta'allimin</p>
         </div>
 
@@ -251,7 +251,7 @@
                 <button @click="editModal = false" class="text-slate-400 hover:text-slate-600">✕</button>
             </div>
 
-            <form :action="'/admin/santri/' + activeStudent.id" method="POST" class="space-y-4">
+            <form :action="'/admin/siswa/' + activeStudent.id" method="POST" class="space-y-4">
                 @csrf
                 @method('PUT')
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

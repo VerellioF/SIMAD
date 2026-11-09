@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
         <div>
-            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Buku Disiplin & Karakter Siswa <span class="sr-only">Buku Disiplin & Karakter Santri</span></h1>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-800">Buku Disiplin & Karakter Siswa</h1>
             <p class="text-xs sm:text-sm text-slate-500 mt-1">Pencatatan poin karakter positif, apresiasi keteladanan akhlak, dan pembinaan kedisiplinan madrasah.</p>
         </div>
         <div class="flex items-center gap-2">
