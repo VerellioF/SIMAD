@@ -295,6 +295,58 @@ class ImprovedTeacherInputWorkflowsTest extends TestCase
         ]);
     }
 
+    public function test_teacher_can_save_grades_using_smart_spreadsheet_mode(): void
+    {
+        // Teacher submits multiple assessment types at once (UH, Tugas, PTS, PAS)
+        $res = $this->actingAs($this->teacher1)->post(route('teacher.grades.store'), [
+            'classroom_id' => $this->classroom1->id,
+            'subject_id' => $this->subjectFiqih->id,
+            'mode' => 'spreadsheet',
+            'grades' => [
+                [
+                    'student_id' => $this->student1->id,
+                    'harian' => 85,
+                    'tugas' => 90,
+                    'pts' => 88,
+                    'pas' => 92,
+                    'notes' => 'Menunjukkan penguasaan kompetensi materi dengan sangat baik dan mandiri.',
+                ],
+            ],
+        ]);
+
+        $res->assertRedirect();
+        $res->assertSessionHas('success');
+
+        $this->assertDatabaseHas('academic_grades', [
+            'student_id' => $this->student1->id,
+            'classroom_id' => $this->classroom1->id,
+            'subject_id' => $this->subjectFiqih->id,
+            'grade_type' => 'harian',
+            'score' => 85,
+        ]);
+        $this->assertDatabaseHas('academic_grades', [
+            'student_id' => $this->student1->id,
+            'classroom_id' => $this->classroom1->id,
+            'subject_id' => $this->subjectFiqih->id,
+            'grade_type' => 'tugas',
+            'score' => 90,
+        ]);
+        $this->assertDatabaseHas('academic_grades', [
+            'student_id' => $this->student1->id,
+            'classroom_id' => $this->classroom1->id,
+            'subject_id' => $this->subjectFiqih->id,
+            'grade_type' => 'pts',
+            'score' => 88,
+        ]);
+        $this->assertDatabaseHas('academic_grades', [
+            'student_id' => $this->student1->id,
+            'classroom_id' => $this->classroom1->id,
+            'subject_id' => $this->subjectFiqih->id,
+            'grade_type' => 'pas',
+            'score' => 92,
+        ]);
+    }
+
     public function test_teacher_can_bulk_record_and_evaluate_worship_for_class(): void
     {
         $testDate = '2026-07-20';

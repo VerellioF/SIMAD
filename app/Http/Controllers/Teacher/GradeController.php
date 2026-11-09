@@ -72,6 +72,16 @@ class GradeController extends Controller
         // 5. Existing grades for this classroom, subject, and grade_type
         $activeYear = AcademicYear::where('is_active', true)->first();
 
+        // All grades for this classroom and subject across all grade types
+        $allExistingGrades = $classroom && $subject
+            ? AcademicGrade::where('classroom_id', $classroom->id)
+                ->where('subject_id', $subject->id)
+                ->when($activeYear, fn ($q) => $q->where('academic_year_id', $activeYear->id))
+                ->get()
+                ->groupBy('student_id')
+            : collect();
+
+        // Backward compatibility: existingGrades filtered by current grade_type
         $existingGrades = $classroom && $subject
             ? AcademicGrade::where('classroom_id', $classroom->id)
                 ->where('subject_id', $subject->id)
@@ -80,6 +90,41 @@ class GradeController extends Controller
                 ->get()
                 ->keyBy('student_id')
             : collect();
+
+        // Build structured student grades map for spreadsheet mode
+        $studentGradeMap = [];
+        foreach ($students as $st) {
+            $stGrades = $allExistingGrades->get($st->id, collect());
+            $harian = $stGrades->firstWhere('grade_type.value', 'harian')?->score;
+            $tugas = $stGrades->firstWhere('grade_type.value', 'tugas')?->score;
+            $pts = $stGrades->firstWhere('grade_type.value', 'pts')?->score;
+            $pas = $stGrades->firstWhere('grade_type.value', 'pas')?->score;
+            $notes = $stGrades->first(fn ($g) => !empty($g->notes))?->notes ?? '';
+
+            $scores = array_filter([(float)$harian, (float)$pts, (float)$pas]);
+            $finalScore = !empty($scores) ? round(array_sum($scores) / count($scores), 1) : null;
+
+            $predicate = match (true) {
+                $finalScore === null => '-',
+                $finalScore >= 88 => 'A',
+                $finalScore >= 76 => 'B',
+                $finalScore >= 65 => 'C',
+                default => 'D',
+            };
+
+            $studentGradeMap[$st->id] = [
+                'harian' => $harian !== null ? (float)$harian : '',
+                'tugas' => $tugas !== null ? (float)$tugas : '',
+                'pts' => $pts !== null ? (float)$pts : '',
+                'pas' => $pas !== null ? (float)$pas : '',
+                'final' => $finalScore !== null ? $finalScore : '',
+                'predicate' => $predicate,
+                'notes' => $notes,
+            ];
+        }
+
+        // Mode: spreadsheet (default) or single
+        $viewMode = $request->query('mode', 'spreadsheet');
 
         // Calculate stats
         $filledGrades = $existingGrades->filter(fn ($g) => $g->score !== null);
@@ -98,7 +143,9 @@ class GradeController extends Controller
             'subject',
             'selectedSubjectId',
             'gradeType',
+            'viewMode',
             'students',
+            'studentGradeMap',
             'existingGrades',
             'averageScore',
             'maxScore',
@@ -118,53 +165,78 @@ class GradeController extends Controller
         $validated = $request->validate([
             'classroom_id' => ['nullable', 'exists:classrooms,id'],
             'subject_id' => ['required', 'exists:subjects,id'],
-            'grade_type' => ['required', 'in:harian,tugas,pts,pas'],
+            'grade_type' => ['nullable', 'string'],
+            'mode' => ['nullable', 'string', 'in:spreadsheet,single'],
             'grades' => ['required', 'array'],
             'grades.*.student_id' => ['required', 'exists:students,id'],
             'grades.*.score' => ['nullable', 'numeric', 'min:0', 'max:100'],
             'grades.*.notes' => ['nullable', 'string', 'max:255'],
+            'grades.*.harian' => ['nullable', 'numeric', 'min:0', 'max:100'],
+            'grades.*.tugas' => ['nullable', 'numeric', 'min:0', 'max:100'],
+            'grades.*.pts' => ['nullable', 'numeric', 'min:0', 'max:100'],
+            'grades.*.pas' => ['nullable', 'numeric', 'min:0', 'max:100'],
         ]);
 
         $classroomId = $validated['classroom_id'] ?? $homeroomClassroom?->id ?? Classroom::first()?->id;
         $activeYear = AcademicYear::where('is_active', true)->firstOrFail();
 
         $savedCount = 0;
-        foreach ($validated['grades'] as $item) {
-            if ($item['score'] === null || $item['score'] === '') {
-                continue;
-            }
+        $mode = $validated['mode'] ?? ($request->has('grade_type') && in_array($request->input('grade_type'), ['harian', 'tugas', 'pts', 'pas']) && !isset($validated['grades'][0]['harian']) ? 'single' : 'spreadsheet');
 
-            AcademicGrade::updateOrCreate(
-                [
-                    'student_id' => $item['student_id'],
-                    'classroom_id' => $classroomId,
-                    'subject_id' => $validated['subject_id'],
-                    'academic_year_id' => $activeYear->id,
-                    'grade_type' => $validated['grade_type'],
-                ],
-                [
-                    'teacher_id' => $teacher->id,
-                    'score' => $item['score'],
-                    'notes' => $item['notes'] ?? null,
-                ]
-            );
-            $savedCount++;
+        foreach ($validated['grades'] as $item) {
+            $studentId = $item['student_id'];
+            $notes = $item['notes'] ?? null;
+
+            // If spreadsheet mode or multi-column fields present
+            if ($mode === 'spreadsheet' || isset($item['harian']) || isset($item['tugas']) || isset($item['pts']) || isset($item['pas'])) {
+                $assessmentTypes = ['harian', 'tugas', 'pts', 'pas'];
+                foreach ($assessmentTypes as $type) {
+                    if (array_key_exists($type, $item) && $item[$type] !== null && $item[$type] !== '') {
+                        AcademicGrade::updateOrCreate(
+                            [
+                                'student_id' => $studentId,
+                                'classroom_id' => $classroomId,
+                                'subject_id' => $validated['subject_id'],
+                                'academic_year_id' => $activeYear->id,
+                                'grade_type' => $type,
+                            ],
+                            [
+                                'teacher_id' => $teacher->id,
+                                'score' => $item[$type],
+                                'notes' => $notes,
+                            ]
+                        );
+                        $savedCount++;
+                    }
+                }
+            } elseif (!empty($validated['grade_type']) && isset($item['score']) && $item['score'] !== '' && $item['score'] !== null) {
+                // Backward-compatible single assessment type
+                AcademicGrade::updateOrCreate(
+                    [
+                        'student_id' => $studentId,
+                        'classroom_id' => $classroomId,
+                        'subject_id' => $validated['subject_id'],
+                        'academic_year_id' => $activeYear->id,
+                        'grade_type' => $validated['grade_type'],
+                    ],
+                    [
+                        'teacher_id' => $teacher->id,
+                        'score' => $item['score'],
+                        'notes' => $notes,
+                    ]
+                );
+                $savedCount++;
+            }
         }
 
         $subjectName = Subject::find($validated['subject_id'])?->name ?? 'Mata Pelajaran';
-        $typeLabel = match ($validated['grade_type']) {
-            'harian' => 'Ulangan Harian',
-            'tugas' => 'Tugas Mandiri',
-            'pts' => 'PTS',
-            'pas' => 'PAS',
-            default => 'Nilai',
-        };
 
         return redirect()->route('teacher.grades.index', [
             'classroom_id' => $classroomId,
             'subject_id' => $validated['subject_id'],
-            'grade_type' => $validated['grade_type'],
-        ])->with('success', "Penilaian {$typeLabel} mapel {$subjectName} berhasil disimpan untuk {$savedCount} siswa.");
+            'grade_type' => $validated['grade_type'] ?? 'harian',
+            'mode' => $mode,
+        ])->with('success', "Penilaian mapel {$subjectName} berhasil disimpan ({$savedCount} data diperbarui).");
     }
 
     public function downloadReportCard(Student $student, ReportCardPdfService $service): Response
