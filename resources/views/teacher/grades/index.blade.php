@@ -9,6 +9,49 @@
     activeCol: 'harian',
     selectedStudentModal: null,
 
+    // Custom Toast Notification State
+    toast: {
+        show: false,
+        title: '',
+        message: '',
+        type: 'success',
+    },
+    toastTimer: null,
+    showToast(title, message, type = 'success') {
+        this.toast.title = title;
+        this.toast.message = message;
+        this.toast.type = type;
+        this.toast.show = true;
+        if (this.toastTimer) clearTimeout(this.toastTimer);
+        this.toastTimer = setTimeout(() => {
+            this.toast.show = false;
+        }, 4000);
+    },
+
+    // Custom Uniform Score Modal State
+    showUniformModal: false,
+    uniformTargetCol: 'harian',
+    uniformScoreValue: 80,
+    openUniformModal() {
+        this.uniformTargetCol = this.activeCol || 'harian';
+        this.uniformScoreValue = 80;
+        this.showUniformModal = true;
+    },
+    applyUniformScore() {
+        let val = parseFloat(this.uniformScoreValue);
+        if (isNaN(val) || val < 0 || val > 100) {
+            this.showToast('Input Tidak Valid', 'Skor nilai harus berupa angka antara 0 dan 100.', 'warning');
+            return;
+        }
+        let col = this.uniformTargetCol || 'harian';
+        this.students.forEach(st => {
+            st[col] = val;
+        });
+        this.showUniformModal = false;
+        let colLabel = col.toUpperCase();
+        this.showToast('Nilai Seragam Diterapkan', `Skor ${val} berhasil diisikan ke seluruh siswa untuk kolom ${colLabel}.`, 'success');
+    },
+
     // Raw initial student grades data from backend
     students: [
         @foreach($students as $idx => $st)
@@ -95,18 +138,7 @@
                 count++;
             }
         });
-        alert(`Berhasil mengisi nilai KKM (75) pada ${count} siswa untuk kolom ${col.toUpperCase()}.`);
-    },
-
-    // Fill uniform score
-    fillUniform(targetCol) {
-        let col = targetCol || this.activeCol || 'harian';
-        let val = prompt(`Masukkan skor seragam (0 - 100) untuk kolom ${col.toUpperCase()}:`, '80');
-        if (val !== null && !isNaN(val) && val >= 0 && val <= 100) {
-            this.students.forEach(st => {
-                st[col] = parseFloat(val);
-            });
-        }
+        this.showToast('KKM Berhasil Diisikan', `Nilai KKM (75) berhasil diterapkan pada ${count} siswa untuk kolom ${col.toUpperCase()}.`, 'success');
     },
 
     // Auto-generate standard Kemenag/Kurikulum Merdeka notes based on final score
@@ -124,7 +156,7 @@
                 st.notes = 'Perlu bimbingan dan pendampingan intensif pada materi pembelajaran.';
             }
         });
-        alert('Catatan deskripsi capaian kompetensi berhasil di-generate otomatis untuk seluruh siswa!');
+        this.showToast('Narasi Dihasilkan', 'Deskripsi capaian kompetensi berhasil di-generate otomatis untuk seluruh siswa sesuai nilai akhir!', 'success');
     },
 
     // Export current table to CSV
@@ -177,7 +209,7 @@
                     }
                 }
             }
-            alert(`Berhasil mengimpor data nilai untuk ${updated} siswa dari file CSV.`);
+            this.showToast('Impor CSV Berhasil', `Berhasil mengimpor data nilai untuk ${updated} siswa dari file CSV.`, 'success');
         };
         reader.readAsText(file);
     },
@@ -322,7 +354,7 @@
                         <span>Isi KKM (75)</span>
                     </button>
 
-                    <button type="button" @click="fillUniform(activeCol)"
+                    <button type="button" @click="openUniformModal()"
                             class="px-2.5 py-1.5 rounded-lg bg-teal-800 hover:bg-teal-700 text-white font-bold text-xs border border-teal-600 transition flex items-center gap-1">
                         <span>Isi Seragam...</span>
                     </button>
@@ -741,6 +773,121 @@
                 </div>
             </template>
         </div>
+    </div>
+
+    <!-- MODAL POPUP: ISI NILAI SERAGAM (CUSTOM POPUP) -->
+    <div x-show="showUniformModal" x-cloak
+         class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div @click.away="showUniformModal = false"
+             class="bg-white rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
+            
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center text-base font-black">
+                        ⚡
+                    </div>
+                    <div>
+                        <h3 class="text-base font-extrabold text-slate-900">Isi Nilai Seragam</h3>
+                        <p class="text-[11px] text-slate-400">Terapkan satu nilai ke seluruh siswa sekaligus</p>
+                    </div>
+                </div>
+                <button type="button" @click="showUniformModal = false" class="text-slate-400 hover:text-slate-600 font-bold text-sm">✕</button>
+            </div>
+
+            <div class="space-y-4 text-xs">
+                <!-- Pilih Kolom Target -->
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5">Pilih Kolom Nilai:</label>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button type="button" @click="uniformTargetCol = 'harian'"
+                                :class="uniformTargetCol === 'harian' ? 'bg-teal-900 text-white font-bold ring-2 ring-teal-600' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium'"
+                                class="py-2.5 px-2 rounded-xl text-center text-xs transition">
+                            UH
+                        </button>
+                        <button type="button" @click="uniformTargetCol = 'tugas'"
+                                :class="uniformTargetCol === 'tugas' ? 'bg-teal-900 text-white font-bold ring-2 ring-teal-600' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium'"
+                                class="py-2.5 px-2 rounded-xl text-center text-xs transition">
+                            Tugas
+                        </button>
+                        <button type="button" @click="uniformTargetCol = 'pts'"
+                                :class="uniformTargetCol === 'pts' ? 'bg-teal-900 text-white font-bold ring-2 ring-teal-600' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium'"
+                                class="py-2.5 px-2 rounded-xl text-center text-xs transition">
+                            PTS
+                        </button>
+                        <button type="button" @click="uniformTargetCol = 'pas'"
+                                :class="uniformTargetCol === 'pas' ? 'bg-teal-900 text-white font-bold ring-2 ring-teal-600' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 font-medium'"
+                                class="py-2.5 px-2 rounded-xl text-center text-xs transition">
+                            PAS
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Input Nilai Skor -->
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1.5">Skor Nilai (0 - 100):</label>
+                    <input type="number" min="0" max="100" step="0.5" x-model="uniformScoreValue"
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-mono font-bold text-slate-900 focus:ring-2 focus:ring-teal-700"
+                           placeholder="80">
+                    
+                    <!-- Preset Quick Buttons -->
+                    <div class="flex items-center gap-1.5 mt-2">
+                        <span class="text-[10px] text-slate-400 font-bold uppercase">Pilihan Cepat:</span>
+                        <button type="button" @click="uniformScoreValue = 75" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-900 font-mono text-[11px] font-bold border border-slate-200 transition">75 (KKM)</button>
+                        <button type="button" @click="uniformScoreValue = 80" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-900 font-mono text-[11px] font-bold border border-slate-200 transition">80</button>
+                        <button type="button" @click="uniformScoreValue = 85" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-900 font-mono text-[11px] font-bold border border-slate-200 transition">85</button>
+                        <button type="button" @click="uniformScoreValue = 90" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-900 font-mono text-[11px] font-bold border border-slate-200 transition">90</button>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-2xl bg-teal-50 border border-teal-200 text-teal-900 text-[11px] leading-relaxed">
+                    💡 <strong>Tips:</strong> Skor ini akan diterapkan ke semua siswa di kolom terpilih. Nilai per siswa tetap dapat disesuaikan kembali secara mandiri di tabel.
+                </div>
+
+                <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
+                    <button type="button" @click="showUniformModal = false"
+                            class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold transition">
+                        Batal
+                    </button>
+                    <button type="button" @click="applyUniformScore()"
+                            class="px-5 py-2 rounded-xl bg-teal-900 hover:bg-teal-800 text-white font-bold transition">
+                        Terapkan Nilai
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING TOAST NOTIFICATION (CUSTOM NOTIFICATION) -->
+    <div x-show="toast.show" x-cloak
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-3 scale-95"
+         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+         x-transition:leave-end="opacity-0 translate-y-3 scale-95"
+         class="fixed top-20 right-6 z-50 max-w-sm w-full bg-white rounded-2xl border shadow-2xl p-4 flex items-start gap-3 backdrop-blur-md"
+         :class="{
+             'border-emerald-200 bg-white/95 text-emerald-950': toast.type === 'success',
+             'border-amber-200 bg-white/95 text-amber-950': toast.type === 'warning',
+             'border-teal-200 bg-white/95 text-teal-950': toast.type === 'info'
+         }">
+        
+        <!-- Icon -->
+        <div class="p-2 rounded-xl shrink-0"
+             :class="{
+                 'bg-emerald-600 text-white': toast.type === 'success',
+                 'bg-amber-600 text-white': toast.type === 'warning',
+                 'bg-teal-600 text-white': toast.type === 'info'
+             }">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </div>
+
+        <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-black tracking-tight" x-text="toast.title"></h4>
+            <p class="text-[11px] text-slate-600 mt-0.5 leading-snug" x-text="toast.message"></p>
+        </div>
+
+        <button type="button" @click="toast.show = false" class="text-slate-400 hover:text-slate-600 font-bold text-xs p-1">✕</button>
     </div>
 
 </div>
