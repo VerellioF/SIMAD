@@ -52,9 +52,10 @@
             </div>
         </div>
 
-        <!-- Grades Table -->
+        <!-- Grades Table (Desktop) & Cards (Mobile) -->
         <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
+            <!-- Desktop Table -->
+            <div class="hidden sm:block overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                         <tr>
@@ -113,6 +114,58 @@
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Mobile Responsive Card View -->
+            <div class="sm:hidden p-4 space-y-3">
+                @forelse($subjects as $sub)
+                    @php
+                        $subGrades = $grades->get($sub->id, collect());
+                        $harian = $subGrades->firstWhere('grade_type.value', 'harian')?->score;
+                        $tugas = $subGrades->firstWhere('grade_type.value', 'tugas')?->score;
+                        $pts = $subGrades->firstWhere('grade_type.value', 'pts')?->score;
+                        $pas = $subGrades->firstWhere('grade_type.value', 'pas')?->score;
+
+                        $scores = array_filter([(float)$harian, (float)$tugas, (float)$pts, (float)$pas], fn($s) => $s > 0);
+                        $avg = count($scores) > 0 ? round(array_sum($scores) / count($scores), 1) : null;
+                    @endphp
+                    <div class="p-3.5 rounded-2xl border border-slate-200/80 bg-slate-50/50 space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <span class="font-extrabold text-xs text-slate-900">{{ $sub->name }}</span>
+                            <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase {{ $sub->category->value === 'pai' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700' }}">
+                                {{ $sub->category->value ?? 'Umum' }}
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-4 gap-1.5 text-center font-mono">
+                            <div class="p-1.5 rounded-xl bg-white border border-slate-100">
+                                <span class="text-[9px] text-slate-400 block">UH</span>
+                                <span class="text-xs font-bold text-slate-800">{{ $harian !== null ? (float)$harian : '-' }}</span>
+                            </div>
+                            <div class="p-1.5 rounded-xl bg-white border border-slate-100">
+                                <span class="text-[9px] text-slate-400 block">Tugas</span>
+                                <span class="text-xs font-bold text-slate-800">{{ $tugas !== null ? (float)$tugas : '-' }}</span>
+                            </div>
+                            <div class="p-1.5 rounded-xl bg-white border border-slate-100">
+                                <span class="text-[9px] text-slate-400 block">PTS</span>
+                                <span class="text-xs font-bold text-slate-800">{{ $pts !== null ? (float)$pts : '-' }}</span>
+                            </div>
+                            <div class="p-1.5 rounded-xl bg-white border border-slate-100">
+                                <span class="text-[9px] text-slate-400 block">PAS</span>
+                                <span class="text-xs font-bold text-slate-800">{{ $pas !== null ? (float)$pas : '-' }}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-xs">
+                            <span class="text-[11px] text-slate-500 font-semibold">Rata-rata Semester:</span>
+                            <span class="font-mono font-black text-sm {{ $avg !== null ? ($avg >= 75 ? 'text-emerald-700' : 'text-amber-700') : 'text-slate-400' }}">
+                                {{ $avg !== null ? $avg : 'Belum Ada' }}
+                            </span>
+                        </div>
+                    </div>
+                @empty
+                    <div class="py-8 text-center text-xs text-slate-400">
+                        Belum ada mata pelajaran terdaftar.
+                    </div>
+                @endforelse
             </div>
         </div>
     @endif

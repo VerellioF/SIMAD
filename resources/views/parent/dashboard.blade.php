@@ -3,7 +3,7 @@
 @section('title', 'Portal Wali Murid')
 
 @section('content')
-<div class="space-y-8">
+<div class="space-y-6" x-data="{ activeStudentId: {{ $students->first()?->id ?? 'null' }} }">
     
     <!-- Welcome Header Banner -->
     <div class="bg-gradient-to-r from-amber-950 via-amber-900 to-amber-950 p-6 sm:p-8 rounded-3xl text-white shadow-lg border border-amber-500/30">
@@ -20,10 +20,26 @@
         </div>
     </div>
 
+    <!-- Multi-child Switcher Tabs (If parent has >1 children enrolled) -->
+    @if($students->count() > 1)
+        <div class="bg-white p-2 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-2 overflow-x-auto">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider px-3 shrink-0">Pilih Ananda:</span>
+            @foreach($students as $stTab)
+                <button type="button" @click="activeStudentId = {{ $stTab->id }}"
+                        :class="activeStudentId === {{ $stTab->id }} ? 'bg-amber-500 text-amber-950 font-extrabold shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 font-semibold'"
+                        class="px-4 py-2 rounded-xl text-xs transition flex items-center gap-2 shrink-0">
+                    <span>{{ $stTab->gender === 'L' ? '👦' : '👧' }} {{ $stTab->nickname ?? $stTab->full_name }}</span>
+                    <span class="text-[10px] opacity-80">({{ $stTab->classroom?->name ?? 'Rombel' }})</span>
+                </button>
+            @endforeach
+        </div>
+    @endif
+
     <!-- Student Cards Loop (for parents with 1 or multiple children) -->
     <div class="space-y-6">
         @forelse($students as $student)
-            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 sm:p-8 space-y-6">
+            <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm p-6 sm:p-8 space-y-6"
+                 x-show="activeStudentId === {{ $student->id }}" x-cloak>
                 
                 <!-- Student Header -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-100 gap-4">

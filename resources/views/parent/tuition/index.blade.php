@@ -23,17 +23,25 @@
     <!-- Bank Info & Outstanding Card -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <!-- Rekening BSI Madrasah -->
-        <div class="lg:col-span-7 bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 p-6 sm:p-8 rounded-3xl text-white border border-gold-500/40 shadow-lg space-y-3">
-            <span class="inline-block px-3 py-1 rounded-full bg-gold-500 text-emerald-950 text-xs font-bold uppercase tracking-wider">
-                Rekening Resmi Madrasah
-            </span>
+        <div class="lg:col-span-7 bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 p-6 sm:p-8 rounded-3xl text-white border border-gold-500/40 shadow-lg space-y-3"
+             x-data="{ copied: false }">
+            <div class="flex items-center justify-between">
+                <span class="inline-block px-3 py-1 rounded-full bg-gold-500 text-emerald-950 text-xs font-bold uppercase tracking-wider">
+                    Rekening Resmi Madrasah
+                </span>
+                <button type="button"
+                        @click="navigator.clipboard.writeText('7123456789'); copied = true; setTimeout(() => copied = false, 2500)"
+                        class="px-3 py-1 rounded-lg bg-emerald-800/80 hover:bg-emerald-700 text-gold-300 font-bold text-xs transition flex items-center gap-1.5 border border-emerald-700">
+                    <span x-text="copied ? '✓ Tersalin!' : '📋 Salin No. Rekening'"></span>
+                </button>
+            </div>
             <div class="space-y-1">
                 <span class="text-xs text-emerald-300">Bank Syariah Indonesia (BSI)</span>
                 <p class="text-2xl sm:text-3xl font-mono font-extrabold text-white tracking-widest">7123456789</p>
                 <p class="text-xs text-emerald-200">a.n. YAYASAN RAUDLATUL MUTA'ALLIMIN</p>
             </div>
             <p class="text-[11px] text-emerald-300/80 pt-1">
-                Setelah melakukan transfer ATM / Mobile Banking, silakan upload bukti transfer pada tagihan terkait di bawah ini.
+                Setelah transfer ATM / Mobile Banking, silakan upload bukti transfer pada tagihan terkait di bawah ini atau bayar langsung via QRIS/VA otomatis.
             </p>
         </div>
 

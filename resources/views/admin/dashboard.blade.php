@@ -30,6 +30,29 @@
         </div>
     </div>
 
+    <!-- Action Needed Queue Card (Productivity Booster) -->
+    @if($stats['pending_ppdb'] > 0)
+        <div class="p-4 sm:p-5 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-black text-lg shrink-0">
+                    !
+                </div>
+                <div>
+                    <h4 class="text-xs sm:text-sm font-extrabold text-amber-950">
+                        Perhatian: Ada {{ $stats['pending_ppdb'] }} Berkas Calon Siswa Menunggu Verifikasi PPDB
+                    </h4>
+                    <p class="text-xs text-amber-800 mt-0.5">
+                        Mohon periksa data akta, KK, dan bukti pembayaran pendaftar untuk penetapan status kelulusan.
+                    </p>
+                </div>
+            </div>
+            <a href="{{ route('admin.ppdb.index') }}"
+               class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition whitespace-nowrap text-center">
+                Buka Verifikasi PPDB →
+            </a>
+        </div>
+    @endif
+
     <!-- KPI Metric Cards Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <!-- Total PPDB -->

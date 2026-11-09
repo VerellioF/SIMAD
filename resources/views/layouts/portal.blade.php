@@ -302,11 +302,11 @@
         </aside>
 
         <!-- Main Content Area -->
-        <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8">
+        <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 pb-24 lg:pb-8">
             <div class="max-w-7xl mx-auto">
                 @if(session('success'))
                     <div class="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm font-semibold flex items-center gap-2 shadow-sm">
-                        <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         <span>{{ session('success') }}</span>
                     </div>
                 @endif
@@ -316,6 +316,55 @@
         </main>
 
     </div>
+
+    <!-- Mobile Sticky Bottom Navigation (Mobile-First for Teachers & Parents) -->
+    @if(auth()->check() && !auth()->user()->isAdmin())
+        <nav class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-xl px-2 py-1.5 flex items-center justify-around text-[10px] font-bold">
+            @if(auth()->user()->isTeacher())
+                <a href="{{ route('teacher.dashboard') }}"
+                   class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition {{ request()->routeIs('teacher.dashboard') ? 'text-teal-900 font-extrabold' : 'text-slate-500 hover:text-slate-800' }}">
+                    <svg class="w-5 h-5 {{ request()->routeIs('teacher.dashboard') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    <span>Beranda</span>
+                </a>
+                <a href="{{ route('teacher.attendance.index') }}"
+                   class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition {{ request()->routeIs('teacher.attendance.*') ? 'text-teal-900 font-extrabold' : 'text-slate-500 hover:text-slate-800' }}">
+                    <svg class="w-5 h-5 {{ request()->routeIs('teacher.attendance.*') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                    <span>Presensi</span>
+                </a>
+                <a href="{{ route('teacher.tahfidz.index') }}"
+                   class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition {{ request()->routeIs('teacher.tahfidz.*') ? 'text-teal-900 font-extrabold' : 'text-slate-500 hover:text-slate-800' }}">
+                    <svg class="w-5 h-5 {{ request()->routeIs('teacher.tahfidz.*') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    <span>Tahfidz</span>
+                </a>
+                <a href="{{ route('teacher.grades.index') }}"
+                   class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition {{ request()->routeIs('teacher.grades.*') ? 'text-teal-900 font-extrabold' : 'text-slate-500 hover:text-slate-800' }}">
+                    <svg class="w-5 h-5 {{ request()->routeIs('teacher.grades.*') ? 'text-teal-700' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    <span>Buku Nilai</span>
+                </a>
+            @else
+                <a href="{{ route('parent.dashboard') }}"
+                   class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition {{ request()->routeIs('parent.dashboard') ? 'text-amber-900 font-extrabold' : 'text-slate-500 hover:text-slate-800' }}">
+                    <svg class="w-5 h-5 {{ request()->routeIs('parent.dashboard') ? 'text-amber-600' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    <span>Beranda</span>
+                </a>
+                <a href="{{ route('parent.attendance.index') }}"
+                   class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition {{ request()->routeIs('parent.attendance.*') ? 'text-amber-900 font-extrabold' : 'text-slate-500 hover:text-slate-800' }}">
+                    <svg class="w-5 h-5 {{ request()->routeIs('parent.attendance.*') ? 'text-amber-600' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>Kehadiran</span>
+                </a>
+                <a href="{{ route('parent.grades.index') }}"
+                   class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition {{ request()->routeIs('parent.grades.*') ? 'text-amber-900 font-extrabold' : 'text-slate-500 hover:text-slate-800' }}">
+                    <svg class="w-5 h-5 {{ request()->routeIs('parent.grades.*') ? 'text-amber-600' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    <span>Nilai Rapor</span>
+                </a>
+                <a href="{{ route('parent.tuition.index') }}"
+                   class="flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition {{ request()->routeIs('parent.tuition.*') ? 'text-amber-900 font-extrabold' : 'text-slate-500 hover:text-slate-800' }}">
+                    <svg class="w-5 h-5 {{ request()->routeIs('parent.tuition.*') ? 'text-amber-600' : 'text-slate-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                    <span>Bayar SPP</span>
+                </a>
+            @endif
+        </nav>
+    @endif
 
 </body>
 </html>

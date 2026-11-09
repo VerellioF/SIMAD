@@ -16,9 +16,7 @@
         document.querySelectorAll('input.worship-checkbox').forEach(el => el.checked = true);
     },
     uncheckAll() {
-        if (confirm('Yakin ingin mengosongkan semua centang ibadah di kelas ini?')) {
-            document.querySelectorAll('input.worship-checkbox').forEach(el => el.checked = false);
-        }
+        document.querySelectorAll('input.worship-checkbox').forEach(el => el.checked = false);
     }
 }">
 

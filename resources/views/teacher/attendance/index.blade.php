@@ -6,7 +6,10 @@
 <div class="space-y-6" x-data="{
     filterQuery: '',
     setAll(status) {
-        document.querySelectorAll('input[type=radio][value=' + status + ']').forEach(el => el.checked = true);
+        document.querySelectorAll('input[type=radio][value=' + status + ']').forEach(el => {
+            el.checked = true;
+            el.dispatchEvent(new Event('change', { bubbles: true }));
+        });
     }
 }">
 
@@ -242,7 +245,7 @@
                                     <td class="py-3.5 px-6">
                                         <input type="hidden" name="attendances[{{ $index }}][student_id]" value="{{ $st->id }}">
                                         <span class="font-bold text-slate-900 block">{{ $st->full_name }}</span>
-                                        <span class="text-[10px] text-slate-400 font-mono">{{ $st->nisn ?? $st->nis }} ({{ $st->gender == 'L' ? 'Ikhwan' : 'Akhwat' }})</span>
+                                        <span class="text-[10px] text-slate-400 font-mono">{{ $st->nisn ?? $st->nis }} ({{ $st->gender == 'L' ? 'Laki-laki' : 'Perempuan' }})</span>
                                     </td>
                                     <td class="py-3.5 px-6">
                                         <div class="flex items-center justify-center gap-2">
