@@ -370,4 +370,90 @@ class WhatsAppNotificationService
 
         return $this->sendMessage($parentPhone, $message, $leaveRequest->student, 'leave', $senderId);
     }
+
+    /**
+     * Build SPP payment confirmation receipt message.
+     */
+    public function buildTuitionPaymentAlert(\App\Models\TuitionPayment $payment, \App\Models\TuitionBill $bill): string
+    {
+        $student = $bill->student;
+        $parentName = $student?->parent?->name ?? 'Bapak/Ibu Wali Murid';
+        $nominal = 'Rp ' . number_format((float) $payment->amount_paid, 0, ',', '.');
+        $receipt = $payment->receipt_number;
+        $payDate = date('d/m/Y', strtotime($payment->payment_date->toDateString() ?? date('Y-m-d')));
+
+        $methodName = $payment->payment_method instanceof \App\Enums\PaymentMethod
+            ? $payment->payment_method->label()
+            : strtoupper(str_replace('_', ' ', (string) $payment->payment_method));
+
+        $msg = "Assalamu'alaikum Wr. Wb.\n";
+        $msg .= "Yth. {$parentName},\n\n";
+        $msg .= "Alhamdulillah, pembayaran SPP/Madrasah ananda telah *BERHASIL DITERIMA & DIVERIFIKASI*:\n\n";
+        $msg .= "🧾 *No. Kwitansi Sah:* `{$receipt}`\n";
+        $msg .= "👤 *Nama Siswa:* *{$student->full_name}*\n";
+        $msg .= "🏫 *Kelas:* " . ($student->classroom?->name ?? '-') . "\n";
+        $msg .= "📋 *Uraian:* {$bill->bill_title}\n";
+        $msg .= "💰 *Nominal Dibayar:* *{$nominal}*\n";
+        $msg .= "📅 *Tanggal Verifikasi:* {$payDate}\n";
+        $msg .= "💳 *Metode:* {$methodName}\n\n";
+        $msg .= "Kwitansi digital resmi dapat diunduh kapan saja melalui portal wali murid.\n\n";
+        $msg .= "Jazakumullahu khairan katsiran atas partisipasi Bapak/Ibu dalam mendukung pendidikan ananda.\nWassalamu'alaikum Wr. Wb.\n";
+        $msg .= "_Bendahara & Tata Usaha MI Plus Raudlatul Muta'allimin_";
+
+        return $msg;
+    }
+
+    /**
+     * Send SPP payment confirmation alert to parent.
+     */
+    public function sendTuitionPaymentAlert(\App\Models\TuitionPayment $payment, \App\Models\TuitionBill $bill, ?string $targetPhone = null, ?int $senderId = null): ?array
+    {
+        $phone = $targetPhone ?? $bill->student?->parent?->phone_number;
+
+        if (! $phone) {
+            return null;
+        }
+
+        $message = $this->buildTuitionPaymentAlert($payment, $bill);
+
+        return $this->sendMessage($phone, $message, $bill->student, 'tuition_payment', $senderId);
+    }
+
+    /**
+     * Build PPDB registration fee confirmation message.
+     */
+    public function buildPpdbPaymentAlert(\App\Models\PpdbRegistration $registration): string
+    {
+        $nominal = $registration->formattedFee();
+        $regNo = $registration->registration_number;
+
+        $msg = "Assalamu'alaikum Wr. Wb.\n";
+        $msg .= "Yth. Bapak/Ibu {$registration->parent_name},\n\n";
+        $msg .= "Alhamdulillah, pembayaran biaya pendaftaran PPDB ananda telah *BERHASIL TERVERIFIKASI OTOMATIS*:\n\n";
+        $msg .= "📌 *No. Registrasi:* `{$regNo}`\n";
+        $msg .= "👤 *Calon Siswa:* *{$registration->child_name}*\n";
+        $msg .= "💰 *Biaya Formulir:* *{$nominal}*\n";
+        $msg .= "✅ *Status:* Lunas & Berkas Siap Diobservasi\n\n";
+        $msg .= "Bapak/Ibu dapat memantau status seleksi atau mengunduh ulang bukti pendaftaran di website madrasah melalui menu Cek Status PPDB.\n\n";
+        $msg .= "Wassalamu'alaikum Wr. Wb.\n";
+        $msg .= "_Panitia PPDB MI Plus Raudlatul Muta'allimin_";
+
+        return $msg;
+    }
+
+    /**
+     * Send PPDB payment confirmation alert.
+     */
+    public function sendPpdbPaymentAlert(\App\Models\PpdbRegistration $registration, ?int $senderId = null): ?array
+    {
+        $phone = $registration->parent_whatsapp;
+
+        if (! $phone) {
+            return null;
+        }
+
+        $message = $this->buildPpdbPaymentAlert($registration);
+
+        return $this->sendMessage($phone, $message, null, 'ppdb_payment', $senderId);
+    }
 }

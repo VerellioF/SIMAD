@@ -71,4 +71,14 @@ class PpdbRegistration extends Model
             default => 'bg-amber-100 text-amber-800 border-amber-200',
         };
     }
+
+    public function paymentTransactions(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(PaymentTransaction::class, 'payable');
+    }
+
+    public function latestPaymentTransaction(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
+        return $this->morphOne(PaymentTransaction::class, 'payable')->latestOfMany();
+    }
 }

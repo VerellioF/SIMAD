@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminCurriculumController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminExtracurricularController;
 use App\Http\Controllers\Admin\AdminGalleryController;
+use App\Http\Controllers\Admin\AdminPaymentController;
 use App\Http\Controllers\Admin\AdminPpdbController;
 use App\Http\Controllers\Admin\AdminScheduleController;
 use App\Http\Controllers\Admin\AdminStudentController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\Admin\AdminTeacherController;
 use App\Http\Controllers\Admin\AdminTuitionController;
 use App\Http\Controllers\Admin\AdminWhatsAppController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PaymentCheckoutController;
+use App\Http\Controllers\PaymentWebhookController;
 use App\Http\Controllers\Parent\ParentAttendanceController;
 use App\Http\Controllers\Parent\ParentConductController;
 use App\Http\Controllers\Parent\ParentCurriculumController;
@@ -70,7 +73,14 @@ Route::prefix('ppdb')->name('ppdb.')->group(function () {
     Route::get('/sukses/{registration_number}', [PpdbController::class, 'success'])->name('success');
     Route::get('/cek-status', [PpdbController::class, 'checkStatus'])->name('check_status');
     Route::get('/cetak/{registration_number}', [PpdbController::class, 'downloadProof'])->name('print_proof');
+    Route::get('/bayar/{registration_number}', [PaymentCheckoutController::class, 'payPpdb'])->name('pay');
 });
+
+// Modul Transaksi & Checkout Payment Gateway (Publik & Terverifikasi)
+Route::get('/payment/checkout/{reference}', [PaymentCheckoutController::class, 'show'])->name('payment.checkout');
+Route::get('/payment/status/{reference}', [PaymentCheckoutController::class, 'status'])->name('payment.status');
+Route::post('/payment/simulate/{reference}', [PaymentCheckoutController::class, 'simulate'])->name('payment.simulate');
+Route::post('/payment/webhook', [PaymentWebhookController::class, 'handle'])->name('payment.webhook');
 
 // 3. Autentikasi Sistem Terpadu
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -162,6 +172,10 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     Route::get('/whatsapp', [AdminWhatsAppController::class, 'index'])->name('whatsapp.index');
     Route::post('/whatsapp/kirim', [AdminWhatsAppController::class, 'sendCustomMessage'])->name('whatsapp.send');
     Route::post('/whatsapp/uji-gateway', [AdminWhatsAppController::class, 'testGateway'])->name('whatsapp.test');
+
+    // Transaksi Pembayaran Online (Payment Gateway)
+    Route::get('/pembayaran-online', [AdminPaymentController::class, 'index'])->name('payment.index');
+    Route::post('/pembayaran-online/{transaction}/simulasi', [AdminPaymentController::class, 'simulate'])->name('payment.simulate');
 });
 
 // 5. Custom Portal Guru & Wali Kelas
@@ -207,6 +221,7 @@ Route::prefix('wali')->middleware(['auth', 'role:parent'])->name('parent.')->gro
     Route::get('/tahfidz', [ParentTahfidzController::class, 'index'])->name('tahfidz.index');
     Route::get('/nilai', [ParentGradeController::class, 'index'])->name('grades.index');
     Route::get('/spp', [ParentTuitionController::class, 'index'])->name('tuition.index');
+    Route::get('/spp/{bill}/bayar-online', [PaymentCheckoutController::class, 'payTuition'])->name('tuition.pay_online');
     Route::post('/spp/{bill}/konfirmasi', [ParentTuitionController::class, 'confirmPayment'])->name('tuition.confirm');
     Route::get('/spp/{bill}/kwitansi', [ParentTuitionController::class, 'receipt'])->name('tuition.receipt');
 

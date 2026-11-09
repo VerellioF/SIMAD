@@ -55,4 +55,14 @@ class TuitionBill extends Model
     {
         return $this->hasOne(TuitionPayment::class)->latestOfMany();
     }
+
+    public function paymentTransactions(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(PaymentTransaction::class, 'payable');
+    }
+
+    public function latestPaymentTransaction(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
+        return $this->morphOne(PaymentTransaction::class, 'payable')->latestOfMany();
+    }
 }

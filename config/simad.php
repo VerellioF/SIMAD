@@ -56,4 +56,29 @@ return [
         'endpoint' => env('WA_GATEWAY_URL', 'https://api.fonnte.com/send'),
         'sender_name' => 'MI Plus Raudlatul Muta\'allimin',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Gateway Configuration (QRIS / Virtual Account)
+    |--------------------------------------------------------------------------
+    */
+    'payment' => [
+        'enabled' => env('PAYMENT_GATEWAY_ENABLED', true),
+        'provider' => env('PAYMENT_GATEWAY_PROVIDER', 'simulator'), // 'simulator', 'tripay', 'midtrans'
+        'is_production' => env('PAYMENT_GATEWAY_IS_PRODUCTION', false),
+        'absorb_fee' => env('PAYMENT_GATEWAY_ABSORB_FEE', true), // true: madrasah menyerap 0.7%, false: dibebankan ke wali
+        'qris_fee_percent' => 0.7, // 0.7% standard Bank Indonesia
+        'tripay' => [
+            'merchant_code' => env('TRIPAY_MERCHANT_CODE', ''),
+            'api_key' => env('TRIPAY_API_KEY', ''),
+            'private_key' => env('TRIPAY_PRIVATE_KEY', ''),
+            'api_url' => env('TRIPAY_API_URL', 'https://tripay.co.id/api-sandbox/'),
+        ],
+        'midtrans' => [
+            'merchant_id' => env('MIDTRANS_MERCHANT_ID', ''),
+            'client_key' => env('MIDTRANS_CLIENT_KEY', ''),
+            'server_key' => env('MIDTRANS_SERVER_KEY', ''),
+            'snap_url' => env('MIDTRANS_SNAP_URL', 'https://app.sandbox.midtrans.com/snap/snap.js'),
+        ],
+    ],
 ];
