@@ -16,6 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class AdminStudentController extends Controller
@@ -64,11 +65,19 @@ class AdminStudentController extends Controller
             'classroom_id' => ['required', 'exists:classrooms,id'],
             'parent_id' => ['required', 'exists:users,id'],
             'address' => ['required', 'string', 'max:500'],
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'status' => ['required', 'in:active,graduated,transferred,inactive'],
         ], [
             'nis.unique' => 'NIS ini sudah terdaftar untuk siswa lain.',
             'nisn.unique' => 'NISN ini sudah terdaftar untuk siswa lain.',
+            'photo.image' => 'File pasfoto harus berupa format gambar (JPG/PNG).',
+            'photo.max' => 'Ukuran file pasfoto maksimal 2MB.',
         ]);
+
+        if ($request->hasFile('photo')) {
+            $validated['photo_path'] = $request->file('photo')->store('students', 'public');
+        }
+        unset($validated['photo']);
 
         Student::create($validated);
 
@@ -89,8 +98,20 @@ class AdminStudentController extends Controller
             'classroom_id' => ['required', 'exists:classrooms,id'],
             'parent_id' => ['required', 'exists:users,id'],
             'address' => ['required', 'string', 'max:500'],
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'status' => ['required', 'in:active,graduated,transferred,inactive'],
+        ], [
+            'photo.image' => 'File pasfoto harus berupa format gambar (JPG/PNG).',
+            'photo.max' => 'Ukuran file pasfoto maksimal 2MB.',
         ]);
+
+        if ($request->hasFile('photo')) {
+            if ($student->photo_path) {
+                Storage::disk('public')->delete($student->photo_path);
+            }
+            $validated['photo_path'] = $request->file('photo')->store('students', 'public');
+        }
+        unset($validated['photo']);
 
         $student->update($validated);
 

@@ -25,6 +25,7 @@ class Student extends Model
         'birth_place',
         'birth_date',
         'address',
+        'photo_path',
         'status',
     ];
 

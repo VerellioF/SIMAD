@@ -403,4 +403,62 @@ class ImprovedTeacherInputWorkflowsTest extends TestCase
         $resView->assertSee('Mutaba\'ah Ibadah Yaumiyah');
         $resView->assertSee('Zaidan Al-Farisi');
     }
+
+    public function test_teacher_can_view_and_download_class_leger_nilai(): void
+    {
+        // 1. HTML Leger View
+        $resHtml = $this->actingAs($this->teacher1)->get(route('teacher.grades.leger', $this->classroom1));
+        $resHtml->assertOk();
+        $resHtml->assertSee('LEGER NILAI HASIL BELAJAR SISWA');
+        $resHtml->assertSee($this->student1->full_name);
+        $resHtml->assertSee($this->classroom1->name);
+
+        // 2. CSV Stream Leger
+        $resCsv = $this->actingAs($this->teacher1)->get(route('teacher.grades.leger', [
+            'classroom' => $this->classroom1->id,
+            'format' => 'csv',
+        ]));
+        $resCsv->assertOk();
+        $this->assertStringContainsString('text/csv', $resCsv->headers->get('content-type'));
+    }
+
+    public function test_admin_can_upload_student_photo_and_kts_reflects_photo(): void
+    {
+        \Illuminate\Support\Facades\Storage::fake('public');
+
+        $admin = \App\Models\User::create([
+            'name' => 'Staf TU Madrasah',
+            'email' => 'tu@simad.id',
+            'phone_number' => '08988887777',
+            'role' => \App\Enums\UserRole::Admin,
+            'password' => bcrypt('password'),
+            'is_active' => true,
+        ]);
+
+        $photoFile = \Illuminate\Http\UploadedFile::fake()->create('pasfoto_zaidan.jpg', 150, 'image/jpeg');
+
+        $resUpdate = $this->actingAs($admin)->put(route('admin.students.update', $this->student1), [
+            'full_name' => $this->student1->full_name,
+            'gender' => $this->student1->gender,
+            'nis' => $this->student1->nis,
+            'nisn' => $this->student1->nisn,
+            'birth_place' => $this->student1->birth_place,
+            'birth_date' => $this->student1->birth_date->toDateString(),
+            'classroom_id' => $this->student1->classroom_id,
+            'parent_id' => $this->student1->parent_id,
+            'address' => $this->student1->address,
+            'status' => 'active',
+            'photo' => $photoFile,
+        ]);
+
+        $resUpdate->assertRedirect(route('admin.students.index'));
+        $this->student1->refresh();
+        $this->assertNotNull($this->student1->photo_path);
+        \Illuminate\Support\Facades\Storage::disk('public')->assertExists($this->student1->photo_path);
+
+        // Verify KTS generation runs cleanly
+        $ktsService = new \App\Services\StudentCardPdfService();
+        $pdf = $ktsService->generateStudentCard($this->student1);
+        $this->assertNotEmpty($pdf->output());
+    }
 }

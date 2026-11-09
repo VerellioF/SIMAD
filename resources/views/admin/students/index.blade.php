@@ -85,8 +85,19 @@
                                 <span class="text-[10px] text-slate-400 block">{{ $st->nisn ?? '-' }}</span>
                             </td>
                             <td class="py-4 px-6">
-                                <span class="font-bold text-slate-900 block text-sm">{{ $st->full_name }}</span>
-                                <span class="text-[11px] text-slate-500">Panggilan: {{ $st->nickname ?? '-' }} • {{ $st->birth_place }}, {{ $st->birth_date?->format('d/m/Y') }}</span>
+                                <div class="flex items-center gap-3">
+                                    @if($st->photo_path)
+                                        <img src="{{ asset('storage/' . $st->photo_path) }}" alt="{{ $st->full_name }}" class="w-9 h-9 rounded-xl object-cover border border-slate-200 shrink-0">
+                                    @else
+                                        <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-800 font-extrabold text-xs flex items-center justify-center border border-emerald-100 shrink-0">
+                                            {{ substr($st->full_name, 0, 1) }}
+                                        </div>
+                                    @endif
+                                    <div>
+                                        <span class="font-bold text-slate-900 block text-sm">{{ $st->full_name }}</span>
+                                        <span class="text-[11px] text-slate-500">Panggilan: {{ $st->nickname ?? '-' }} • {{ $st->birth_place }}, {{ $st->birth_date?->format('d/m/Y') }}</span>
+                                    </div>
+                                </div>
                             </td>
                             <td class="py-4 px-6">
                                 <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase {{ $st->gender === 'L' ? 'bg-blue-50 text-blue-800 border border-blue-200' : 'bg-pink-50 text-pink-800 border border-pink-200' }}">
@@ -160,7 +171,7 @@
                 <button @click="addModal = false" class="text-slate-400 hover:text-slate-600">✕</button>
             </div>
 
-            <form action="{{ route('admin.students.store') }}" method="POST" class="space-y-4">
+            <form action="{{ route('admin.students.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
@@ -235,6 +246,13 @@
                     <textarea name="address" rows="2" required placeholder="Dusun/Jalan, RT/RW, Desa, Kecamatan, Kabupaten" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"></textarea>
                 </div>
 
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Pasfoto Resmi Siswa (Ukuran 2x3 atau 3x4)</label>
+                    <input type="file" name="photo" accept=".jpg,.jpeg,.png"
+                           class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-900 hover:file:bg-emerald-100">
+                    <p class="text-[10px] text-slate-400 mt-1">Format JPG/PNG maksimal 2MB. Pasfoto ini akan otomatis tercetak langsung pada lembar Kartu Tanda Siswa (KTS).</p>
+                </div>
+
                 <div class="pt-2 flex justify-end gap-2">
                     <button type="button" @click="addModal = false" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 text-xs font-bold">Batal</button>
                     <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-900 text-white text-xs font-bold shadow hover:bg-emerald-800">Simpan Siswa</button>
@@ -251,7 +269,7 @@
                 <button @click="editModal = false" class="text-slate-400 hover:text-slate-600">✕</button>
             </div>
 
-            <form :action="'/admin/siswa/' + activeStudent.id" method="POST" class="space-y-4">
+            <form :action="'/admin/siswa/' + activeStudent.id" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 @method('PUT')
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -325,6 +343,13 @@
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Alamat Domisili Lengkap *</label>
                     <textarea name="address" rows="2" x-model="activeStudent.address" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Perbarui Pasfoto Siswa (Kosongkan jika tetap)</label>
+                    <input type="file" name="photo" accept=".jpg,.jpeg,.png"
+                           class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-900 hover:file:bg-emerald-100">
+                    <p class="text-[10px] text-slate-400 mt-1">Unggah pasfoto baru untuk mengganti foto lama pada Kartu Tanda Siswa (KTS).</p>
                 </div>
 
                 <div class="pt-2 flex justify-end gap-2">

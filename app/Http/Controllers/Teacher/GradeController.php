@@ -244,4 +244,93 @@ class GradeController extends Controller
         $pdf = $service->generate($student);
         return $pdf->stream("Rapor_{$student->nis}_{$student->full_name}.pdf");
     }
+
+    public function downloadLeger(Classroom $classroom, Request $request)
+    {
+        $activeYear = AcademicYear::where('is_active', true)->first()
+            ?? AcademicYear::latest()->first();
+
+        $students = Student::where('classroom_id', $classroom->id)
+            ->where('status', 'active')
+            ->orderBy('full_name')
+            ->get();
+
+        $subjects = Subject::orderBy('code')->orderBy('name')->get();
+
+        $grades = AcademicGrade::where('classroom_id', $classroom->id)
+            ->where('academic_year_id', $activeYear?->id)
+            ->get();
+
+        // Build Matrix: student_id => [ scores => [sub_id => final], total, average ]
+        $matrix = [];
+        foreach ($students as $st) {
+            $studentTotal = 0;
+            $subjectCount = 0;
+            $subScores = [];
+
+            foreach ($subjects as $sub) {
+                $subGrades = $grades->where('student_id', $st->id)->where('subject_id', $sub->id);
+                $harian = $subGrades->firstWhere('grade_type.value', 'harian')?->score;
+                $tugas = $subGrades->firstWhere('grade_type.value', 'tugas')?->score;
+                $pts = $subGrades->firstWhere('grade_type.value', 'pts')?->score;
+                $pas = $subGrades->firstWhere('grade_type.value', 'pas')?->score;
+
+                $scores = array_filter([(float)$harian, (float)$tugas, (float)$pts, (float)$pas], fn($s) => $s > 0);
+                if (count($scores) > 0) {
+                    $final = round(array_sum($scores) / count($scores), 1);
+                    $subScores[$sub->id] = $final;
+                    $studentTotal += $final;
+                    $subjectCount++;
+                } else {
+                    $subScores[$sub->id] = null;
+                }
+            }
+
+            $matrix[$st->id] = [
+                'scores' => $subScores,
+                'total' => $studentTotal,
+                'average' => $subjectCount > 0 ? round($studentTotal / $subjectCount, 1) : null,
+            ];
+        }
+
+        if ($request->query('format') === 'csv') {
+            $filename = "Leger_Nilai_{$classroom->name}_" . date('Ymd') . ".csv";
+            $headers = [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+            ];
+
+            $callback = function () use ($students, $subjects, $matrix) {
+                $file = fopen('php://output', 'w');
+                $headerRow = ['No', 'NIS', 'NISN', 'Nama Lengkap Siswa', 'L/P'];
+                foreach ($subjects as $sub) {
+                    $headerRow[] = $sub->name;
+                }
+                $headerRow[] = 'Jumlah Total';
+                $headerRow[] = 'Rata-rata';
+                fputcsv($file, $headerRow);
+
+                foreach ($students as $idx => $st) {
+                    $row = [
+                        $idx + 1,
+                        $st->nis ?? '-',
+                        $st->nisn,
+                        $st->full_name,
+                        $st->gender,
+                    ];
+                    foreach ($subjects as $sub) {
+                        $row[] = $matrix[$st->id]['scores'][$sub->id] ?? '-';
+                    }
+                    $row[] = $matrix[$st->id]['total'] ?? 0;
+                    $row[] = $matrix[$st->id]['average'] ?? '-';
+                    fputcsv($file, $row);
+                }
+                fclose($file);
+            };
+
+            return response()->stream($callback, 200, $headers);
+        }
+
+        return view('teacher.grades.leger', compact('classroom', 'activeYear', 'students', 'subjects', 'matrix'));
+    }
 }

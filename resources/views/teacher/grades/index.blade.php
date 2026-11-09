@@ -373,6 +373,12 @@
                         <span>📤 Upload CSV</span>
                         <input type="file" accept=".csv" @change="importCsv($event)" class="hidden">
                     </label>
+
+                    <a href="{{ route('teacher.grades.leger', $classroom) }}" target="_blank"
+                       class="px-3 py-1.5 rounded-lg bg-gold-500 hover:bg-gold-600 text-emerald-950 font-bold text-xs shadow-sm transition flex items-center gap-1"
+                       title="Buka Buku Rekap Leger Nilai Seluruh Mapel 1 Kelas">
+                        <span>📜 Leger Kelas</span>
+                    </a>
                 </div>
 
                 <div class="w-full md:w-56">

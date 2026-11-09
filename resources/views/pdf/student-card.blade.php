@@ -345,7 +345,11 @@
                                     <!-- Photo Box -->
                                     <td class="photo-column">
                                         <div class="photo-holder">
-                                            <span>FOTO 2x3</span>
+                                            @if($student->photo_path && file_exists(public_path('storage/' . $student->photo_path)))
+                                                <img src="{{ public_path('storage/' . $student->photo_path) }}" style="width: 52px; height: 64px; object-fit: cover; border-radius: 3px;" alt="Foto">
+                                            @else
+                                                <span>FOTO 2x3</span>
+                                            @endif
                                         </div>
                                     </td>
 

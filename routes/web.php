@@ -209,6 +209,7 @@ Route::prefix('guru')->middleware(['auth', 'role:teacher'])->name('teacher.')->g
     Route::get('/nilai', [GradeController::class, 'index'])->name('grades.index');
     Route::post('/nilai', [GradeController::class, 'store'])->name('grades.store');
     Route::get('/nilai/rapor/{student}', [GradeController::class, 'downloadReportCard'])->name('grades.report_card');
+    Route::get('/nilai/leger/{classroom}', [GradeController::class, 'downloadLeger'])->name('grades.leger');
 
     // Jadwal Mengajar & Mutaba'ah Ibadah Santri
     Route::get('/jadwal', [TeacherScheduleController::class, 'index'])->name('schedules.index');
