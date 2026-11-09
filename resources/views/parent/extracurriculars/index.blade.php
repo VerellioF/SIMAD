@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="mt-4 pt-3 border-t border-emerald-100 flex justify-end">
-                        <form action="{{ route('parent.ekskul.cancel', $enr) }}" method="POST" onsubmit="return confirm('Batalkan keikutsertaan ananda pada ekskul ini?')">
+                        <form action="{{ route('parent.ekskul.cancel', $enr) }}" method="POST" @submit.prevent="openConfirm('Batalkan Ekskul', 'Apakah Anda yakin ingin membatalkan keikutsertaan ananda pada ekskul ini?', () => $el.submit())">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-xs text-red-600 hover:text-red-700 font-semibold hover:underline">

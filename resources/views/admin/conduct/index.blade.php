@@ -110,7 +110,7 @@
                                 {{ $rec->recorder->name ?? 'Dewan Guru' }}
                             </td>
                             <td class="px-5 py-4 text-right whitespace-nowrap">
-                                <form action="{{ route('admin.conduct.destroy_record', $rec) }}" method="POST" onsubmit="return confirm('Hapus catatan ini?')">
+                                <form action="{{ route('admin.conduct.destroy_record', $rec) }}" method="POST" @submit.prevent="openConfirm('Hapus Catatan Karakter', 'Hapus catatan poin karakter siswa ini?', () => $el.submit())">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:text-red-700 text-xs font-semibold hover:underline">Hapus</button>
@@ -191,7 +191,7 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-850 font-bold text-xs font-mono">+{{ $rule->points }}</span>
-                                <form action="{{ route('admin.conduct.destroy_rule', $rule) }}" method="POST" onsubmit="return confirm('Hapus aturan ini?')">
+                                <form action="{{ route('admin.conduct.destroy_rule', $rule) }}" method="POST" @submit.prevent="openConfirm('Hapus Aturan Karakter', 'Apakah Anda yakin ingin menghapus aturan poin karakter ini?', () => $el.submit())">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-slate-400 hover:text-red-500 text-xs">✕</button>
@@ -219,7 +219,7 @@
                             </div>
                             <div class="flex items-center gap-2">
                                 <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-bold text-xs font-mono">-{{ $rule->points }}</span>
-                                <form action="{{ route('admin.conduct.destroy_rule', $rule) }}" method="POST" onsubmit="return confirm('Hapus aturan ini?')">
+                                <form action="{{ route('admin.conduct.destroy_rule', $rule) }}" method="POST" @submit.prevent="openConfirm('Hapus Aturan Karakter', 'Apakah Anda yakin ingin menghapus aturan poin karakter ini?', () => $el.submit())">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-slate-400 hover:text-red-500 text-xs">✕</button>

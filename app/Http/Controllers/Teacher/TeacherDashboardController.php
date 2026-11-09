@@ -32,6 +32,10 @@ class TeacherDashboardController extends Controller
             ? TahfidzRecord::whereIn('student_id', $students->pluck('id'))->latest()->limit(5)->get()
             : collect();
 
-        return view('teacher.dashboard', compact('classroom', 'students', 'recentAttendances', 'recentTahfidz'));
+        $pendingLeavesCount = $classroom
+            ? \App\Models\LeaveRequest::whereHas('student', fn ($q) => $q->where('classroom_id', $classroom->id))->where('status', 'pending')->count()
+            : 0;
+
+        return view('teacher.dashboard', compact('classroom', 'students', 'recentAttendances', 'recentTahfidz', 'pendingLeavesCount'));
     }
 }

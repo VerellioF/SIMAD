@@ -65,7 +65,7 @@
                         <button @click="selectedEkskul = {{ $ekskul->toJson() }}; editModal = true" class="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100" title="Edit">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                         </button>
-                        <form action="{{ route('admin.ekskul.destroy', $ekskul) }}" method="POST" onsubmit="return confirm('Hapus ekstrakurikuler ini?')">
+                        <form action="{{ route('admin.ekskul.destroy', $ekskul) }}" method="POST" @submit.prevent="openConfirm('Hapus Ekstrakurikuler', 'Apakah Anda yakin ingin menghapus data ekstrakurikuler ini?', () => $el.submit())">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="p-1.5 rounded-lg border border-red-200 text-red-600 hover:bg-red-50" title="Hapus">
@@ -104,7 +104,7 @@
                             <span class="block text-xs font-bold text-slate-800">{{ $enr->student->full_name }}</span>
                             <span class="text-[10px] text-slate-400">Kelas {{ $enr->student->classroom->name ?? '-' }} • NIS: {{ $enr->student->nis }}</span>
                         </div>
-                        <form action="{{ route('admin.ekskul.unenroll', $enr) }}" method="POST" onsubmit="return confirm('Batalkan siswa dari ekskul ini?')">
+                        <form action="{{ route('admin.ekskul.unenroll', $enr) }}" method="POST" @submit.prevent="openConfirm('Keluarkan Siswa', 'Batalkan keikutsertaan siswa dari ekstrakurikuler ini?', () => $el.submit())">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-[11px] text-red-500 hover:underline">Hapus</button>

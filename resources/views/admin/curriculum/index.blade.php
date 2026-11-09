@@ -77,7 +77,7 @@
                             <button @click="selectedItem = {{ $st->toJson() }}; editModal = true" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">
                                 Edit
                             </button>
-                            <form action="{{ route('admin.curriculum.destroy', $st) }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus mata pelajaran ini dari kurikulum?')">
+                            <form action="{{ route('admin.curriculum.destroy', $st) }}" method="POST" class="inline-block" @submit.prevent="openConfirm('Hapus Mata Pelajaran', 'Apakah Anda yakin ingin menghapus mata pelajaran ini dari struktur kurikulum?', () => $el.submit())">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 text-xs font-semibold">

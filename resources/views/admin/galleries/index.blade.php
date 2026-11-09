@@ -37,7 +37,7 @@
                         <span class="text-[10px] text-slate-400 font-mono mt-1 block">{{ $g->created_at->format('d/m/Y') }}</span>
                     </div>
 
-                    <form action="{{ route('admin.galleries.destroy', $g) }}" method="POST" onsubmit="return confirm('Hapus foto kegiatan ini?')">
+                    <form action="{{ route('admin.galleries.destroy', $g) }}" method="POST" @submit.prevent="openConfirm('Hapus Foto Galeri', 'Apakah Anda yakin ingin menghapus foto kegiatan madrasah ini?', () => $el.submit())">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="p-2 rounded-xl text-slate-400 hover:text-red-600 hover:bg-red-50 transition" title="Hapus Foto">

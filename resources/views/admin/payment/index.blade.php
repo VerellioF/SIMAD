@@ -186,10 +186,10 @@
 
                             <td class="py-4 px-6 text-right">
                                 @if($trx->isPending() && $isSandbox)
-                                    <form action="{{ route('admin.payment.simulate', $trx) }}" method="POST" class="inline">
+                                    <form action="{{ route('admin.payment.simulate', $trx) }}" method="POST" class="inline"
+                                          @submit.prevent="openConfirm('Simulasi Sandbox', 'Simulasikan pembayaran lunas untuk referensi {{ $trx->reference }}?', () => $el.submit())">
                                         @csrf
                                         <button type="submit"
-                                                onclick="return confirm('Simulasikan pembayaran lunas untuk referensi {{ $trx->reference }}?')"
                                                 class="px-3 py-1 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-[11px] shadow transition">
                                             ⚡ Simulasikan Lunas
                                         </button>

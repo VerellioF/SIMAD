@@ -72,33 +72,88 @@
                     </div>
                 </div>
 
+                @php
+                    $studentAttendances = $recentAttendances->where('student_id', $student->id);
+                    $totalRec = $studentAttendances->count();
+                    $hadirCount = $studentAttendances->where('status.value', 'hadir')->count();
+                    $presenceRate = $totalRec > 0 ? round(($hadirCount / $totalRec) * 100) : 100;
+                    
+                    $latestTahfidz = $recentTahfidz->where('student_id', $student->id)->first();
+                    $studentUnpaid = $unpaidBills->where('student_id', $student->id);
+                @endphp
+
                 <!-- 3 Pillars Dashboard Indicators -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <!-- Presensi Kehadiran -->
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                        <span class="text-[10px] uppercase font-bold text-slate-400 block">Presensi Bulan Ini</span>
-                        <span class="text-xl font-extrabold text-emerald-800 font-mono block">100% Hadir</span>
-                        <span class="text-[11px] text-slate-500 block">Disiplin dan aktif mengikuti pembelajaran</span>
+                        <span class="text-[10px] uppercase font-bold text-slate-400 block">Presensi Terakhir</span>
+                        @if($totalRec > 0)
+                            <span class="text-xl font-extrabold text-emerald-800 font-mono block">{{ $presenceRate }}% Hadir</span>
+                            <span class="text-[11px] text-slate-500 block">{{ $hadirCount }} dari {{ $totalRec }} rekaman tatap muka</span>
+                        @else
+                            <span class="text-xl font-extrabold text-emerald-800 font-mono block">100% Hadir</span>
+                            <span class="text-[11px] text-slate-500 block">Disiplin dan aktif mengikuti pembelajaran</span>
+                        @endif
                     </div>
 
                     <!-- Mutaba'ah Tahfidz -->
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                        <span class="text-[10px] uppercase font-bold text-slate-400 block">Target Tahfidz</span>
-                        <span class="text-xl font-extrabold text-amber-700 block">Juz 30 (Juz 'Amma)</span>
-                        <span class="text-[11px] text-slate-500 block">Mutaba'ah harian dibimbing bapak/ibu guru</span>
+                        <span class="text-[10px] uppercase font-bold text-slate-400 block">Setoran Hafalan Terakhir</span>
+                        @if($latestTahfidz)
+                            <span class="text-base font-extrabold text-amber-700 block truncate">
+                                {{ $latestTahfidz->surah_name }} ({{ $latestTahfidz->grade->label() ?? 'Mumtaz' }})
+                            </span>
+                            <span class="text-[11px] text-slate-500 block">
+                                Ayat {{ $latestTahfidz->verse_start }} - {{ $latestTahfidz->verse_end }} • {{ $latestTahfidz->created_at->diffForHumans() }}
+                            </span>
+                        @else
+                            <span class="text-xl font-extrabold text-amber-700 block">Juz 30 (Juz 'Amma)</span>
+                            <span class="text-[11px] text-slate-500 block">Mutaba'ah harian hafalan Al-Qur'an</span>
+                        @endif
                     </div>
 
                     <!-- Status Administrasi SPP -->
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
                         <span class="text-[10px] uppercase font-bold text-slate-400 block">Status SPP Madrasah</span>
-                        @if($unpaidBills->isEmpty())
+                        @if($studentUnpaid->isEmpty())
                             <span class="text-xl font-extrabold text-emerald-600 block">LUNAS</span>
                             <span class="text-[11px] text-slate-500 block">Alhamdulillah, tidak ada tunggakan</span>
                         @else
-                            <span class="text-xl font-extrabold text-red-600 block">{{ $unpaidBills->count() }} Tagihan Belum Lunas</span>
+                            <span class="text-xl font-extrabold text-red-600 block">{{ $studentUnpaid->count() }} Tagihan Belum Lunas</span>
                             <span class="text-[11px] text-red-500 block">Harap konfirmasi pembayaran</span>
                         @endif
                     </div>
+                </div>
+
+                <!-- Aksi Cepat Wali Murid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                    <a href="{{ route('parent.attendance.index', ['student_id' => $student->id]) }}"
+                       class="p-3.5 rounded-2xl bg-slate-50 hover:bg-amber-50/80 border border-slate-200/70 text-slate-800 transition flex flex-col gap-1 group">
+                        <span class="text-lg">📅</span>
+                        <span class="font-extrabold text-xs group-hover:text-amber-900">Rekap Presensi</span>
+                        <span class="text-[10px] text-slate-400">Pantau kehadiran ananda</span>
+                    </a>
+
+                    <a href="{{ route('parent.grades.index', ['student_id' => $student->id]) }}"
+                       class="p-3.5 rounded-2xl bg-slate-50 hover:bg-amber-50/80 border border-slate-200/70 text-slate-800 transition flex flex-col gap-1 group">
+                        <span class="text-lg">📊</span>
+                        <span class="font-extrabold text-xs group-hover:text-amber-900">Nilai & Rapor</span>
+                        <span class="text-[10px] text-slate-400">Hasil asesmen belajar</span>
+                    </a>
+
+                    <a href="{{ route('parent.tuition.index') }}"
+                       class="p-3.5 rounded-2xl bg-slate-50 hover:bg-amber-50/80 border border-slate-200/70 text-slate-800 transition flex flex-col gap-1 group">
+                        <span class="text-lg">💳</span>
+                        <span class="font-extrabold text-xs group-hover:text-amber-900">Tagihan SPP</span>
+                        <span class="text-[10px] text-slate-400">Konfirmasi bukti transfer</span>
+                    </a>
+
+                    <a href="{{ route('parent.leave.index', ['student_id' => $student->id]) }}"
+                       class="p-3.5 rounded-2xl bg-slate-50 hover:bg-amber-50/80 border border-slate-200/70 text-slate-800 transition flex flex-col gap-1 group">
+                        <span class="text-lg">✉️</span>
+                        <span class="font-extrabold text-xs group-hover:text-amber-900">Ajukan Izin</span>
+                        <span class="text-[10px] text-slate-400">Kirim surat sakit/izin</span>
+                    </a>
                 </div>
 
                 <!-- Rekening Pembayaran Infaq & SPP Info -->

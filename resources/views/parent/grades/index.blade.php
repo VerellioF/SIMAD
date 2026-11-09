@@ -79,10 +79,16 @@
 
                                 $scores = array_filter([(float)$harian, (float)$tugas, (float)$pts, (float)$pas], fn($s) => $s > 0);
                                 $avg = count($scores) > 0 ? round(array_sum($scores) / count($scores), 1) : null;
+                                $teacherNote = $subGrades->pluck('notes')->filter()->first();
                             @endphp
                             <tr class="hover:bg-slate-50 transition">
-                                <td class="py-4 px-6 font-bold text-slate-900">
-                                    {{ $sub->name }}
+                                <td class="py-4 px-6">
+                                    <span class="font-bold text-slate-900 block">{{ $sub->name }}</span>
+                                    @if($teacherNote)
+                                        <p class="text-[11px] text-slate-500 mt-0.5 leading-snug line-clamp-2">
+                                            <span class="font-bold text-teal-800">Capaian:</span> {{ $teacherNote }}
+                                        </p>
+                                    @endif
                                 </td>
                                 <td class="py-4 px-6">
                                     <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase {{ $sub->category->value === 'pai' ? 'bg-emerald-50 text-emerald-800' : 'bg-slate-100 text-slate-700' }}">
@@ -160,6 +166,12 @@
                                 {{ $avg !== null ? $avg : 'Belum Ada' }}
                             </span>
                         </div>
+                        @if($subGrades->pluck('notes')->filter()->first())
+                            <div class="p-2 rounded-xl bg-white border border-slate-100 text-[10px] text-slate-600">
+                                <span class="font-bold text-teal-800 block">Capaian Kompetensi:</span>
+                                {{ $subGrades->pluck('notes')->filter()->first() }}
+                            </div>
+                        @endif
                     </div>
                 @empty
                     <div class="py-8 text-center text-xs text-slate-400">

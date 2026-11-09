@@ -83,7 +83,7 @@
                             <button @click="selectedEvent = {{ $event->toJson() }}; editModal = true" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold">
                                 Edit
                             </button>
-                            <form action="{{ route('admin.agenda.destroy', $event) }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus agenda ini?')">
+                            <form action="{{ route('admin.agenda.destroy', $event) }}" method="POST" class="inline-block" @submit.prevent="openConfirm('Hapus Agenda', 'Apakah Anda yakin ingin menghapus agenda madrasah ini?', () => $el.submit())">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 text-xs font-semibold">

@@ -3,7 +3,7 @@
 @section('title', 'Validasi Izin Siswa')
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-6" x-data="{ rejectModal: false, activeAction: '', activeStudent: '', rejectNotes: '' }">
 
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -90,22 +90,20 @@
                             </td>
                             <td class="py-4 px-6 text-right">
                                 @if($req->status->value === 'pending')
-                                    <div class="flex items-center justify-end gap-1.5" x-data="{ openNotes: false }">
+                                    <div class="flex items-center justify-end gap-1.5">
                                         <form action="{{ route('teacher.leave.update', $req) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="status" value="approved">
-                                            <button type="submit" class="px-3 py-1.5 rounded-lg bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs transition">
+                                            <button type="submit" class="px-3 py-1.5 rounded-lg bg-emerald-900 hover:bg-emerald-800 text-white font-bold text-xs transition shadow-sm">
                                                 Setujui
                                             </button>
                                         </form>
 
-                                        <form action="{{ route('teacher.leave.update', $req) }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="status" value="rejected">
-                                            <button type="submit" class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 font-bold text-xs border border-red-200 transition">
-                                                Tolak
-                                            </button>
-                                        </form>
+                                        <button type="button"
+                                                @click="rejectModal = true; activeAction = '{{ route('teacher.leave.update', $req) }}'; activeStudent = '{{ $req->student->full_name }}'; rejectNotes = ''"
+                                                class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 font-bold text-xs border border-red-200 transition">
+                                            Tolak...
+                                        </button>
                                     </div>
                                 @else
                                     <span class="text-[11px] text-slate-400">Selesai Diverifikasi</span>
@@ -125,6 +123,49 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!-- Modal Tolak Izin Siswa -->
+    <div x-show="rejectModal" x-cloak
+         class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div @click.away="rejectModal = false"
+             class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-150">
+            <div class="flex items-start gap-3 border-b border-slate-100 pb-3">
+                <div class="w-10 h-10 rounded-2xl bg-red-100 text-red-700 flex items-center justify-center font-black text-lg shrink-0">
+                    ✕
+                </div>
+                <div>
+                    <h3 class="text-sm font-extrabold text-slate-900">Tolak Pengajuan Izin</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Siswa: <strong x-text="activeStudent"></strong></p>
+                </div>
+            </div>
+
+            <form :action="activeAction" method="POST" class="space-y-4">
+                @csrf
+                <input type="hidden" name="status" value="rejected">
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">
+                        Alasan / Catatan Guru untuk Wali Murid <span class="text-slate-400 font-normal">(opsional)</span>:
+                    </label>
+                    <textarea name="review_notes" x-model="rejectNotes" rows="3"
+                              placeholder="Misal: Mohon lampirkan surat dokter asli, atau hari ini ada jadwal ujian penting..."
+                              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-red-600 focus:outline-none"></textarea>
+                    <p class="text-[10px] text-slate-400 mt-1">Catatan ini akan tersimpan dan dapat dibaca oleh wali murid pada portal.</p>
+                </div>
+
+                <div class="pt-2 flex justify-end gap-2 border-t border-slate-100">
+                    <button type="button" @click="rejectModal = false"
+                            class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+                        Batal
+                    </button>
+                    <button type="submit"
+                            class="px-5 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow transition">
+                        Konfirmasi Tolak Izin
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 

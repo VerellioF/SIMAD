@@ -13,7 +13,7 @@
         </div>
 
         <div class="flex items-center gap-2 flex-wrap">
-            <form action="{{ route('admin.tuition.broadcast_reminders') }}" method="POST" onsubmit="return confirm('Kirimkan pengingat tagihan SPP massal via WhatsApp kepada seluruh wali murid yang belum lunas?')">
+            <form action="{{ route('admin.tuition.broadcast_reminders') }}" method="POST" @submit.prevent="openConfirm('Broadcast Pengingat SPP', 'Kirimkan notifikasi pengingat SPP resmi via WhatsApp kepada seluruh wali murid yang belum lunas?', () => $el.submit())">
                 @csrf
                 <button type="submit"
                         class="px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow flex items-center justify-center gap-2 transition">
@@ -224,7 +224,7 @@
                                     </div>
                                 @elseif($bill->status->value === 'unpaid')
                                     <div class="flex items-center justify-end gap-1.5 flex-wrap">
-                                        <form action="{{ route('admin.tuition.reminder', $bill) }}" method="POST" class="inline" onsubmit="return confirm('Kirim notifikasi pengingat SPP via WhatsApp ke wali murid {{ $bill->student->full_name }}?')">
+                                        <form action="{{ route('admin.tuition.reminder', $bill) }}" method="POST" class="inline" @submit.prevent="openConfirm('Kirim Pengingat WA', 'Kirim notifikasi pengingat SPP via WhatsApp ke wali murid {{ $bill->student->full_name }}?', () => $el.submit())">
                                             @csrf
                                             <button type="submit" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-xs transition" title="Kirim Pesan WhatsApp & Link QRIS">
                                                 💬 Ingatkan WA

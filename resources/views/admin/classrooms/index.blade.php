@@ -51,7 +51,7 @@
                             class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
                         Edit
                     </button>
-                    <form action="{{ route('admin.classrooms.destroy', $cls) }}" method="POST" onsubmit="return confirm('Hapus rombel ini? Hanya bisa jika tidak ada siswa di dalamnya.')">
+                    <form action="{{ route('admin.classrooms.destroy', $cls) }}" method="POST" @submit.prevent="openConfirm('Hapus Rombel Kelas', 'Hapus rombel ini? Hanya dapat dihapus jika tidak ada siswa aktif di dalamnya.', () => $el.submit())">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 font-bold text-xs transition">

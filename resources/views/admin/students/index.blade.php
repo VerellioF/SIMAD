@@ -124,7 +124,7 @@
                                             class="px-2 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[10px] transition">
                                         Edit
                                     </button>
-                                    <form action="{{ route('admin.students.destroy', $st) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus siswa ini?')">
+                                    <form action="{{ route('admin.students.destroy', $st) }}" method="POST" class="inline" @submit.prevent="openConfirm('Hapus Data Siswa', 'Apakah Anda yakin ingin menghapus siswa {{ $st->full_name }} dari master data madrasah?', () => $el.submit())">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="px-2 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 font-bold text-[10px] transition">

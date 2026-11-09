@@ -65,7 +65,7 @@
                                             {{ $slot->teacher->name ?? 'Guru Pengampu' }}
                                         </p>
                                     </div>
-                                    <form action="{{ route('admin.schedules.destroy', $slot) }}" method="POST" onsubmit="return confirm('Hapus slot ini?')">
+                                    <form action="{{ route('admin.schedules.destroy', $slot) }}" method="POST" @submit.prevent="openConfirm('Hapus Slot Jadwal', 'Apakah Anda yakin ingin menghapus slot jadwal mata pelajaran ini?', () => $el.submit())">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-red-600 transition" title="Hapus Slot">

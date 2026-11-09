@@ -44,7 +44,54 @@
             <span class="block text-xl font-bold text-slate-800">
                 {{ $recentAttendances->count() > 0 ? $recentAttendances->count() . ' Terabsen' : 'Belum Ada Input' }}
             </span>
-            <span class="text-[11px] text-teal-700 font-semibold">Buka modul presensi harian</span>
+            <a href="{{ route('teacher.attendance.index') }}" class="text-[11px] text-teal-700 hover:underline font-semibold inline-flex items-center gap-1">
+                <span>Input presensi harian &rarr;</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Quick Action Shortcuts (Mobile & Desktop Friendly) -->
+    <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+            <h3 class="text-sm font-extrabold text-slate-900 tracking-tight">⚡ Aksi Cepat Guru & Wali Kelas</h3>
+            <span class="text-xs text-slate-400">Pintasan tugas harian pembelajaran</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <a href="{{ route('teacher.attendance.index') }}"
+               class="p-4 rounded-2xl bg-teal-50/70 hover:bg-teal-100/70 border border-teal-100 text-teal-950 transition flex flex-col gap-1.5 group">
+                <span class="text-xl">📝</span>
+                <span class="font-extrabold text-xs group-hover:text-teal-800">Isi Presensi</span>
+                <span class="text-[10px] text-slate-500">Catat kehadiran kelas & mapel</span>
+            </a>
+
+            <a href="{{ route('teacher.tahfidz.index') }}"
+               class="p-4 rounded-2xl bg-emerald-50/70 hover:bg-emerald-100/70 border border-emerald-100 text-emerald-950 transition flex flex-col gap-1.5 group">
+                <span class="text-xl">📖</span>
+                <span class="font-extrabold text-xs group-hover:text-emerald-800">Setoran Tahfidz</span>
+                <span class="text-[10px] text-slate-500">Mutaba'ah hafalan Juz 'Amma</span>
+            </a>
+
+            <a href="{{ route('teacher.grades.index') }}"
+               class="p-4 rounded-2xl bg-blue-50/70 hover:bg-blue-100/70 border border-blue-100 text-blue-950 transition flex flex-col gap-1.5 group">
+                <span class="text-xl">📊</span>
+                <span class="font-extrabold text-xs group-hover:text-blue-800">Buku Nilai</span>
+                <span class="text-[10px] text-slate-500">Smart spreadsheet formatif & sumatif</span>
+            </a>
+
+            <a href="{{ route('teacher.leave.index') }}"
+               class="p-4 rounded-2xl bg-amber-50/70 hover:bg-amber-100/70 border border-amber-100 text-amber-950 transition flex flex-col gap-1.5 group relative">
+                @if(isset($pendingLeavesCount) && $pendingLeavesCount > 0)
+                    <span class="absolute top-2 right-2 px-1.5 py-0.5 rounded-full bg-rose-500 text-white text-[9px] font-black animate-pulse">
+                        {{ $pendingLeavesCount }} Baru
+                    </span>
+                @endif
+                <span class="text-xl">📨</span>
+                <span class="font-extrabold text-xs group-hover:text-amber-800">Validasi Izin</span>
+                <span class="text-[10px] text-slate-500">
+                    {{ isset($pendingLeavesCount) && $pendingLeavesCount > 0 ? $pendingLeavesCount . ' permohonan menunggu' : 'Cek permohonan surat izin' }}
+                </span>
+            </a>
         </div>
     </div>
 
