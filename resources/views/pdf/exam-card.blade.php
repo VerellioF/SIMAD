@@ -126,7 +126,7 @@
             <table class="header-table">
                 <tr>
                     <td style="width: 12%; text-align: center; vertical-align: middle;">
-                        <img src="{{ public_path('images/logo-madrasah.svg') }}" style="width: 45px; height: auto;" alt="Logo">
+                        <img src="{{ public_path('images/logo-madrasah-pdf.svg') }}" style="width: 45px; height: auto;" alt="Logo">
                     </td>
                     <td class="header-title" style="width: 88%;">
                         <h2>{{ $school['name'] }}</h2>
@@ -144,7 +144,13 @@
             <table class="meta-table">
                 <tr>
                     <td style="width: 18%; vertical-align: middle;">
-                        <div class="photo-box">FOTO 3x4</div>
+                        <div class="photo-box">
+                            @if($student->photo_path && file_exists(public_path('storage/' . $student->photo_path)))
+                                <img src="{{ public_path('storage/' . $student->photo_path) }}" style="width: 70px; height: 95px; object-fit: cover;" alt="Foto">
+                            @else
+                                FOTO 3x4
+                            @endif
+                        </div>
                     </td>
                     <td style="width: 82%; vertical-align: top; padding-left: 10px;">
                         <table style="width: 100%; border-collapse: collapse;">

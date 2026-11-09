@@ -66,7 +66,8 @@
                 </div>
             </div>
 
-            <div class="overflow-x-auto">
+            <!-- Desktop Table View -->
+            <div class="hidden sm:block overflow-x-auto">
                 <table class="w-full text-left text-xs">
                     <thead class="bg-slate-50 text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-100">
                         <tr>
@@ -113,6 +114,43 @@
                         @endforelse
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Mobile Responsive Card View -->
+            <div class="sm:hidden p-4 space-y-3">
+                @forelse($records as $rec)
+                    <div class="p-4 rounded-2xl border border-slate-200/80 bg-slate-50/50 space-y-2.5">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <span class="font-extrabold text-sm text-emerald-950 block">QS. {{ $rec->surah_name }}</span>
+                                <span class="text-xs text-slate-500 font-mono">{{ $rec->verse_range }}</span>
+                            </div>
+                            <span class="text-[10px] font-mono text-slate-400">{{ $rec->date->format('d/m/Y') }}</span>
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase {{ $rec->fluency_grade->value === 'lancar' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800' }}">
+                                {{ $rec->fluency_grade->value === 'lancar' ? 'Lancar & Fasih' : ($rec->fluency_grade->value === 'kurang_lancar' ? 'Kurang Lancar' : 'Mengulang') }}
+                            </span>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase {{ $rec->tajweed_grade->value === 'mumtaz' ? 'bg-teal-100 text-teal-800' : 'bg-slate-200 text-slate-700' }}">
+                                Tajwid: {{ ucfirst($rec->tajweed_grade->value) }}
+                            </span>
+                        </div>
+                        @if($rec->notes || $rec->teacher)
+                            <div class="p-2.5 rounded-xl bg-white border border-slate-100 text-xs text-slate-600">
+                                @if($rec->notes)
+                                    <p class="leading-relaxed">{{ $rec->notes }}</p>
+                                @endif
+                                @if($rec->teacher)
+                                    <span class="text-[10px] text-slate-400 block mt-1">Penguji: {{ $rec->teacher->name }}</span>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+                @empty
+                    <div class="py-8 text-center text-slate-400 text-xs">
+                        Belum ada catatan setoran hafalan untuk ananda.
+                    </div>
+                @endforelse
             </div>
 
             @if($records instanceof \Illuminate\Pagination\LengthAwarePaginator && $records->hasPages())

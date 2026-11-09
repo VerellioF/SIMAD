@@ -141,7 +141,7 @@
     <table class="header-table">
         <tr>
             <td style="width: 15%; text-align: center; vertical-align: middle;">
-                <img src="{{ public_path('images/logo-madrasah.svg') }}" style="width: 65px; height: auto;" alt="Logo">
+                <img src="{{ public_path('images/logo-madrasah-pdf.svg') }}" style="width: 65px; height: auto;" alt="Logo">
             </td>
             <td class="header-title" style="width: 85%;">
                 <p style="font-size: 8.5pt; letter-spacing: 1px;">KEMENTERIAN AGAMA REPUBLIK INDONESIA</p>
