@@ -38,9 +38,9 @@ Setiap entitas bisnis, agensi perangkat lunak, penyedia jasa IT, atau individu y
 ## Pembelian Lisensi Komersial & Kerjasama
 
 Untuk konsultasi implementasi resmi, kustomisasi fitur, atau pembelian Lisensi Komersial:
-- **Email:** `license@miplus-kalipucung.sch.id`
-- **WhatsApp Kemitraan:** +62 812-3456-7890
-- **Pengembang:** Tim SIMAD & Yayasan Raudlatul Muta'allimin
+- **Email:** `connect@verellio.com`
+- **WhatsApp Kemitraan:** +6282227114134
+- **Pengembang:** Verellio
 
 ---
 
