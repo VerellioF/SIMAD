@@ -49,7 +49,7 @@
                     </div>
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
                         <span class="text-slate-400 block text-[10px] uppercase font-bold">Jenis Kelamin</span>
-                        <span class="font-bold text-slate-800 block mt-0.5">{{ $registration->gender === 'L' ? 'Laki-laki (Ikhwan)' : 'Perempuan (Akhwat)' }}</span>
+                        <span class="font-bold text-slate-800 block mt-0.5">{{ $registration->gender === 'L' ? 'Laki-laki' : 'Perempuan' }}</span>
                     </div>
                     <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
                         <span class="text-slate-400 block text-[10px] uppercase font-bold">Tempat & Tanggal Lahir</span>
