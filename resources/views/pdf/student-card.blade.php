@@ -5,206 +5,432 @@
     <title>Kartu Tanda Siswa - {{ $student->full_name }}</title>
     <style>
         @page {
-            margin: 0;
-            size: 85.6mm 54mm landscape;
+            margin: 1.2cm 1.5cm;
+            size: a4 portrait;
         }
         body {
             font-family: Arial, Helvetica, sans-serif;
+            font-size: 8.5pt;
+            color: #1e293b;
+            background-color: #ffffff;
             margin: 0;
-            padding: 4mm 5mm;
-            background: #ffffff;
-            color: #0f172a;
-            -webkit-print-color-adjust: exact;
+            padding: 0;
         }
-        .card-container {
-            width: 100%;
-            height: 100%;
-            border: 1.5px solid #0d3b2e;
-            border-radius: 4mm;
-            padding: 3mm 4mm;
-            box-sizing: border-box;
-            background-color: #fafaf9;
-            position: relative;
-        }
-        .header {
-            display: table;
-            width: 100%;
-            border-bottom: 1.5px solid #0d3b2e;
-            padding-bottom: 1.5mm;
-            margin-bottom: 2mm;
-        }
-        .header-logo {
-            display: table-cell;
-            width: 12mm;
-            vertical-align: middle;
-        }
-        .header-logo img {
-            width: 10mm;
-            height: auto;
-        }
-        .header-text {
-            display: table-cell;
-            vertical-align: middle;
+
+        /* Sheet Header */
+        .sheet-header {
             text-align: center;
+            border-bottom: 2px solid #0d3b2e;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
         }
-        .header-text h1 {
+        .sheet-header h2 {
             margin: 0;
-            font-size: 7.5pt;
+            font-size: 13pt;
             color: #0d3b2e;
-            text-transform: uppercase;
-            font-weight: 800;
-        }
-        .header-text p {
-            margin: 0.5mm 0 0 0;
-            font-size: 5.5pt;
-            color: #475569;
-        }
-        .title-badge {
-            text-align: center;
-            margin-bottom: 2mm;
-        }
-        .title-badge span {
-            background-color: #0d3b2e;
-            color: #ffffff;
-            font-size: 6pt;
-            font-weight: bold;
-            padding: 1mm 4mm;
-            border-radius: 2mm;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .content {
-            display: table;
-            width: 100%;
-        }
-        .photo-box {
-            display: table-cell;
-            width: 18mm;
-            vertical-align: top;
-        }
-        .photo-frame {
-            width: 16mm;
-            height: 20mm;
-            border: 1px solid #cbd5e0;
-            border-radius: 2mm;
-            background-color: #e2e8f0;
-            text-align: center;
-            line-height: 20mm;
-            font-size: 6pt;
+        .sheet-header p {
+            margin: 2px 0 0 0;
+            font-size: 8.5pt;
             color: #64748b;
         }
-        .data-box {
-            display: table-cell;
-            vertical-align: top;
-            padding-left: 2mm;
-        }
-        table.info-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 6.5pt;
-        }
-        table.info-table td {
-            padding: 0.8mm 0;
-            vertical-align: top;
-        }
-        .label {
-            width: 16mm;
+
+        /* Instructions */
+        .instruction-box {
+            background-color: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 8pt;
             color: #475569;
-        }
-        .colon {
-            width: 2mm;
+            margin-bottom: 25px;
             text-align: center;
         }
-        .val {
+
+        /* Card Container (Standard ID Card CR80: 85.6mm x 54mm) */
+        .card-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .card-outer {
+            width: 324px; /* approx 85.6mm at 96dpi */
+            height: 205px; /* approx 54.0mm at 96dpi */
+            border: 2px solid #0d3b2e;
+            border-radius: 12px;
+            background: #ffffff;
+            overflow: hidden;
+            box-sizing: border-box;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        /* Front Card Header */
+        .card-top {
+            background: #0d3b2e;
+            color: #ffffff;
+            padding: 5px 8px 4px 8px;
+            border-bottom: 2px solid #d4af37;
+        }
+        .card-top-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .logo-cell {
+            width: 30px;
+            vertical-align: middle;
+            text-align: left;
+        }
+        .logo-img {
+            width: 26px;
+            height: auto;
+        }
+        .header-cell {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .header-cell h3 {
+            margin: 0;
+            font-size: 7.5pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #ffffff;
+        }
+        .header-cell p {
+            margin: 1px 0 0 0;
+            font-size: 5pt;
+            color: #cbd5e1;
+            line-height: 1.1;
+        }
+
+        /* Card Subheader Badge */
+        .badge-strip {
+            background-color: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 2.5px 8px;
+            text-align: center;
+        }
+        .badge-title {
+            display: inline-block;
+            background-color: #0d3b2e;
+            color: #d4af37;
+            font-size: 6pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 6px 8px 4px 8px;
+        }
+        .body-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .photo-column {
+            width: 58px;
+            vertical-align: top;
+            text-align: center;
+        }
+        .photo-holder {
+            width: 52px;
+            height: 66px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            background-color: #f8fafc;
+            text-align: center;
+            vertical-align: middle;
+            display: block;
+            margin: 0 auto;
+        }
+        .photo-holder span {
+            font-size: 6pt;
+            color: #94a3b8;
+            line-height: 66px;
+            display: block;
+        }
+        .photo-nis {
+            font-family: monospace;
+            font-size: 6pt;
+            font-weight: bold;
+            color: #0d3b2e;
+            margin-top: 3px;
+            display: block;
+        }
+
+        /* Student Details Table */
+        .info-column {
+            vertical-align: top;
+            padding-left: 6px;
+        }
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 6.2pt;
+            line-height: 1.25;
+        }
+        .student-table td {
+            padding: 0.8px 0;
+            vertical-align: top;
+        }
+        .st-lbl {
+            width: 52px;
+            color: #64748b;
+        }
+        .st-sep {
+            width: 6px;
+            text-align: center;
+            color: #64748b;
+        }
+        .st-val {
             font-weight: bold;
             color: #0f172a;
         }
-        .footer {
-            margin-top: 1.5mm;
-            display: table;
-            width: 100%;
-            font-size: 5pt;
+
+        /* Card Bottom / Footer */
+        .card-footer {
+            position: absolute;
+            bottom: 3px;
+            left: 8px;
+            right: 8px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 2px;
         }
-        .barcode-side {
-            display: table-cell;
+        .footer-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 5pt;
+            line-height: 1.1;
+        }
+        .barcode-cell {
             vertical-align: bottom;
             font-family: monospace;
             font-weight: bold;
+            font-size: 6pt;
             color: #0d3b2e;
         }
-        .sig-side {
-            display: table-cell;
+        .signature-cell {
             text-align: right;
             vertical-align: bottom;
-            line-height: 1.2;
+        }
+        .sig-title {
+            color: #64748b;
+        }
+        .sig-name {
+            font-weight: bold;
+            color: #0d3b2e;
+        }
+
+        /* Card Back Styling */
+        .back-top {
+            background: #0d3b2e;
+            color: #d4af37;
+            padding: 4px 8px;
+            text-align: center;
+            border-bottom: 2px solid #d4af37;
+        }
+        .back-top h3 {
+            margin: 0;
+            font-size: 6.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .back-body {
+            padding: 6px 10px;
+            font-size: 5.6pt;
+            line-height: 1.35;
+            color: #334155;
+        }
+        .back-body ol {
+            margin: 3px 0 6px 14px;
+            padding: 0;
+        }
+        .back-body li {
+            margin-bottom: 2px;
+        }
+        .return-note {
+            background-color: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 3px 6px;
+            font-size: 5pt;
+            color: #475569;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        /* Cut Line */
+        .cut-box {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .cut-label {
+            font-size: 7.5pt;
+            font-weight: bold;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
     </style>
 </head>
 <body>
-    <div class="card-container">
-        <!-- Header -->
-        <div class="header">
-            <div class="header-logo">
-                <img src="{{ public_path('images/logo-madrasah.svg') }}" alt="Logo">
-            </div>
-            <div class="header-text">
-                <h1>{{ $school['name'] }}</h1>
-                <p>NSM: {{ $school['nsm'] }} | NPSN: {{ $school['npsn'] }} | {{ $school['address'] }}</p>
-            </div>
-        </div>
 
-        <div class="title-badge">
-            <span>Kartu Tanda Siswa (KTS)</span>
-        </div>
-
-        <!-- Content -->
-        <div class="content">
-            <div class="photo-box">
-                <div class="photo-frame">
-                    FOTO 2x3
-                </div>
-            </div>
-            <div class="data-box">
-                <table class="info-table">
-                    <tr>
-                        <td class="label">Nama Lengkap</td>
-                        <td class="colon">:</td>
-                        <td class="val">{{ $student->full_name }}</td>
-                    </tr>
-                    <tr>
-                        <td class="label">NIS / NISN</td>
-                        <td class="colon">:</td>
-                        <td class="val">{{ $student->nis }} / {{ $student->nisn }}</td>
-                    </tr>
-                    <tr>
-                        <td class="label">Kelas / Rombel</td>
-                        <td class="colon">:</td>
-                        <td class="val">{{ $student->classroom?->name ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td class="label">TTL</td>
-                        <td class="colon">:</td>
-                        <td class="val">{{ $student->birth_place }}, {{ $student->birth_date?->format('d/m/Y') }}</td>
-                    </tr>
-                    <tr>
-                        <td class="label">Alamat</td>
-                        <td class="colon">:</td>
-                        <td class="val">{{ \Illuminate\Support\Str::limit($student->address, 38) }}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Footer / Signature -->
-        <div class="footer">
-            <div class="barcode-side">
-                *{{ $student->nis }}*
-            </div>
-            <div class="sig-side">
-                Kepala Madrasah<br>
-                <strong>{{ $school['principal'] }}</strong>
-            </div>
-        </div>
+    <!-- Header Dokumen Cetak -->
+    <div class="sheet-header">
+        <h2>{{ $school['name'] }}</h2>
+        <p>LEMBAR CETAK KARTU TANDA SISWA (KTS) RESMI</p>
+        <p>{{ $school['address'] }} | NSM: {{ $school['nsm'] }} | NPSN: {{ $school['npsn'] }}</p>
     </div>
+
+    <!-- Petunjuk Cetak & Laminating -->
+    <div class="instruction-box">
+        <strong>💡 Petunjuk Pencetakan untuk Staf TU / Wali Murid:</strong><br>
+        1. Cetak dokumen ini pada kertas tebal A4 (misal: kertas foto / karton 210-260 gsm) dengan skala cetak 100% (Actual Size).<br>
+        2. Gunting kedua kartu (Sisi Depan & Sisi Belakang) mengikuti garis batas kartu ✂.<br>
+        3. Rekatkan sisi depan dan belakang secara presisi, lalu laminating untuk hasil kartu tanda siswa yang kokoh dan tahan lama.
+    </div>
+
+    <!-- Layout Dua Sisi Kartu Berdampingan / Berurutan -->
+    <table class="card-table">
+        <tr>
+            <!-- SISI DEPAN -->
+            <td style="width: 50%; vertical-align: top; text-align: center; padding-right: 15px;">
+                <div class="cut-label">▼ SISI DEPAN (FRONT) ▼</div>
+                
+                <div class="card-outer">
+                    <!-- Top Header -->
+                    <div class="card-top">
+                        <table class="card-top-table">
+                            <tr>
+                                <td class="logo-cell">
+                                    <img src="{{ public_path('images/logo-madrasah.svg') }}" class="logo-img" alt="Logo">
+                                </td>
+                                <td class="header-cell">
+                                    <h3>{{ $school['name'] }}</h3>
+                                    <p>NSM: {{ $school['nsm'] }} • NPSN: {{ $school['npsn'] }}</p>
+                                    <p>{{ $school['address'] }}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Subheader Badge -->
+                    <div class="badge-strip">
+                        <span class="badge-title">KARTU TANDA SISWA (KTS)</span>
+                    </div>
+
+                    <!-- Body Content -->
+                    <div class="card-body">
+                        <table class="body-table">
+                            <tr>
+                                <!-- Photo Box -->
+                                <td class="photo-column">
+                                    <div class="photo-holder">
+                                        <span>FOTO 2x3</span>
+                                    </div>
+                                    <span class="photo-nis">{{ $student->nis }}</span>
+                                </td>
+
+                                <!-- Student Details -->
+                                <td class="info-column">
+                                    <table class="student-table">
+                                        <tr>
+                                            <td class="st-lbl">Nama Lengkap</td>
+                                            <td class="st-sep">:</td>
+                                            <td class="st-val">{{ $student->full_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="st-lbl">NIS / NISN</td>
+                                            <td class="st-sep">:</td>
+                                            <td class="st-val" style="font-family: monospace;">{{ $student->nis }} / {{ $student->nisn }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="st-lbl">Kelas / Rombel</td>
+                                            <td class="st-sep">:</td>
+                                            <td class="st-val">{{ $student->classroom?->name ?? '-' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="st-lbl">Tempat, Tgl Lahir</td>
+                                            <td class="st-sep">:</td>
+                                            <td class="st-val">{{ $student->birth_place }}, {{ $student->birth_date?->format('d/m/Y') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="st-lbl">Jenis Kelamin</td>
+                                            <td class="st-sep">:</td>
+                                            <td class="st-val">{{ $student->gender === 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="st-lbl">Alamat</td>
+                                            <td class="st-sep">:</td>
+                                            <td class="st-val">{{ \Illuminate\Support\Str::limit($student->address, 36) }}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Card Footer -->
+                    <div class="card-footer">
+                        <table class="footer-table">
+                            <tr>
+                                <td class="barcode-cell">
+                                    *{{ $student->nis }}*
+                                </td>
+                                <td class="signature-cell">
+                                    <span class="sig-title">Kepala Madrasah,</span><br>
+                                    <span class="sig-name">{{ $school['principal'] }}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+
+            <!-- SISI BELAKANG -->
+            <td style="width: 50%; vertical-align: top; text-align: center; padding-left: 15px;">
+                <div class="cut-label">▼ SISI BELAKANG (BACK) ▼</div>
+
+                <div class="card-outer">
+                    <!-- Top Header -->
+                    <div class="back-top">
+                        <h3>TATA TERTIB & KETENTUAN PEMEGANG KARTU</h3>
+                    </div>
+
+                    <!-- Back Body -->
+                    <div class="back-body">
+                        <strong style="color: #0d3b2e;">Janji & Kewajiban Siswa Madrasah:</strong>
+                        <ol>
+                            <li>Taat kepada Allah SWT & Rasul-Nya, berbakti kepada orang tua dan bapak/ibu guru.</li>
+                            <li>Rajin shalat fardhu 5 waktu, shalat dhuha, dan istiqomah menghafal Al-Qur'an.</li>
+                            <li>Menjaga adab, kejujuran, kedisiplinan, dan nama baik madrasah di mana pun berada.</li>
+                            <li>Kartu tanda siswa ini wajib dibawa saat kegiatan KBM dan asesmen semester.</li>
+                        </ol>
+
+                        <div class="return-note">
+                            <strong>Pemberitahuan:</strong><br>
+                            Kartu ini adalah identitas resmi siswa MI Plus Raudlatul Muta'allimin.<br>
+                            Apabila menemukan kartu ini tercecer, mohon diserahkan ke alamat madrasah atau hubungi kantor TU.
+                        </div>
+
+                        <div style="text-align: right; margin-top: 6px; font-size: 5pt; color: #475569;">
+                            Blitar, Jawa Timur<br>
+                            <strong>MI Plus Raudlatul Muta'allimin</strong>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
 </body>
 </html>

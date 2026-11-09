@@ -19,7 +19,7 @@ class StudentCardPdfService
         $school = $this->getSchoolData();
 
         return Pdf::loadView('pdf.student-card', compact('student', 'school'))
-            ->setPaper([0, 0, 242.64, 153.07], 'landscape') // Standard CR80 ID Card dimensions (85.6mm x 54mm in pt)
+            ->setPaper('a4', 'portrait')
             ->setOption('isHtml5ParserEnabled', true)
             ->setOption('isRemoteEnabled', true);
     }
