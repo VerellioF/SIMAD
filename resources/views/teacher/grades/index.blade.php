@@ -49,7 +49,7 @@
         });
         this.showUniformModal = false;
         let colLabel = col.toUpperCase();
-        this.showToast('Nilai Seragam Diterapkan', `Skor ${val} berhasil diisikan ke seluruh siswa untuk kolom ${colLabel}.`, 'success');
+        this.showToast('Nilai Seragam Diterapkan', `Skor ${val} berhasil diisikan ke seluruh ${this.students.length} siswa untuk kolom ${colLabel}.`, 'success');
     },
 
     // Raw initial student grades data from backend
@@ -133,12 +133,16 @@
         let col = targetCol || this.activeCol || 'harian';
         let count = 0;
         this.students.forEach(st => {
-            if (st[col] === '' || st[col] === null) {
+            if (st[col] === '' || st[col] === null || st[col] === undefined) {
                 st[col] = 75;
                 count++;
             }
         });
-        this.showToast('KKM Berhasil Diisikan', `Nilai KKM (75) berhasil diterapkan pada ${count} siswa untuk kolom ${col.toUpperCase()}.`, 'success');
+        if (count > 0) {
+            this.showToast('KKM Berhasil Diisikan', `Nilai KKM (75) berhasil diterapkan pada ${count} siswa untuk kolom ${col.toUpperCase()}.`, 'success');
+        } else {
+            this.showToast('Semua Siswa Sudah Bernilai', `Semua siswa sudah memiliki nilai pada kolom ${col.toUpperCase()}. Gunakan 'Isi Seragam...' jika ingin menimpa nilai yang ada.`, 'info');
+        }
     },
 
     // Auto-generate standard Kemenag/Kurikulum Merdeka notes based on final score
