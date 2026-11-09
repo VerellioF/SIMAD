@@ -213,6 +213,34 @@ class PaymentGatewayTest extends TestCase
         ]);
     }
 
+    public function test_ppdb_form_submission_with_qris_redirects_directly_to_checkout(): void
+    {
+        \Illuminate\Support\Facades\Storage::fake('public');
+
+        $birthCert = \Illuminate\Http\UploadedFile::fake()->create('akta.pdf', 300, 'application/pdf');
+        $familyCard = \Illuminate\Http\UploadedFile::fake()->create('kk.jpg', 300, 'image/jpeg');
+
+        $response = $this->post('/ppdb/daftar', [
+            'child_name' => 'Hasan Al-Banna',
+            'nik' => '3505011212190002',
+            'gender' => 'L',
+            'birth_place' => 'Blitar',
+            'birth_date' => '2019-12-12',
+            'previous_school' => 'TK Dharma Wanita',
+            'parent_name' => 'Bapak Mahmud',
+            'parent_whatsapp' => '081234567812',
+            'address' => 'Kalipucung, Blitar',
+            'payment_method' => 'qris',
+            'file_birth_certificate' => $birthCert,
+            'file_family_card' => $familyCard,
+        ]);
+
+        $registration = PpdbRegistration::where('nik', '3505011212190002')->first();
+        $this->assertNotNull($registration);
+
+        $response->assertRedirect(route('ppdb.pay', ['registration_number' => $registration->registration_number]));
+    }
+
     public function test_webhook_marks_transaction_as_paid_idempotently(): void
     {
         $this->actingAs($this->parent)

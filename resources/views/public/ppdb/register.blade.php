@@ -11,7 +11,7 @@
     fileKkName: '',
     fileFotoName: '',
     filePaymentName: '',
-    paymentMethod: '{{ old('payment_method', 'transfer') }}',
+    paymentMethod: '{{ old('payment_method', 'qris') }}',
 }">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -306,29 +306,68 @@
                         <!-- Pilihan Metode Pembayaran -->
                         <div class="space-y-3">
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                                Pilih Cara Pembayaran <span class="text-red-500">*</span>
+                                Pilih Cara Pembayaran Biaya Formulir <span class="text-red-500">*</span>
                             </label>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <!-- Transfer Bank -->
-                                <label class="relative flex items-start p-4 rounded-2xl border-2 cursor-pointer transition"
-                                    :class="paymentMethod === 'transfer' ? 'border-emerald-600 bg-emerald-50/50 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'">
-                                    <input type="radio" name="payment_method" value="transfer" x-model="paymentMethod" class="mt-1 text-emerald-800 focus:ring-emerald-600">
-                                    <div class="ml-3">
-                                        <span class="block text-xs font-bold text-slate-900">Transfer Bank (BSI Syariah)</span>
-                                        <span class="block text-[11px] text-slate-500 mt-0.5">Transfer via ATM / Mobile Banking, lalu unggah bukti bayar.</span>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <!-- QRIS Payment Gateway (Rekomendasi) -->
+                                <label class="relative flex flex-col justify-between p-4 rounded-2xl border-2 cursor-pointer transition"
+                                    :class="paymentMethod === 'qris' ? 'border-emerald-600 bg-emerald-50/70 shadow-sm ring-2 ring-emerald-600/20' : 'border-slate-200 bg-white hover:border-slate-300'">
+                                    <div class="flex items-start">
+                                        <input type="radio" name="payment_method" value="qris" x-model="paymentMethod" class="mt-1 text-emerald-800 focus:ring-emerald-600">
+                                        <div class="ml-3">
+                                            <div class="flex items-center gap-1.5 flex-wrap">
+                                                <span class="block text-xs font-bold text-slate-900">QRIS Online</span>
+                                                <span class="px-1.5 py-0.5 rounded bg-emerald-600 text-white text-[9px] font-extrabold uppercase">Rekomendasi</span>
+                                            </div>
+                                            <span class="block text-[11px] text-slate-500 mt-1">Scan instan lewat BCA, BRImo, Livin', BSI Mobile, atau GoPay/Dana/ShopeePay.</span>
+                                        </div>
                                     </div>
+                                    <span class="text-[10px] text-emerald-700 font-bold block mt-2 pt-2 border-t border-emerald-200/50">
+                                        ⚡ Verifikasi Otomatis
+                                    </span>
+                                </label>
+
+                                <!-- Transfer Bank Biasa -->
+                                <label class="relative flex flex-col justify-between p-4 rounded-2xl border-2 cursor-pointer transition"
+                                    :class="paymentMethod === 'transfer' ? 'border-emerald-600 bg-emerald-50/70 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'">
+                                    <div class="flex items-start">
+                                        <input type="radio" name="payment_method" value="transfer" x-model="paymentMethod" class="mt-1 text-emerald-800 focus:ring-emerald-600">
+                                        <div class="ml-3">
+                                            <span class="block text-xs font-bold text-slate-900">Transfer Bank (BSI Syariah)</span>
+                                            <span class="block text-[11px] text-slate-500 mt-1">Transfer ke rekening BSI yayasan lalu unggah struk bukti transfer.</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400 block mt-2 pt-2 border-t border-slate-100">
+                                        Verifikasi oleh TU (1 hari kerja)
+                                    </span>
                                 </label>
 
                                 <!-- Bayar Tunai -->
-                                <label class="relative flex items-start p-4 rounded-2xl border-2 cursor-pointer transition"
-                                    :class="paymentMethod === 'cash' ? 'border-emerald-600 bg-emerald-50/50 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'">
-                                    <input type="radio" name="payment_method" value="cash" x-model="paymentMethod" class="mt-1 text-emerald-800 focus:ring-emerald-600">
-                                    <div class="ml-3">
-                                        <span class="block text-xs font-bold text-slate-900">Bayar Tunai di Loket TU</span>
-                                        <span class="block text-[11px] text-slate-500 mt-0.5">Bisa dibayarkan saat datang menyerahkan berkas fisik atau saat observasi.</span>
+                                <label class="relative flex flex-col justify-between p-4 rounded-2xl border-2 cursor-pointer transition"
+                                    :class="paymentMethod === 'cash' ? 'border-emerald-600 bg-emerald-50/70 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'">
+                                    <div class="flex items-start">
+                                        <input type="radio" name="payment_method" value="cash" x-model="paymentMethod" class="mt-1 text-emerald-800 focus:ring-emerald-600">
+                                        <div class="ml-3">
+                                            <span class="block text-xs font-bold text-slate-900">Bayar Tunai di Loket TU</span>
+                                            <span class="block text-[11px] text-slate-500 mt-1">Bayar langsung di loket madrasah saat menyerahkan berkas atau saat observasi.</span>
+                                        </div>
                                     </div>
+                                    <span class="text-[10px] text-slate-400 block mt-2 pt-2 border-t border-slate-100">
+                                        Bayar di Loket Madrasah
+                                    </span>
                                 </label>
+                            </div>
+                        </div>
+
+                        <!-- QRIS Direct Prompt (Show if QRIS) -->
+                        <div x-show="paymentMethod === 'qris'" x-transition class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-start gap-3">
+                            <span class="text-xl shrink-0">📱</span>
+                            <div class="space-y-0.5">
+                                <p class="font-bold">Kemudahan Pembayaran QRIS:</p>
+                                <p class="text-[11px] text-emerald-800 leading-relaxed">
+                                    Setelah menekan tombol <strong>Kirim Pendaftaran Siswa Baru</strong> di bawah, barcode QRIS resmi akan langsung muncul di layar. Anda cukup scan dari m-Banking atau dompet digital apa saja, status pendaftaran ananda akan langsung lunas dan kwitansi diterbitkan detik itu juga.
+                                </p>
                             </div>
                         </div>
 

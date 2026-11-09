@@ -28,6 +28,11 @@ class PpdbController extends Controller
     {
         $registration = $this->ppdbService->register($request->validated());
 
+        if ($request->input('payment_method') === 'qris') {
+            return redirect()->route('ppdb.pay', ['registration_number' => $registration->registration_number])
+                ->with('status', 'Pendaftaran berhasil dikirim! Silakan selesaikan pembayaran biaya formulir melalui QRIS di bawah ini.');
+        }
+
         return redirect()->route('ppdb.success', ['registration_number' => $registration->registration_number])
             ->with('status', 'Pendaftaran berhasil dikirim!');
     }
