@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use App\Enums\PpdbStatus;
+use App\Enums\TahfidzFluency;
+use App\Enums\TahfidzTajweed;
 use App\Enums\UserRole;
 use App\Models\AcademicYear;
 use App\Models\Classroom;
 use App\Models\PpdbRegistration;
 use App\Models\Student;
+use App\Models\TahfidzRecord;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -125,6 +128,53 @@ class CustomPortalAccessTest extends TestCase
         $this->actingAs($this->parent)->get('/wali')->assertOk();
         $this->actingAs($this->parent)->get('/admin')->assertForbidden();
         $this->actingAs($this->parent)->get('/guru')->assertForbidden();
+    }
+
+    public function test_parent_portal_dashboard_renders_with_child_and_tahfidz_records(): void
+    {
+        $year = AcademicYear::create([
+            'name' => '2026/2027 Ganjil',
+            'semester' => 'ganjil',
+            'is_active' => true,
+        ]);
+
+        $classroom = Classroom::create([
+            'academic_year_id' => $year->id,
+            'name' => 'Kelas 1-A',
+            'grade_level' => 1,
+            'section' => 'A',
+            'homeroom_teacher_id' => $this->teacher->id,
+        ]);
+
+        $student = Student::create([
+            'classroom_id' => $classroom->id,
+            'parent_id' => $this->parent->id,
+            'nis' => '12345',
+            'nisn' => '0012345678',
+            'full_name' => 'Ananda Sholeh',
+            'gender' => 'L',
+            'birth_place' => 'Blitar',
+            'birth_date' => '2019-01-01',
+            'address' => 'Kalipucung',
+            'status' => 'active',
+        ]);
+
+        TahfidzRecord::create([
+            'student_id' => $student->id,
+            'teacher_id' => $this->teacher->id,
+            'date' => now()->toDateString(),
+            'surah_name' => 'An-Naba',
+            'verse_range' => '1-10',
+            'fluency_grade' => TahfidzFluency::Lancar,
+            'tajweed_grade' => TahfidzTajweed::Mumtaz,
+            'notes' => 'Makhraj huruf fasih dan lancar.',
+        ]);
+
+        $response = $this->actingAs($this->parent)->get('/wali');
+        $response->assertOk();
+        $response->assertSee('Ananda Sholeh');
+        $response->assertSee('An-Naba');
+        $response->assertSee('Mumtaz');
     }
 
     public function test_admin_can_manage_ppdb_registrations(): void

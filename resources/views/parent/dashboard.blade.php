@@ -101,10 +101,10 @@
                         <span class="text-[10px] uppercase font-bold text-slate-400 block">Setoran Hafalan Terakhir</span>
                         @if($latestTahfidz)
                             <span class="text-base font-extrabold text-amber-700 block truncate">
-                                {{ $latestTahfidz->surah_name }} ({{ $latestTahfidz->grade->label() ?? 'Mumtaz' }})
+                                QS. {{ $latestTahfidz->surah_name }} ({{ $latestTahfidz->tajweed_grade ? ucfirst($latestTahfidz->tajweed_grade->value) : 'Lancar' }})
                             </span>
                             <span class="text-[11px] text-slate-500 block">
-                                Ayat {{ $latestTahfidz->verse_start }} - {{ $latestTahfidz->verse_end }} • {{ $latestTahfidz->created_at->diffForHumans() }}
+                                {{ $latestTahfidz->verse_range ? 'Ayat ' . $latestTahfidz->verse_range : 'Hafalan' }} • {{ $latestTahfidz->date ? $latestTahfidz->date->diffForHumans() : $latestTahfidz->created_at->diffForHumans() }}
                             </span>
                         @else
                             <span class="text-xl font-extrabold text-amber-700 block">Juz 30 (Juz 'Amma)</span>
